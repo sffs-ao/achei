@@ -3,7 +3,7 @@ import "./ModalUser.css";
 
 export default function ModalUser({ className }) {
   return (
-    <div className="modal-user {className}">
+    <div className={className}>
       <ul>
         <li>
           <div>

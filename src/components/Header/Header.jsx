@@ -1,5 +1,4 @@
-// src/components/Header.jsx
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/image/logo.png";
 import ButtonMenu from "../Elements/MenuButton";
@@ -9,6 +8,13 @@ import ModalUser from "./ModalUser";
 import "./Header.css";
 
 export default function Header() {
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    console.log("Modal toggled");
+    setModalVisible((prev) => !prev);
+  };
+
   return (
     <header className="shadow-lg bg-light py-3">
       <div className="d-flex justify-content-between align-items-center">
@@ -41,9 +47,11 @@ export default function Header() {
               <i className="bi bi-chat-dots-fill fs-4"></i>
             </Link>
           </div>
-          <div className="header-profile-container">
+          <div className="header-profile-container" onClick={toggleModal}>
             <ProfileArea />
-            <ModalUser />
+            <ModalUser
+              className={isModalVisible ? "modal-user show" : "modal-user"}
+            />
           </div>
         </div>
       </div>
