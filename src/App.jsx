@@ -12,6 +12,7 @@ import Grides from "./pages/Grides";
 import Chat from "./pages/Chat";
 import Settings from "./pages/settings";
 import Notification from "./pages/Notification";
+import Profile from "./pages/Profile";
 
 import Header from "./components/Header/Header";
 import SideMenu from "./components/SideMenu";
@@ -35,6 +36,7 @@ function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/notificacoes" element={<Notification />} />
         <Route path="/configuracoes" element={<Settings />} />
+        <Route path="/perfil" element={<Profile />} />
       </Routes>
     </Router>
   );

@@ -37,12 +37,20 @@
 }
 
 .modal-user ul li {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  position: relative; /* Necessário para que o link ocupe o espaço total */
   padding: 10px 15px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+
+.modal-user ul li a {
+  display: block; /* Faz o link ocupar todo o espaço do li */
+  text-decoration: none;
+  color: inherit; /* Usa a cor do texto do li */
+  width: 100%; /* Ocupa toda a largura do li */
+  height: 100%; /* Ocupa toda a altura do li */
+  padding: 10px 15px; /* Para garantir o espaço interno */
+  box-sizing: border-box; /* Inclui padding e border na largura e altura total */
 }
 
 .modal-user ul li:nth-child(2) {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/image/logo.png";
 import ButtonMenu from "../Elements/MenuButton";
@@ -9,11 +9,30 @@ import "./Header.css";
 
 export default function Header() {
   const [isModalVisible, setModalVisible] = useState(false);
+  const modalRef = useRef(null); // Referência para o modal
 
   const toggleModal = () => {
     console.log("Modal toggled");
     setModalVisible((prev) => !prev);
   };
+
+  // Função para fechar o modal se o clique for fora do modal
+  const handleClickOutside = (event) => {
+    console.log("Clicked outside");
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      setModalVisible(false);
+    }
+  };
+
+  useEffect(() => {
+    // Adiciona o ouvinte de eventos para cliques fora do modal
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Remove o ouvinte de eventos ao desmontar o componente
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <header className="shadow-lg bg-light py-3">
@@ -50,6 +69,7 @@ export default function Header() {
           <div className="header-profile-container" onClick={toggleModal}>
             <ProfileArea />
             <ModalUser
+              ref={modalRef}
               className={isModalVisible ? "modal-user show" : "modal-user"}
             />
           </div>

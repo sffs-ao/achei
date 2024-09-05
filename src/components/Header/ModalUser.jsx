@@ -1,35 +1,30 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import "./ModalUser.css";
+import { Link } from "react-router-dom";
 
-export default function ModalUser({ className }) {
+const ModalUser = forwardRef((props, ref) => {
   return (
-    <div className={className}>
+    <div ref={ref} className={props.className}>
       <ul>
         <li>
-          <div>
-            <i className="bi bi-gear-fill"></i>
-          </div>
-          <div>
-            <span>Perfil</span>
-          </div>
-        </li>
-        <li>
-          <div>
+          <Link to="/perfil">
             <i className="bi bi-person-fill"></i>
-          </div>
-          <div>
-            <span>Configurações</span>
-          </div>
+            <span>Perfil</span>
+          </Link>
         </li>
         <li>
-          <div>
-            <i className="bi bi-power"></i>
-          </div>
-          <div>
-            <span>Sair</span>
-          </div>
+          <Link to="/configuracoes">
+            <i className="bi bi-gear-fill"></i>
+            <span>Configurações</span>
+          </Link>
+        </li>
+        <li className="btn-logout">
+          <i className="bi bi-power"></i>
+          <span>Sair</span>
         </li>
       </ul>
     </div>
   );
-}
+});
+
+export default ModalUser;

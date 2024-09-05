@@ -4,6 +4,7 @@
   justify-content: flex-start;
   cursor: pointer;
   margin-left: 1em;
+  user-select: none;
 }
 
 .header-user-dtails {
