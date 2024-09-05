@@ -14,14 +14,17 @@ import Settings from "./pages/settings";
 import Notification from "./pages/Notification";
 import Profile from "./pages/Profile";
 
+
 import "./app.css";
 import Layout from "./Layout";
+import Sign from "./pages/Sign";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Layout />}>
+
           <Route path="/" element={<Dashboard />} />
           <Route path="/formandos" element={<Students />} />
           <Route path="/formadores" element={<Instructors />} />
@@ -34,7 +37,9 @@ function App() {
           <Route path="/notificacoes" element={<Notification />} />
           <Route path="/configuracoes" element={<Settings />} />
           <Route path="/perfil" element={<Profile />} />
+         
         </Route>
+        <Route path="/entrar" element={<Sign />} />
       </Routes>
     </Router>
   );
