@@ -2,8 +2,8 @@ import React from "react";
 
 export default function () {
   return (
-    <div>
+    <section className="section-area">
       <h1>NOtificacoes</h1>
-    </div>
+    </section>
   );
 }
