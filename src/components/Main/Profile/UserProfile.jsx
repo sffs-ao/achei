@@ -7,7 +7,7 @@ export default function UserProfile({ user }) {
     <div className="card shadow-sm p-4">
       <div className="d-flex align-items-center">
         <img
-          src={user.avatar} // Foto de perfil
+          src={user.avatar}
           alt={`${user.name}'s avatar`}
           className="rounded-circle me-3"
           style={{ width: "100px", height: "100px" }}

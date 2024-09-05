@@ -1,6 +1,7 @@
 .main-area {
   display: flex;
   align-items: flex-start;
+  padding-right: 1em;
 }
 
 .section-area {
