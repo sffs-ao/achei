@@ -1,5 +1,17 @@
+header {
+  position: relative;
+  z-index: 10;
+}
+
 .header-left {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 150px;
+}
+
+.header-left .img-fluid {
+  margin-right: 10px;
 }
 
 .dark-mode {
