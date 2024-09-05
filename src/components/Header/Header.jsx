@@ -5,6 +5,7 @@ import logo from "../../assets/image/logo.png";
 import ButtonMenu from "../Elements/MenuButton";
 import ToggleButton from "../Elements/ToggleButton";
 import ProfileArea from "./ProfileArea";
+import ModalUser from "./ModalUser";
 import "./Header.css";
 
 export default function Header() {
@@ -40,7 +41,10 @@ export default function Header() {
               <i className="bi bi-chat-dots-fill fs-4"></i>
             </Link>
           </div>
-          <ProfileArea />
+          <div className="header-profile-container">
+            <ProfileArea />
+            <ModalUser />
+          </div>
         </div>
       </div>
     </header>

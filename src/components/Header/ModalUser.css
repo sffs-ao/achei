@@ -1,0 +1,78 @@
+.modal-user {
+  position: absolute;
+  top: 80px;
+  right: 0;
+  width: 200px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 10px 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.modal-user.close {
+  display: none;
+}
+
+.modal-user::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  right: 15px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent #fff transparent;
+  /*   background-color: red; */
+}
+
+/* Lista */
+.modal-user ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.modal-user ul li {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-user ul li:nth-child(2) {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.modal-user ul li:hover {
+  background-color: #f0f0f0;
+}
+
+.modal-user ul li i {
+  font-size: 18px;
+  margin-right: 10px;
+  color: #333;
+}
+
+.modal-user ul li span {
+  font-size: 14px;
+  color: #333;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .modal-user {
+    width: 160px;
+  }
+
+  .modal-user ul li i {
+    font-size: 16px;
+  }
+
+  .modal-user ul li span {
+    font-size: 13px;
+  }
+}

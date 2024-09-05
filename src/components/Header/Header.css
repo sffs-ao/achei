@@ -1,3 +1,7 @@
+.header-left {
+  width: 150px;
+}
+
 .dark-mode {
   display: flex;
   align-items: center;
@@ -13,7 +17,7 @@
 }
 
 .icon-group:hover {
-  transform: scale(1.1); /* Efeito de aumento ao passar o mouse */
+  transform: scale(1.1);
 }
 
 .bi {
@@ -21,5 +25,9 @@
 }
 
 .bi:hover {
-  color: #007bff; /* Muda a cor do ícone ao passar o mouse */
+  color: #007bff;
+}
+
+.header-profile-container {
+  position: relative;
 }
