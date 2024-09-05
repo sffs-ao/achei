@@ -1,6 +1,6 @@
 import React from "react";
 import UserProfile from "../components/Main/Profile/UserProfile";
-import userImage from "../assets/image/user.webp";
+/* import userImage from "../assets/image/user.webp"; */
 
 const userData = {
   name: "Maria Silva",
