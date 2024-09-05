@@ -1,7 +1,7 @@
 // src/components/SideMenu.jsx
 import React from "react";
 import { Link } from "react-router-dom";
-/* import "bootstrap-icons/font/bootstrap-icons.css";  */ // Certifique-se de que o Bootstrap Icons está incluído
+import "./SideMenu.css";
 
 export default function SideMenu() {
   return (
