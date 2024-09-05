@@ -17,6 +17,7 @@ import Profile from "./pages/Profile";
 
 import "./app.css";
 import Layout from "./Layout";
+import Sign from "./pages/Sign";
 
 function App() {
   return (
@@ -36,7 +37,9 @@ function App() {
           <Route path="/notificacoes" element={<Notification />} />
           <Route path="/configuracoes" element={<Settings />} />
           <Route path="/perfil" element={<Profile />} />
+         
         </Route>
+        <Route path="/entrar" element={<Sign />} />
       </Routes>
     </Router>
   );
