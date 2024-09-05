@@ -14,6 +14,7 @@ import Settings from "./pages/settings";
 import Notification from "./pages/Notification";
 import Profile from "./pages/Profile";
 
+
 import "./app.css";
 import Layout from "./Layout";
 
@@ -22,6 +23,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Layout />}>
+
           <Route path="/" element={<Dashboard />} />
           <Route path="/formandos" element={<Students />} />
           <Route path="/formadores" element={<Instructors />} />
