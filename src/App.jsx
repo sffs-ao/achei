@@ -13,7 +13,7 @@ import Chat from "./pages/Chat";
 import Settings from "./pages/settings";
 import Notification from "./pages/Notification";
 
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import SideMenu from "./components/SideMenu";
 
 import "./app.css";

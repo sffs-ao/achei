@@ -1,0 +1,25 @@
+.dark-mode {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark-mode #switch-mode {
+  margin: 0 0.5em;
+}
+
+.icon-group {
+  transition: transform 0.2s ease-in-out;
+}
+
+.icon-group:hover {
+  transform: scale(1.1); /* Efeito de aumento ao passar o mouse */
+}
+
+.bi {
+  transition: color 0.2s ease-in-out;
+}
+
+.bi:hover {
+  color: #007bff; /* Muda a cor do ícone ao passar o mouse */
+}

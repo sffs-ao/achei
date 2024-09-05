@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import "../css/components/ButtonMenu.css";
+import "./ButtonMenu.css";
 
 const ButtonMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Modifica o estato do botão
   const handleClick = () => {
     setIsOpen(!isOpen);
   };

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "../css/components/ToggleButton.css"; // Importa o CSS para o botão toggle
+import "./ToggleButton.css"; // Importa o CSS para o botão toggle
 
-const ToggleButton = () => {
+const ToggleButton = ({ id }) => {
   const [isToggled, setIsToggled] = useState(false);
 
   const handleToggle = () => {
@@ -11,6 +11,7 @@ const ToggleButton = () => {
   return (
     <button
       className={`toggle-button ${isToggled ? "toggled" : ""}`}
+      id={id}
       onClick={handleToggle}
     >
       <span className="slider"></span>
