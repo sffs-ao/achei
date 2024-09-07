@@ -22,26 +22,26 @@ import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <>
-    <Router>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/formandos" element={<Students />} />
-          <Route path="/formadores" element={<Instructors />} />
-          <Route path="/turmas" element={<Classes />} />
-          <Route path="/inscricoes" element={<Register />} />
-          <Route path="/notas" element={<Grides />} />
-          <Route path="/auditoria" element={<Audit />} />
-          <Route path="/usuarios" element={<Users />} />
-          <Route path="/chat" element={<Chat />} />
-          <Route path="/notificacoes" element={<Notification />} />
-          <Route path="/configuracoes" element={<Settings />} />
-          <Route path="/perfil" element={<Profile />} />
-        </Route>
-        <Route path="/entrar" element={<Sign />} />
-      </Routes>
-    </Router>
-    <ToastContainer/>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/formandos" element={<Students />} />
+            <Route path="/formadores" element={<Instructors />} />
+            <Route path="/turmas" element={<Classes />} />
+            <Route path="/inscricoes" element={<Register />} />
+            <Route path="/notas" element={<Grides />} />
+            <Route path="/auditoria" element={<Audit />} />
+            <Route path="/usuarios" element={<Users />} />
+            <Route path="/chat" element={<Chat />} />
+            <Route path="/notificacoes" element={<Notification />} />
+            <Route path="/configuracoes" element={<Settings />} />
+            <Route path="/perfil" element={<Profile />} />
+          </Route>
+          <Route path="/entrar" element={<Sign />} />
+        </Routes>
+      </Router>
+      <ToastContainer />
     </>
   );
 }
