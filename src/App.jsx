@@ -13,9 +13,6 @@ import Chat from "./pages/Chat";
 import Settings from "./pages/settings";
 import Notification from "./pages/Notification";
 import Profile from "./pages/Profile";
-
-
-import "./app.css";
 import Layout from "./Layout";
 import Sign from "./pages/Sign";
 
