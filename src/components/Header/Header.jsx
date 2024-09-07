@@ -36,7 +36,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="shadow-lg bg-light py-3">
+    <header className="shadow bg-light py-3">
       <div className="d-flex justify-content-between align-items-center">
         <div className="header-left">
           <div className="logo-area">
