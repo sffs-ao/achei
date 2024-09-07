@@ -1,0 +1,9 @@
+.dark-mode {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark-mode #switch-mode {
+  margin: 0 0.5em;
+}

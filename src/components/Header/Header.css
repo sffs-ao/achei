@@ -15,16 +15,6 @@ header {
   margin-right: 10px;
 }
 
-.dark-mode {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.dark-mode #switch-mode {
-  margin: 0 0.5em;
-}
-
 .icon-group {
   transition: transform 0.2s ease-in-out;
 }

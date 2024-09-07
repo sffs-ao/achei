@@ -1,5 +1,5 @@
 import React from "react";
-import ToggleButton from "../components/Elements/ToggleButton";
+import ToggleButton from "../../Elements/ToggleButton";
 
 export default function Audit() {
   return (

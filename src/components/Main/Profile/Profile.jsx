@@ -1,5 +1,5 @@
 import React from "react";
-import UserProfile from "../components/Main/Profile/UserProfile";
+import UserProfile from "./UserProfile";
 /* import userImage from "../assets/image/user.webp"; */
 
 const userData = {

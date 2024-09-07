@@ -2,10 +2,11 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/image/logo.png";
 import ButtonMenu from "./ButtonMenu";
-import ToggleButton from "../Elements/ToggleButton";
+/* import ToggleButton from "../Elements/ToggleButton"; */
 import ProfileArea from "./ProfileArea";
 import ModalUser from "./ModalUser";
 import "./Header.css";
+import DarkMode from "../Elements/DarkMode";
 
 export default function Header() {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -51,11 +52,7 @@ export default function Header() {
           <ButtonMenu />
         </div>
         <div className="header-right d-flex align-items-center justify-content-end">
-          <div className="dark-mode me-3">
-            <i className="bi bi-brightness-high-fill"></i>
-            <ToggleButton id="switch-mode" />
-            <i className="bi bi-moon-fill"></i>
-          </div>
+          <DarkMode />
           <div className="icon-group notification-content me-3">
             <Link to="/notificacoes">
               <i className="bi bi-bell-fill fs-4"></i>

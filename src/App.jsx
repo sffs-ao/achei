@@ -1,30 +1,28 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import Dashboard from "./pages/Dashboard";
-import Students from "./pages/Students";
-import Instructors from "./pages/Instructors";
-import Register from "./pages/Register";
-import Audit from "./pages/Audit";
-import Users from "./pages/Users";
-import Classes from "./pages/Classes";
-import Grides from "./pages/Grides";
-import Chat from "./pages/Chat";
-import Settings from "./pages/settings";
-import Notification from "./pages/Notification";
-import Profile from "./pages/Profile";
-
+import Dashboard from "./components/Main/Dashboard/Dashboard";
+import Students from "./components/Main/Students/Students";
+import Instructors from "./components/Main/Instructors/Instructors";
+import Register from "./components/Main/Register/Register";
+import Audit from "./components/Main/Audit/Audit";
+import Users from "./components/Main/Users/Users";
+import Classes from "./components/Main/Classes/Classes";
+import Grides from "./components/Main/Grides/Grides";
+import Chat from "./components/Main/Chat/Chat";
+import Settings from "./components/Main/Settings/Settings";
+import Notification from "./components/Main/Notification/Notification";
+import Profile from "./components/Main/Profile/Profile";
 
 import "./app.css";
 import Layout from "./Layout";
-import Sign from "./pages/Sign";
+import Sign from "./components/Main/Sign/Sign";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Layout />}>
-
           <Route path="/" element={<Dashboard />} />
           <Route path="/formandos" element={<Students />} />
           <Route path="/formadores" element={<Instructors />} />
@@ -37,7 +35,6 @@ function App() {
           <Route path="/notificacoes" element={<Notification />} />
           <Route path="/configuracoes" element={<Settings />} />
           <Route path="/perfil" element={<Profile />} />
-         
         </Route>
         <Route path="/entrar" element={<Sign />} />
       </Routes>
