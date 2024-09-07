@@ -3,9 +3,9 @@ import React from "react";
 
 export default function Home() {
   return (
-    <div>
+    <section className="section-area">
       <h1>Sobre</h1>
       <p>Pagina da dashboard</p>
-    </div>
+    </section>
   );
 }

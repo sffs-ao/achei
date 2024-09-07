@@ -1,10 +1,13 @@
 import React from "react";
+import ToggleButton from "../components/Elements/ToggleButton";
 
 export default function Audit() {
   return (
-    <div>
+    <section className="section-area">
       <h1>Sobre</h1>
       <p>Essa é a pagina para a auditoria.</p>
-    </div>
+      {/*       <ToggleButton></ToggleButton> */}
+      <ToggleButton />
+    </section>
   );
 }

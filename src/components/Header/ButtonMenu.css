@@ -49,3 +49,9 @@
   transform: rotate(45deg) translate(-9px, -4px);
   width: 50%;
 }
+
+@media screen and (max-width: 768px) {
+  .menu-button {
+    display: none;
+  }
+}
