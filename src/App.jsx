@@ -17,9 +17,11 @@ import Profile from "./components/Main/Profile/Profile";
 import "./app.css";
 import Layout from "./Layout";
 import Sign from "./components/Main/Sign/Sign";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
+    <>
     <Router>
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -39,6 +41,8 @@ function App() {
         <Route path="/entrar" element={<Sign />} />
       </Routes>
     </Router>
+    <ToastContainer/>
+    </>
   );
 }
 
