@@ -23,21 +23,23 @@ const schema = zod.object({
   });
   
 export default function Login({nextStep,setUserLogin}) {
-    const navigate = useNavigate();
+   
     const form = useForm({
       resolver: zodResolver(schema),
     });
+    const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
   
     async function loginSubmit(data) {
         setLoading(true);
         try {
           const response = await login(data.email, data.password);
+          console.log(response)
           saveLocalStorageToken(response.token);
           if (response.status == 1) {
-            flashMessage("Verifique seu email", "INFO")
+            flashMessage("Bem vindo ao Achei", "SUCCESS")
             setUserLogin(data.email, data.password)
-            nextStep()
+            navigate("/")
         }
           if (response.status == 2) {
             flashMessage("Dados de Acesso Incorrecto", "ERROR") 
@@ -47,6 +49,8 @@ export default function Login({nextStep,setUserLogin}) {
           }
           if (response.status == 4) {
             flashMessage("Verfique seu email", "INFO") 
+            setUserLogin(data.email, data.password)
+            nextStep()
           }
         } catch (error) {
             console.log(error)

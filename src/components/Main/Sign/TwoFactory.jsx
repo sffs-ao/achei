@@ -37,11 +37,11 @@ export default function TwoFactory({userLogin}) {
         resolver: zodResolver(schema)
     })
     async function handleSubmitCode(data) {
-
-        const dados = await validateCodeTwoFactory(data.code, userLogin.email, userLogin.password)
-        console.log(dados)
+        console.log(userLogin)
+       // const dados = await validateCodeTwoFactory(data.code, userLogin.email, userLogin.password)
+      //  console.log(dados)
     }
-    console.log(form.formState.errors)
+
     const { seconds, minutes, hours, start, pause, reset ,restart} = useTimer({ expiryTimestamp: initExpirationTimestamp, onExpire: finalizeTimer  });
     return(
         <div className="box login-form">

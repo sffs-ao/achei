@@ -12,13 +12,13 @@ export const login = async (email, password) => {
 }
 export const validateCodeTwoFactory = async(code, email, password) => 
 {
-
-    const response = await fetch(`${BASE_URL}/login/verify`, {
+  console.log(code, email, password)
+      const response = await fetch(`${BASE_URL}/login/verify`, {
       method: "POST",
       headers: {
       "Content-Type": "application/json"
       }, 
-      body: JSON.stringify({email, password, code})
+      body: JSON.stringify({email:email, password:password, code:code})
     })
     return response.json()
 }
