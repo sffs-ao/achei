@@ -1,10 +1,107 @@
-import React from "react";
+import React, { useState } from "react";
+import "./Classes.css";
+import Button from "../../Elements/Button";
 
-export default function () {
+const classesData = [
+  {
+    image: "https://via.placeholder.com/50", // URL da imagem da turma
+    name: "Turma A",
+    teacher: "João Silva",
+    schedule: "Segunda e Quarta, 10:00 - 12:00",
+    status: "Ativa",
+    courses: ["Curso 1", "Curso 2"], // Lista de cursos associados
+  },
+  {
+    image: "https://via.placeholder.com/50", // URL da imagem da turma
+    name: "Turma B",
+    teacher: "Maria Oliveira",
+    schedule: "Terça e Quinta, 14:00 - 16:00",
+    status: "Ativa",
+    courses: ["Curso 3"], // Lista de cursos associados
+  },
+  {
+    image: "https://via.placeholder.com/50", // URL da imagem da turma
+    name: "Turma C",
+    teacher: "Carlos Souza",
+    schedule: "Sexta-feira, 09:00 - 11:00",
+    status: "Inativa",
+    courses: [], // Nenhum curso associado
+  },
+  // Adicione mais turmas conforme necessário
+];
+
+export default function MenuClasses() {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Função para lidar com a alteração do campo de pesquisa
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  // Função para filtrar turmas com base no termo de pesquisa
+  const filteredClasses = classesData.filter((classItem) =>
+    classItem.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <section className="section-area">
-      <h1>Sobre</h1>
-      <p>Essa pagina é sobre as Turmas</p>
+      <div className="section-container" id="classes-content">
+        <div className="header-actions">
+          <h1>Turmas</h1>
+          <p>Página de gerenciamento das Turmas.</p>
+          <div className="top-container">
+            <input
+              type="text"
+              placeholder="Pesquisar turmas..."
+              className="search-input"
+              id="search-class"
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+            <Button
+              typeClass="btn-primary"
+              id="btn-new-class"
+              text="Adicionar Turma"
+            />
+          </div>
+        </div>
+        <table className="table-content">
+          <thead>
+            <tr>
+              <th>Imagem</th>
+              <th>Nome</th>
+              <th>Professor</th>
+              <th>Horário</th>
+              <th>Status</th>
+              <th>Cursos</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredClasses.map((classItem) => (
+              <tr key={classItem.name}>
+                <td>
+                  <img
+                    src={classItem.image}
+                    alt={classItem.name}
+                    className="table-image"
+                  />
+                </td>
+                <td>{classItem.name}</td>
+                <td>{classItem.teacher}</td>
+                <td>{classItem.schedule}</td>
+                <td className={`status-${classItem.status.toLowerCase()}`}>
+                  {classItem.status}
+                </td>
+                <td>
+                  {classItem.courses.length > 0
+                    ? classItem.courses.join(", ")
+                    : "Nenhum Curso"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </section>
   );
 }
