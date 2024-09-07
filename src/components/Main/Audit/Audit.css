@@ -1,0 +1,17 @@
+.section-area h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.section-area p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.audit-table tr {
+  user-select: none;
+}
