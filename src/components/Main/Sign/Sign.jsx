@@ -7,8 +7,10 @@ import { login, saveLocalStorageToken } from "../../../utils/API";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import SignHeader from "./SignHeader";
-import "./Sign.css";
-const shema = zod.object({
+import { toast } from "react-toastify";
+/* import "react-toastify/dist/ReactToastify.css"; // Certifique-se de que o CSS do react-toastify está importado */
+
+const schema = zod.object({
   email: zod
     .string({ required_error: "Campo obrigatorio" })
     .email("Email inválido")
@@ -20,18 +22,54 @@ const shema = zod.object({
     .max(25, "Deve conter no maximo"),
 });
 
+const statusMessages = {
+  1: "Sessão criada (token Gerado), chame o dashboard",
+  2: "Dados de Acesso Incorrectos",
+  3: "Conta Bloqueada",
+  4: "Dois Factores (Verificação de Email) ativado ou conta pendente de configuração, abre o formulário para verificar Email (Código enviado no Email)",
+};
+
 export default function Sign() {
   const form = useForm({
-    resolver: zodResolver(shema),
+    resolver: zodResolver(schema),
   });
   const [loading, setLoading] = useState(false);
+
   async function loginSubmit(data) {
     setLoading(true);
-    const response = await login(data.email, data.password);
-    saveLocalStorageToken(response.token);
-    console.log(response);
-    setLoading(false);
+    try {
+      const response = await login(data.email, data.password);
+      saveLocalStorageToken(response.token);
+
+      // Exibe a mensagem correspondente ao status
+      if (statusMessages[response.status]) {
+        toast.info(statusMessages[response.status], {
+          /*           position: toast.POSITION.TOP_RIGHT, */
+          autoClose: 5000,
+        });
+
+        // Redirecionar para o dashboard se o status for 1
+        if (response.status === 1) {
+          // Exemplo de redirecionamento (ajuste conforme sua necessidade)
+          // window.location.href = '/dashboard';
+        }
+      } else {
+        toast.error("Erro desconhecido", {
+          /*           position: toast.POSITION.TOP_RIGHT, */
+          autoClose: 5000,
+        });
+      }
+    } catch (error) {
+      // Trata erros de rede ou outros problemas
+      toast.error("Ocorreu um erro ao tentar realizar o login", {
+        /* position: toast.POSITION.TOP_RIGHT, */
+        autoClose: 5000,
+      });
+    } finally {
+      setLoading(false);
+    }
   }
+
   return (
     <div>
       <SignHeader />
