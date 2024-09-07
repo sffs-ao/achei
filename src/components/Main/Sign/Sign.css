@@ -206,7 +206,7 @@ label.error {
   border-radius: 8px;
   position: relative;
 }
-
+ 
 .box {
   transition: all 1s ease;
   position: relative;
@@ -254,7 +254,7 @@ label.error {
 
   /* Reduz o tamanho da fonte do título */
   .box h1 {
-    font-size: 20px;
+    font-size: 10px;
   }
 
   /* Ajusta o espaçamento entre campos do formulário */
@@ -263,10 +263,4 @@ label.error {
   }
 }
 
-.main-login {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
+ 

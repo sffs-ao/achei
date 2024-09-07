@@ -10,7 +10,18 @@ export const login = async (email, password) => {
         body: JSON.stringify({email, password})});
     return response.json();
 }
+export const validateCodeTwoFactory = async(code, email, password) => 
+{
 
+    const response = await fetch(`${BASE_URL}/login/verify`, {
+      method: "POST",
+      headers: {
+      "Content-Type": "application/json"
+      }, 
+      body: JSON.stringify({email, password, code})
+    })
+    return response.json()
+}
 
 export const saveLocalStorageToken = (token) => 
 {
