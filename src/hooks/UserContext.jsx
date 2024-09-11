@@ -1,12 +1,12 @@
 import { createContext, useEffect, useState } from "react";
 import { BASE_URL } from "../utils/API";
-import { set } from "react-hook-form";
+
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
   useEffect( () => {
     async function getToken(params) {
@@ -40,6 +40,8 @@ export const UserProvider = ({ children }) => {
         setUser(null);
         setMessage("Deve iniciar sessão");
         console.log(error);
+      }finally{
+        setLoading(false);
       }
     
     }

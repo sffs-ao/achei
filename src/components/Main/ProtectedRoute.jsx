@@ -3,7 +3,8 @@ import { UserContext } from "../../hooks/UserContext";
 import { useContext } from "react";
 
 export default function ProtectedRoutes() {
-       const { user } = useContext(UserContext);
+       const { user, loading } = useContext(UserContext);
+       if (loading) return <h1>Carregando...</h1>;
        if (!user) 
               return <Navigate to="/entrar"/>; 
       return <Outlet />; 
