@@ -18,12 +18,16 @@ import "./App.css";
 import Layout from "./Layout";
 import Sign from "./components/Main/Sign/Sign";
 import { ToastContainer } from "react-toastify";
+import ProtectedRoutes from "./components/Main/ProtectedRoute";
+import { UserProvider } from "./hooks/UserContext";
+import Logout from "./components/Main/Logout";
 
 function App() {
   return (
-    <>
+    <UserProvider>
       <Router>
         <Routes>
+          <Route path="/" element={<ProtectedRoutes />}>
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/formandos" element={<Students />} />
@@ -37,12 +41,14 @@ function App() {
             <Route path="/notificacoes" element={<Notification />} />
             <Route path="/configuracoes" element={<Settings />} />
             <Route path="/perfil" element={<Profile />} />
+            <Route path="/logout" element={<Logout />} />
+          </Route>
           </Route>
           <Route path="/entrar" element={<Sign />} />
         </Routes>
       </Router>
       <ToastContainer />
-    </>
+    </UserProvider>
   );
 }
 

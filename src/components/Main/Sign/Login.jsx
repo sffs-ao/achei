@@ -4,11 +4,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import zod from "zod";
 import { login, saveLocalStorageToken } from "../../../utils/API";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {  flashMessage } from "../../../utils/lib";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../../hooks/UserContext";
  
 const schema = zod.object({
     email: zod
@@ -23,7 +24,7 @@ const schema = zod.object({
   });
   
 export default function Login({nextStep,setUserLogin}) {
-   
+   const {user, setUser} = useContext(UserContext);
     const form = useForm({
       resolver: zodResolver(schema),
     });
@@ -38,7 +39,7 @@ export default function Login({nextStep,setUserLogin}) {
           saveLocalStorageToken(response.token);
           if (response.status == 1) {
             flashMessage("Bem vindo ao Achei", "SUCCESS")
-            setUserLogin(data.email, data.password)
+            setUser({email:data.email, email:data.password})
             navigate("/")
         }
           if (response.status == 2) {

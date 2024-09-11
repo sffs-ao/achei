@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "./API";
 const MESSAGE_ERROR = "ERROR"
 const MESSAGE_SUCCESS = "SUCCESS"
 const MESSAGE_INFO = "INFO"
@@ -30,14 +31,16 @@ export function flashMessage(message, type) {
     }
 }
 
+export function getTokenLocalStorage() {
+  return (window.localStorage.getItem("token"))
+}
 
-
-export const checkTokenValidity = async () => {
+export const checkTokenValidity = async (token) => {
 
     
     try {
-      const response = await fetch("https://sua-api.com/verify-token", {
-        method: "POST",
+      const response = await fetch(`${BASE_URL}/authenticated`, {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -56,3 +59,7 @@ export const checkTokenValidity = async () => {
       navigate("/login");
     }
   };
+
+export function removeTokenLocalstorage(params) {
+    window.localStorage.removeItem("enanza_")
+}

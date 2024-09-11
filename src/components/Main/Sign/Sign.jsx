@@ -1,14 +1,28 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Login from "./Login";
 import SignHeader from "./SignHeader";
 import TwoFactory from "./TwoFactory";
+import { flashMessage } from "../../../utils/lib";
+import { UserContext } from "../../../hooks/UserContext";
+import { useNavigate } from "react-router-dom";
  
 export default function Sign() {
- const [step, setStep] = useState(1)
-  const [userLogin,setUser] = useState({})
- function nextStep() {
+  const navigate = useNavigate();
+const { message, user } = useContext(UserContext);
+const [step, setStep] = useState(1)
+const [userLogin,setUser] = useState({})
+useEffect(() => {
+  if (user) {
+    navigate("/");
+  }
+  if (message) {
+   
+  }
+}, [user]);
+console.log(user)
+function nextStep() {
     setStep(state => state+1)
- }
+}
  function setUserLogin(email, password) {
   setUser({email:email, password:password})
  }
