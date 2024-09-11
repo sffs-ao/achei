@@ -1,15 +1,110 @@
+/* Certifique-se de que o arquivo CSS está importado no seu componente */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* @media screen and (max-width: 320px) {
-  header,
-  main,
-  footer {
-    display: none;
-@media screen and (min-width: 701px) {
-  header {
-    padding: 0 3em;
-  }
+:root {
+  --body-bg: #ebf3f2;
+  --box-bg: #fff;
+  --border-color: #ddd;
+  --header-bg: #f4f4f4;
+  --row-even-bg: #f9f9f9;
+  --row-hover-bg: #f1f1f1;
+  --success-color: #4caf50;
+  --fail-color: #f44336;
 }
- */
+
+body {
+  background-color: var(--body-bg);
+}
+
+.box {
+  background-color: var(--box-bg);
+}
+/* Imagem do usuário */
+.table-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Tabela de Auditoria */
+.table-content {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  background-color: var(--box-bg);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table-content th,
+.table-content td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.table-content th {
+  background-color: var(--header-bg);
+  font-weight: 600;
+}
+
+.table-content tr:nth-child(even) {
+  background-color: var(--row-even-bg);
+}
+
+.table-content tr:hover {
+  background-color: var(--row-hover-bg);
+}
+
+.table-content td {
+  font-size: 0.9rem;
+}
+
+.table-content td:last-child {
+  font-weight: 600;
+}
+
+.table-content td.status-success {
+  color: var(--success-color);
+}
+
+.table-content td.status-fail {
+  color: var(--fail-color);
+}
+
+/* Estilo do rodapé da tabela */
+.table-content tfoot {
+  background-color: var(--header-bg);
+  font-weight: 600;
+}
+
+.table-content tfoot .tfoot-text {
+  text-align: right;
+  padding-right: 15px;
+}
+
+.section-container {
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.top-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-input {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  max-width: 400px;
+}
