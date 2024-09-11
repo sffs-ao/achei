@@ -14,6 +14,7 @@ export const UserProvider = ({ children }) => {
     if (!token) {
         setUser(null);
         setMessage("Deve iniciar sessão");
+        setLoading(false);
     return;
     }
     try {
