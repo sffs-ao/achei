@@ -14,7 +14,7 @@ import Settings from "./components/Main/Settings/Settings";
 import Notification from "./components/Main/Notification/Notification";
 import Profile from "./components/Main/Profile/Profile";
 
-import "./app.css";
+import "./App.css";
 import Layout from "./Layout";
 import Sign from "./components/Main/Sign/Sign";
 
