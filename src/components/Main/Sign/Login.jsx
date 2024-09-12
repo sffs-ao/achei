@@ -37,6 +37,7 @@ export default function Login({ nextStep, setUserLogin }) {
       const response = await login(data.email, data.password);
       console.log(response);
       saveLocalStorageToken(response.token);
+      setUser(response);
       if (response.status == 1) {
         flashMessage("Bem vindo ao Achei", "SUCCESS");
         setUser(response);
