@@ -22,6 +22,7 @@ import { ToastContainer } from "react-toastify";
 import ProtectedRoutes from "./components/Main/ProtectedRoute";
 import { UserProvider } from "./hooks/UserContext";
 import Logout from "./components/Main/Logout";
+/* import NewUser from "./components/Main/Users/NewUser"; */
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
               <Route path="/notas" element={<Grides />} />
               <Route path="/auditoria" element={<Audit />} />
               <Route path="/usuarios" element={<Users />} />
+              {/*               <Route path="/usuarios/novousuario" element={<NewUser />} /> */}
               <Route path="/usuarios/:id" element={<UserDetails />} />
               <Route path="/chat" element={<Chat />} />
               <Route path="/notificacoes" element={<Notification />} />

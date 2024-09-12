@@ -8,7 +8,7 @@ export const login = async (email, password) => {
     },
     body: JSON.stringify({ email, password }),
   });
-  return response.json();
+  return await response.json();
 };
 export const validateCodeTwoFactory = async (code, email, password) => {
   console.log(code, email, password);
@@ -19,9 +19,33 @@ export const validateCodeTwoFactory = async (code, email, password) => {
     },
     body: JSON.stringify({ email: email, password: password, code: code }),
   });
-  return response.json();
+  return await response.json();
 };
 
 export const saveLocalStorageToken = (token) => {
   window.localStorage.setItem(`${APP_NAME}_`, token);
+};
+
+export const GET_PROFILES = async () => {
+  const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
+  const response = await fetch(`${BASE_URL}/users`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${AUTH_TOKEN}`,
+    },
+  });
+  return await response.json();
+};
+
+export const GET_PROFILE = async (id) => {
+  const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
+  const response = await fetch(`${BASE_URL}/users/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${AUTH_TOKEN}`,
+    },
+  });
+  return await response.json();
 };
