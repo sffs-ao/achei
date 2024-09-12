@@ -1,0 +1,49 @@
+header {
+  position: relative;
+  z-index: 10;
+  padding: 0 2em;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 150px;
+}
+
+.header-left .img-fluid {
+  margin-right: 10px;
+}
+
+.icon-group {
+  transition: transform 0.2s ease-in-out;
+}
+
+.icon-group:hover {
+  transform: scale(1.1);
+}
+
+.bi {
+  transition: color 0.2s ease-in-out;
+}
+
+.bi:hover {
+  color: #007bff;
+}
+
+.header-profile-container {
+  position: relative;
+}
+
+@media screen and (max-width: 500px) {
+  .dark-mode {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  header {
+    padding: 0 1em;
+  }
+}

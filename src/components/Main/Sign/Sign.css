@@ -1,0 +1,260 @@
+.login-header {
+  position: fixed;
+  width: 100%;
+  background-color: var(--bg-2);
+  padding: 0.7em 2em;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 11;
+}
+.switch-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilo do Container do Switch de Modo */
+.switch-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilo do Ícone do Switch */
+.switch-container i {
+  cursor: pointer;
+}
+
+/* Estilo do Botão de Switch */
+.switch-btn {
+  margin: 0 0.5em;
+  height: auto;
+  width: 40px;
+  padding: 2px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+/* Estilo do Botão de Switch no Modo Claro */
+.switch-container.light .switch-btn {
+  background-color: #007bff;
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Estilo do Botão de Switch no Modo Escuro */
+.switch-container.dark .switch-btn {
+  background-color: #696969;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Estilo do Texto no Modo Escuro */
+.switch-container.dark .btn-light {
+  color: #fff;
+  opacity: 0.5;
+}
+
+.switch-container.dark .btn-dark {
+  color: #fff;
+}
+
+/* Estilo do Ícone no Modo Claro */
+.switch-container.light .bi-brightness-high-fill {
+  color: hsl(211, 100%, 50%);
+}
+
+/* Estilo do Interior do Botão de Switch */
+.switch-btn .switch-inside {
+  background-color: #fff;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+}
+
+.box {
+  transition: all 1s ease;
+  position: relative;
+  max-width: 375px;
+  width: auto;
+  /*   background-color: var(--box-bg); */
+  padding: 2em;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  z-index: 10;
+}
+
+/* Container Principal para o Formulário */
+.login-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Estilo do Formulário de Login */
+.login-form {
+  margin: 100px auto;
+  /*   background: red; */
+}
+
+/* Estilo do Título do Formulário */
+.login-form h1 {
+  font-weight: 600;
+  font-size: 24px;
+  color: var(--title-color);
+}
+
+/* Estilo do Texto de Auxílio */
+.login-text {
+  font-size: 0.8em;
+  margin: 2em 0;
+  color: var(--text-color);
+}
+
+/* Estilo dos Grupos de Formulários */
+.form-group {
+  width: 100%;
+  margin-bottom: 1em;
+  position: relative;
+}
+
+/* Estilo dos Rótulos */
+label {
+  display: block;
+  margin-bottom: 0.5em;
+  color: var(--title-color);
+  font-weight: 700;
+  font-size: 0.9em;
+}
+
+/* Estilo dos Campos de Entrada */
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 0.75em;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* Estilo dos Campos de Entrada Ativos */
+input[type="email"].active,
+input[type="password"].active,
+input[type="text"].active,
+input[type="number"].active {
+  border: 1px solid #1e90ff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Para navegadores WebKit (Chrome, Safari, etc.) */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Para o Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Para o Edge */
+input[type="number"]::-ms-clear {
+  display: none;
+}
+
+/* Estilo dos Rótulos com Erro */
+label.error {
+  color: var(--red);
+}
+
+/* Estilo do Botão de Submissão */
+.box .btn {
+  width: 100%;
+}
+
+.forgot-password {
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  color: var(--btn-color);
+  text-decoration: none;
+  font-size: 0.8em;
+}
+
+.button-send {
+  min-height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #007bff;
+  transition: all 0.5s ease;
+  padding: 0.5em;
+  border-radius: 8px;
+  position: relative;
+}
+ 
+.box {
+  transition: all 1s ease;
+  position: relative;
+  max-width: 375px;
+  width: auto;
+  background-color: var(--box-bg);
+  padding: 2em;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  z-index: 10;
+}
+@media (min-width: 601px) {
+  /* Padding padrão para telas maiores */
+  .box {
+    min-width: 400px;
+    width: 400px;
+    padding: 2em;
+  }
+
+  /* Tamanho da fonte do título para telas maiores */
+  .login-form h1 {
+    font-size: 2em;
+  }
+}
+
+/* Estilos para Dispositivos Móveis (max-width: 600px) */
+@media (max-width: 600px) {
+  /* Reduz o tamanho da fonte para dispositivos menores */
+  body {
+    font-size: 14px;
+  }
+
+  /* Ajusta o padding do container de login */
+  .login-container {
+    padding: 0 2em;
+  }
+
+  /* Reduz o padding do formulário */
+  .box {
+    padding: 1em;
+    width: 300px;
+    max-width: 300px;
+  }
+
+  /* Reduz o tamanho da fonte do título */
+  .box h1 {
+    font-size: 10px;
+  }
+
+  /* Ajusta o espaçamento entre campos do formulário */
+  .form-group {
+    margin-bottom: 0.75em;
+  }
+}
+
+ 

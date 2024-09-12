@@ -1,0 +1,25 @@
+.user-profile-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  margin-left: 1em;
+  user-select: none;
+  object-fit: cover;
+}
+
+.header-user-dtails {
+  padding-left: 0.5em;
+}
+
+.image-user-header {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.user-type {
+  color: gray;
+  font-weight: 400;
+}

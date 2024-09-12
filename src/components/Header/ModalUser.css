@@ -1,0 +1,89 @@
+.modal-user {
+  position: absolute;
+  top: 80px;
+  right: 0;
+  width: 200px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(-10px);
+  visibility: hidden;
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-user.show {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.modal-user::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  right: 15px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent #fff transparent;
+}
+
+/* Lista */
+.modal-user ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.modal-user ul li {
+  position: relative; /* Necessário para que o link ocupe o espaço total */
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-user ul li a {
+  display: block; /* Faz o link ocupar todo o espaço do li */
+  text-decoration: none;
+  color: inherit; /* Usa a cor do texto do li */
+  width: 100%; /* Ocupa toda a largura do li */
+  height: 100%; /* Ocupa toda a altura do li */
+  padding: 10px 15px; /* Para garantir o espaço interno */
+  box-sizing: border-box; /* Inclui padding e border na largura e altura total */
+}
+
+.modal-user ul li:nth-child(2) {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.modal-user ul li:hover {
+  background-color: #f0f0f0;
+}
+
+.modal-user ul li i {
+  font-size: 18px;
+  margin-right: 10px;
+  color: #333;
+}
+
+.modal-user ul li span {
+  font-size: 14px;
+  color: #333;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .modal-user {
+    width: 160px;
+  }
+
+  .modal-user ul li i {
+    font-size: 16px;
+  }
+
+  .modal-user ul li span {
+    font-size: 13px;
+  }
+}

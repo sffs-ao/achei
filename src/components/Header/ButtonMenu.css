@@ -1,0 +1,57 @@
+.menu-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.bar {
+  width: 30px;
+  height: 3px;
+  background-color: #333;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  position: absolute;
+  border-radius: 8px;
+}
+
+.bar1 {
+  transform: rotate(0) translate(0px, 0px);
+  top: 0;
+}
+
+.bar2 {
+  /* Adicione estilo para bar2, se necessário */
+}
+
+.bar3 {
+  transform: rotate(0) translate(0, 0px);
+  bottom: 0;
+}
+
+.menu-button.open .bar1 {
+  transform: rotate(-45deg) translate(-9px, 4px);
+  width: 50%;
+}
+
+.menu-button.open .bar2 {
+  /*   opacity: 0; */
+  height: 4px;
+}
+
+.menu-button.open .bar3 {
+  transform: rotate(45deg) translate(-9px, -4px);
+  width: 50%;
+}
+
+@media screen and (max-width: 768px) {
+  .menu-button {
+    display: none;
+  }
+}

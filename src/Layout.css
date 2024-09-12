@@ -1,0 +1,22 @@
+.main-area {
+  display: flex;
+  align-items: flex-start;
+  padding-right: 1em;
+}
+
+.section-area {
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .section-area {
+    padding: 1em;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .section-area {
+    padding-left: 106px;
+    padding-top: 1em;
+  }
+}
