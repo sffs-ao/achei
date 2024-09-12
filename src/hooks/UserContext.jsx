@@ -11,7 +11,7 @@ export const UserProvider = ({ children }) => {
   useEffect( () => {
     async function getToken(params) {
       const token = localStorage.getItem('enanza_');
-    if (!token) {
+      if (!token) {
         setUser(null);
         setMessage("Deve iniciar sessão");
         setLoading(false);
@@ -21,7 +21,7 @@ export const UserProvider = ({ children }) => {
         const response = await fetch(`${BASE_URL}/profiles`, {
           method: "GET",
           headers: {
-            "Content-Type": "applicatitokenon/json",
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         });
@@ -31,7 +31,7 @@ export const UserProvider = ({ children }) => {
           throw new Error("Token inválido");
         }
         const data = await response.json();
-       
+      
           /*if (!data.valid) {
           setMessage("Sessao espirada, faça login novamente");
           setUser(null);
