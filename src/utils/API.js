@@ -1,6 +1,6 @@
 export const BASE_URL = "https://www.enanza.ao/api";
 export const APP_NAME = "enanza";
-export const IMAGE_URL = "";
+export const IMAGE_URL = " https://www.enanza.ao/storage/corporate/1/";
 
 export const login = async (email, password) => {
   const response = await fetch(`${BASE_URL}/login`, {

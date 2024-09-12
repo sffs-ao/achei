@@ -10,6 +10,7 @@ import { IMAGE_URL } from "../../../utils/API";
 // Componente de perfil de usuário
 export default function UserProfile({ act }) {
   const { user } = useContext(UserContext);
+  console.log("O id é:", user.id);
   /*   console.log(user); */
   return (
     <div className="card shadow-sm p-4" id="profile-area">
