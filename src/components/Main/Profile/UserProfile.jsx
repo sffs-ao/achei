@@ -5,6 +5,7 @@ import Button from "../../Elements/Button";
 import "./UserProfile.css";
 import { useContext } from "react";
 import { UserContext } from "../../../hooks/UserContext";
+import { IMAGE_URL } from "../../../utils/API";
 
 // Componente de perfil de usuário
 export default function UserProfile({ act }) {
@@ -16,8 +17,8 @@ export default function UserProfile({ act }) {
         <img
           src={
             user.profile_image == null
-              ? "https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fHVzZXJ8ZW58MHx8fHwxNjcxMjUyMjk4&ixlib=rb-1.2.1&q=80&w=400"
-              : user.profile_image
+              ? "https://cdn-icons-png.flaticon.com/512/1946/1946429.png"
+              : `${IMAGE_URL}${user.profile_image}`
           }
           alt={`${user.name}`}
           className="rounded-circle me-3 img-user-profile"

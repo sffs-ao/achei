@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Users.css";
 import Button from "../../Elements/Button";
-import { GET_PROFILES } from "../../../utils/API";
+import { GET_PROFILES, IMAGE_URL } from "../../../utils/API";
 import { DatabaseZap } from "lucide-react";
 
 const usersData = [
@@ -39,8 +39,8 @@ export default function Users() {
   useEffect(() => {
     async function getProfiles() {
       const data = await GET_PROFILES();
-      setProfiles([data]);
-      console.log([data]);
+      setProfiles(data);
+      console.log(data);
     }
     getProfiles();
   }, []);
@@ -100,8 +100,8 @@ export default function Users() {
                       /* src={user.image} */
                       src={
                         user.profile_image == null
-                          ? "https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fHVzZXJ8ZW58MHx8fHwxNjcxMjUyMjk4&ixlib=rb-1.2.1&q=80&w=400"
-                          : user.profile_image
+                          ? "https://cdn-icons-png.flaticon.com/512/1946/1946429.png"
+                          : `${IMAGE_URL}${user.profile_image}`
                       }
                       alt={user.name}
                       className="table-image"
