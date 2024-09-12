@@ -27,7 +27,7 @@ export default function Profile() {
   return (
     <section className="section-area">
       <div id="profile">
-        <UserProfile user={userData} />
+        <UserProfile act={userData} />
       </div>
     </section>
   );

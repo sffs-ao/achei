@@ -3,44 +3,30 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Button from "../../Elements/Button";
 import "./UserProfile.css";
-import { BASE_URL } from "../../../utils/API";
-
-const APP_NAME = "meuApp"; // Substitua "meuApp" pelo nome real do seu aplicativo
-const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_token`);
-
-fetch(`${BASE_URL}/profiles`, {
-  method: "GET",
-  headers: {
-    Accept: "application/json",
-    Authorization: `Bearer ${AUTH_TOKEN}`,
-  },
-})
-  .then((resp) => resp.json())
-  .then((data) => {
-    console.log(data);
-  })
-  .catch((error) => {
-    console.error("Erro:", error);
-  })
-  .finally(() => {
-    console.log("Requisição finalizada");
-  });
+import { useContext } from "react";
+import { UserContext } from "../../../hooks/UserContext";
 
 // Componente de perfil de usuário
-export default function UserProfile({ user }) {
+export default function UserProfile({ act }) {
+  const { user } = useContext(UserContext);
+  /*   console.log(user); */
   return (
     <div className="card shadow-sm p-4" id="profile-area">
       <div className="d-flex align-items-center">
         <img
-          src={user.avatar}
-          alt={`${user.name}'s avatar`}
+          src={
+            user.info_user.profile_image == null
+              ? "https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fHVzZXJ8ZW58MHx8fHwxNjcxMjUyMjk4&ixlib=rb-1.2.1&q=80&w=400"
+              : user.info_user.profile_image
+          }
+          alt={`${user.info_user.name}`}
           className="rounded-circle me-3 img-user-profile"
           style={{ width: "100px", height: "100px" }}
         />
         <div className="profile-user-details">
-          <h2 className="mb-1 profile-user-name">{user.name}</h2>
-          <p className="text-muted mb-0">{user.email}</p>
-          <p className="text-muted mb-0">{user.position}</p>
+          <h2 className="mb-1 profile-user-name">{user.info_user.name}</h2>
+          <p className="text-muted mb-0">{user.info_user.email}</p>
+          <p className="text-muted mb-0">{user.info_user.user_title}</p>
         </div>
       </div>
       <div className="mt-3 button-group">
@@ -58,7 +44,7 @@ export default function UserProfile({ user }) {
       <div className="mt-4">
         <h4 className="font-bold">Registo de Atividade</h4>
         <ul className="activity-log list-group">
-          {user.activityLog.map((activity, index) => (
+          {act.activityLog.map((activity, index) => (
             <li key={index} className="list-group-item">
               <strong>{activity.date}:</strong> {activity.description}
             </li>
@@ -70,12 +56,8 @@ export default function UserProfile({ user }) {
 }
 
 // Definir as propriedades esperadas pelo componente
-UserProfile.propTypes = {
+/* UserProfile.propTypes = {
   user: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
-    position: PropTypes.string,
     activityLog: PropTypes.arrayOf(
       PropTypes.shape({
         date: PropTypes.string.isRequired,
@@ -84,3 +66,4 @@ UserProfile.propTypes = {
     ),
   }).isRequired,
 };
+ */
