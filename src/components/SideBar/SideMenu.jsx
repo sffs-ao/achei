@@ -5,7 +5,7 @@ import "./SideMenu.css";
 
 export default function SideMenu() {
   return (
-    <aside className="bg-light shadow-sm">
+    <aside className="bg-light shadow-sm z-10">
       <nav>
         <ul className="nav-container ">
           <li className="nav-item">

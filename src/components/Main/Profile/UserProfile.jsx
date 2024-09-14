@@ -1,13 +1,12 @@
 import React, { useRef, useState } from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+
 import Button from "../../Elements/Button";
 import "./UserProfile.css";
 import { useContext } from "react";
 import { UserContext } from "../../../hooks/UserContext";
 import { APP_NAME, BASE_URL, IMAGE_URL } from "../../../utils/API";
 import * as Dialog from "@radix-ui/react-dialog";
-import { CrossIcon, X } from "lucide-react";
+import { X } from "lucide-react";
 import { toast } from "react-toastify";
 import zod from "zod"
 import { useForm } from "react-hook-form";
@@ -28,7 +27,7 @@ export default function UserProfile({ act }) {
   /*   console.log(user); */
   return (
     <div className="card shadow-sm p-4" id="profile-area">
-      <div className="d-flex align-items-center">
+      <div className="d-flex items-center">
         <img
           src={
             user.profile_image == null
@@ -129,8 +128,8 @@ function UploadImageProfile({img}) {
      
     </Dialog.Trigger>
     <Dialog.Portal className="bg-black/55">
-      <Dialog.Overlay className="bg-black/15 data-[state=open]:animate-overlayShow fixed inset-0" />
-      <Dialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
+      <Dialog.Overlay className="bg-black/15 z-30 data-[state=open]:animate-overlayShow fixed inset-0" />
+      <Dialog.Content className="data-[state=open]:animate-contentShow z-50 fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
         <Dialog.Title className="text-mauve12 m-0 text-[17px] font-medium">
           Carregar Foto
         </Dialog.Title>
@@ -209,9 +208,9 @@ function ChangePasswordProfile() {
         />
      
     </Dialog.Trigger>
-    <Dialog.Portal className="bg-black/55">
-      <Dialog.Overlay className="bg-black/15 data-[state=open]:animate-overlayShow fixed inset-0" />
-      <Dialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
+    <Dialog.Portal className="">
+      <Dialog.Overlay className="bg-black/15 z-40 data-[state=open]:animate-overlayShow fixed inset-0" />
+      <Dialog.Content className=" z-50 data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
         <Dialog.Title className="text-mauve12 m-0 text-[17px] font-medium">
          Alterar palavra passe
         </Dialog.Title>
