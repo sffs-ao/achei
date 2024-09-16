@@ -32,10 +32,10 @@ export const privilegesSchema = z.object({
 });
 
 export const userSchema = z.object({
-  name: z.string().nonempty(), // Nome não pode ser vazio
+  name: z.string(), // Nome não pode ser vazio
   email: z.string().email(), // Email deve ser um email válido
-  user_title: z.string().nonempty(), // Título do usuário não pode ser vazio
-  user_type: z.number().int().min(1).max(3), // Tipo de usuário deve estar entre 1 e 3
+  user_title: z.string(), // Título do usuário não pode ser vazio
+  user_type: z.string(), // Tipo de usuário deve estar entre 1 e 3
   privileges: privilegesSchema, // Validação dos privilégios
   account_status: z.number().int().min(0).max(1), // Status da conta deve ser 0 ou 1
 });
