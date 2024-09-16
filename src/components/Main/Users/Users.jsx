@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Users.css";
 import Button from "../../Elements/Button";
 import { GET_PROFILES, IMAGE_URL } from "../../../utils/API";
-import { DatabaseZap } from "lucide-react";
 
 const usersData = [
   {
@@ -61,9 +60,9 @@ export default function Users() {
 
   console.log(filteredUsers);
   return (
-    <section className="section-area">
-      <div className="section-container">
-        <div className="header-actions">
+    <section className="">
+      <div className="">
+        <div className="">
           <h1>Usuários</h1>
           <p>Página de gerenciamento de usuários.</p>
           <div className="top-container">
