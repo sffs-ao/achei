@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Classes.css";
 import Button from "../../Elements/Button";
+import { ModalSaveStudent } from "../../Elements/ModalSaveStudent";
+import { ModalSaveClasse } from "../../Elements/ModalSaveClasse";
+import { GET_CLASSES } from "../../../utils/API";
 
 const classesData = [
   {
@@ -42,6 +45,14 @@ export default function MenuClasses() {
   const filteredClasses = classesData.filter((classItem) =>
     classItem.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  useEffect(() => {
+    async function getClasses() {
+      const response = await GET_CLASSES()
+      console.log(response)
+     // setFilter(response)
+    } 
+    getClasses()
+  }, [])
 
   return (
     <section className="section-area">
@@ -58,17 +69,12 @@ export default function MenuClasses() {
               value={searchTerm}
               onChange={handleSearchChange}
             />
-            <Button
-              typeClass="btn-primary"
-              id="btn-new-class"
-              text="Adicionar Turma"
-            />
+            <ModalSaveClasse/>
           </div>
         </div>
         <table className="table-content">
           <thead>
             <tr>
-              <th>Imagem</th>
               <th>Nome</th>
               <th>Professor</th>
               <th>Horário</th>
@@ -79,13 +85,6 @@ export default function MenuClasses() {
           <tbody>
             {filteredClasses.map((classItem) => (
               <tr key={classItem.name}>
-                <td>
-                  <img
-                    src={classItem.image}
-                    alt={classItem.name}
-                    className="table-image"
-                  />
-                </td>
                 <td>{classItem.name}</td>
                 <td>{classItem.teacher}</td>
                 <td>{classItem.schedule}</td>

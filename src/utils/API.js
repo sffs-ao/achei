@@ -13,7 +13,6 @@ export const login = async (email, password) => {
   return await response.json();
 };
 export const validateCodeTwoFactory = async (code, email, password) => {
-  console.log(code, email, password);
   const response = await fetch(`${BASE_URL}/login/verify`, {
     method: "POST",
     headers: {
@@ -40,9 +39,71 @@ export const GET_PROFILES = async () => {
   return await response.json();
 };
 
+export const GET_STUDENTS = async () => {
+  const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
+  const response = await fetch(`${BASE_URL}/students/store-data`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${AUTH_TOKEN}`,
+    },
+  });
+  return await response.json();
+};
+
+
 export const GET_PROFILE = async (id) => {
   const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
   const response = await fetch(`${BASE_URL}/users/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${AUTH_TOKEN}`,
+    },
+  });
+  return await response.json();
+};
+
+
+export const POST_INSTRUCTOR = async (data) => {
+  const response = await fetch(`${BASE_URL}/users`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  console.log(response)
+  return await response.json();
+};
+
+export const POST_STUDENT = async (data) => {
+  const response = await fetch(`${BASE_URL}/students/store-data`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  console.log(response)
+  return await response.json();
+};
+
+export const POST_CLASSES = async (data) => {
+  const response = await fetch(`${BASE_URL}/classes`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  console.log(response)
+  return await response.json();
+};
+
+export const GET_CLASSES = async () => {
+  const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
+  const response = await fetch(`${BASE_URL}/classes`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

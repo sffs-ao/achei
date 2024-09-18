@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Users.css";
 import Button from "../../Elements/Button";
 import { GET_PROFILES, IMAGE_URL } from "../../../utils/API";
+import { ModalSaveUser } from "../../Elements/ModalSaveUSer";
 
 const usersData = [
   {
@@ -39,7 +40,7 @@ export default function Users() {
     async function getProfiles() {
       const data = await GET_PROFILES();
       setProfiles(data);
-      console.log(data);
+   //   console.log(data);
     }
     getProfiles();
   }, []);
@@ -58,11 +59,11 @@ export default function Users() {
       user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  console.log(filteredUsers);
+ // console.log(filteredUsers);
   return (
-    <section className="">
-      <div className="">
-        <div className="">
+    <section className="section-area">
+      <div className="section-container">
+        <div className="header-actions">
           <h1>Usuários</h1>
           <p>Página de gerenciamento de usuários.</p>
           <div className="top-container">
@@ -73,11 +74,7 @@ export default function Users() {
               onChange={handleSearch}
               className="search-input"
             />
-            <Button
-              typeClass="btn-primary"
-              id="btn-add-user"
-              text="Adicionar Usuário"
-            />
+            <ModalSaveUser/>
           </div>
         </div>
         <table className="table-content">

@@ -20,7 +20,7 @@ export default function SideMenu() {
               className="nav-link d-flex align-items-center"
             >
               <i className="bi bi-person me-2"></i>
-              <span className="link-tex">Formandos</span>
+              <span className="link-tex">Estudantes</span>
             </Link>
           </li>
           <li className="nav-item">

@@ -6,7 +6,7 @@ import { IMAGE_URL } from "../../utils/API";
 
 export default function ProfileArea() {
   const { user: userHeader } = useContext(UserContext);
-  console.log("user do header", userHeader);
+ // console.log("user do header", userHeader);
   return (
     <div className="user-profile-content">
       <img
