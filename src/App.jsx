@@ -22,7 +22,13 @@ import { ToastContainer } from "react-toastify";
 import ProtectedRoutes from "./components/Main/ProtectedRoute";
 import { UserProvider } from "./hooks/UserContext";
 import Logout from "./components/Main/Logout";
-/* import NewUser from "./components/Main/Users/NewUser"; */
+import Action from "./components/Finance/Action/Action";
+import Cash from "./components/Finance/Cash/Cash";
+import Bank from "./components/Finance/Bank/Bank";
+import Invoice from "./components/Finance/Invoice/invoice";
+import Report from "./components/Finance/Report/Report";
+import Tax from "./components/Finance/Tax/Tax";
+
 
 function App() {
   return (
@@ -39,13 +45,18 @@ function App() {
               <Route path="/notas" element={<Grides />} />
               <Route path="/auditoria" element={<Audit />} />
               <Route path="/usuarios" element={<Users />} />
-              {/*               <Route path="/usuarios/novousuario" element={<NewUser />} /> */}
               <Route path="/usuarios/:id" element={<UserDetails />} />
               <Route path="/chat" element={<Chat />} />
               <Route path="/notificacoes" element={<Notification />} />
               <Route path="/configuracoes" element={<Settings />} />
               <Route path="/perfil" element={<Profile />} />
               <Route path="/logout" element={<Logout />} />
+              <Route path="/acoes" element={<Action />} />
+              <Route path="/caixa" element={<Cash />} />
+              <Route path="/banco" element={<Bank />} />
+              <Route path="/faturacao" element={<Invoice />} />
+              <Route path="/relatorio" element={<Report />} />
+              <Route path="/taxa" element={<Tax />} />
             </Route>
           </Route>
           <Route path="/entrar" element={<Sign />} />
