@@ -5,7 +5,15 @@ import "./Cash.css";
 export default function Cash() {
   return (
     <section className="section-area">
-      <div className="card_content">
+      <div className="section-container">
+        <div className="title-h1">Área do Caixa</div>
+        <div className="address">
+          <span>Dashboard</span>
+          <i className="bi bi-chevron-right"></i>
+          <span className="locate">Caixa</span>
+        </div>
+      </div>
+      <div className="card_content space-top card_content_cash">
         <CashCard
           text="Capital Inicial"
           capital="0,00"
@@ -31,15 +39,7 @@ export default function Cash() {
           clr="rgb(59,205,53)"
         />
       </div>
-      <div className="section-container">
-        <div className="title-h1">Lista - Caixa</div>
-        <div className="address">
-          <span>Dashboard</span>
-          <i className="bi bi-chevron-right"></i>
-          <span className="locate">Lista de Caixa</span>
-        </div>
-      </div>
-      <div className=" get-date">
+      <div className="space-top get-date">
         <div className="date-content">
           <input type="date" name="" id="" />
           <input type="date" name="" id="" />
@@ -63,7 +63,6 @@ export default function Cash() {
           <thead>
             <tr>
               <th>Data</th>
-              <th>Ícone</th>
               <th>Montante</th>
               <th>Título</th>
               <th>Estado</th>

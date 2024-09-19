@@ -29,7 +29,6 @@ import Invoice from "./components/Finance/Invoice/invoice";
 import Report from "./components/Finance/Report/Report";
 import Tax from "./components/Finance/Tax/Tax";
 
-
 function App() {
   return (
     <UserProvider>
@@ -51,7 +50,7 @@ function App() {
               <Route path="/configuracoes" element={<Settings />} />
               <Route path="/perfil" element={<Profile />} />
               <Route path="/logout" element={<Logout />} />
-              <Route path="/acoes" element={<Action />} />
+              <Route path="/movimentos" element={<Action />} />
               <Route path="/caixa" element={<Cash />} />
               <Route path="/banco" element={<Bank />} />
               <Route path="/faturacao" element={<Invoice />} />

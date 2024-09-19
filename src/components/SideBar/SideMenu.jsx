@@ -54,9 +54,12 @@ export default function SideMenu() {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/acoes" className="nav-link d-flex align-items-center">
+            <Link
+              to="/movimentos"
+              className="nav-link d-flex align-items-center"
+            >
               <i className="bi bi-cash-stack me-2"></i>
-              <span className="link-tex">Acções</span>
+              <span className="link-tex">Movimentos</span>
             </Link>
           </li>
           <li className="nav-item">

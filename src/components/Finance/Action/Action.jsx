@@ -5,13 +5,13 @@ export default function Action() {
   return (
     <section className="section-area">
       <div className="section-container">
-        <div className="title-h1">Registar - Movimento</div>
+        <div className="title-h1">Área de Movimentações</div>
         <div className="address">
           <span>Dashboard</span>
           <i className="bi bi-chevron-right"></i>
-          <span>Lista de Movimentos</span>
+          <span>Movimentos</span>
           <i className="bi bi-chevron-right"></i>
-          <span className="locate">Registar Novo Movimento</span>
+          <span className="locate">Novo Movimento</span>
         </div>
       </div>
       <div className="section-container space-top form-moviment">
