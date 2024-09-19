@@ -28,13 +28,7 @@
   font-size: 1.5em;
 }
 
-.address .bi {
-  margin: 0 0.5em;
-}
 
-.locate {
-  color: rgb(37, 20, 252);
-}
 
 @media screen and (min-width: 1200px) {
   .get-date input:nth-child(1) {

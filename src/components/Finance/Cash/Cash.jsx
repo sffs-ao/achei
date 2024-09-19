@@ -1,7 +1,6 @@
 import React from "react";
 import CashCard from "./CashCard";
 import "./Cash.css";
-import Button from "../../Elements/Button";
 
 export default function Cash() {
   return (

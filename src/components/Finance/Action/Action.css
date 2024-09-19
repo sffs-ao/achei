@@ -1,0 +1,10 @@
+.moviment select {
+  padding: 12px;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.form-moviment form {
+  margin-top: 2em;
+}
