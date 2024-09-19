@@ -1,0 +1,38 @@
+.cash_card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 300px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+  user-select: none;
+}
+
+.cash_card_left {
+  padding: 1em;
+}
+
+.card_text {
+  text-transform: uppercase;
+  font-size: 0.9em;
+  color: rgb(109, 117, 125);
+}
+
+.cash_card_right {
+  background-color: rgb(52, 65, 72);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+}
+
+.cash_card_right .bi {
+  font-size: 1.5em;
+}
+
+.capital_value {
+  font-weight: bold;
+  font-size: 1.5em;
+}

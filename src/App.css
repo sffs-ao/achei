@@ -116,3 +116,24 @@ body {
 .table-content tr {
   cursor: pointer;
 }
+
+.address {
+  user-select: none;
+  margin-top: 0.4em;
+}
+
+.address .bi {
+  margin: 0 0.5em;
+}
+
+.locate {
+  color: rgb(37, 20, 252);
+}
+
+.space-top {
+  margin-top: 1.5em;
+}
+
+.title-general {
+  color: rgb(37, 20, 252);
+}
