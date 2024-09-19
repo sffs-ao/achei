@@ -1,6 +1,6 @@
 export const BASE_URL = "https://www.enanza.ao/api";
 export const APP_NAME = "enanza";
-export const IMAGE_URL = " https://www.enanza.ao/storage/corporate/1/";
+export const IMAGE_URL = "https://www.enanza.ao/storage/corporate/";
 
 export const login = async (email, password) => {
   const response = await fetch(`${BASE_URL}/login`, {
@@ -51,7 +51,6 @@ export const GET_STUDENTS = async () => {
   return await response.json();
 };
 
-
 export const GET_PROFILE = async (id) => {
   const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
   const response = await fetch(`${BASE_URL}/users/${id}`, {
@@ -64,7 +63,6 @@ export const GET_PROFILE = async (id) => {
   return await response.json();
 };
 
-
 export const POST_INSTRUCTOR = async (data) => {
   const response = await fetch(`${BASE_URL}/users`, {
     method: "POST",
@@ -73,7 +71,7 @@ export const POST_INSTRUCTOR = async (data) => {
     },
     body: JSON.stringify(data),
   });
-  console.log(response)
+  console.log(response);
   return await response.json();
 };
 
@@ -85,7 +83,7 @@ export const POST_STUDENT = async (data) => {
     },
     body: JSON.stringify(data),
   });
-  console.log(response)
+  console.log(response);
   return await response.json();
 };
 
@@ -97,7 +95,7 @@ export const POST_CLASSES = async (data) => {
     },
     body: JSON.stringify(data),
   });
-  console.log(response)
+  console.log(response);
   return await response.json();
 };
 

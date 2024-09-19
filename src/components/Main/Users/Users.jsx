@@ -3,9 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Users.css";
 import Button from "../../Elements/Button";
 import { GET_PROFILES, IMAGE_URL } from "../../../utils/API";
-import { ModalSaveUser } from "../../Elements/ModalSaveUSer";
+import { ModalSaveUser } from "./ModalSaveUSer";
 
-const usersData = [
+/* const usersData = [
   {
     id: 1,
     image: "https://randomuser.me/api/portraits/men/32.jpg",
@@ -30,7 +30,7 @@ const usersData = [
     role: "Usuário",
     status: "Inativo",
   },
-];
+]; */
 
 export default function Users() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -40,7 +40,7 @@ export default function Users() {
     async function getProfiles() {
       const data = await GET_PROFILES();
       setProfiles(data);
-   //   console.log(data);
+      //   console.log(data);
     }
     getProfiles();
   }, []);
@@ -59,7 +59,7 @@ export default function Users() {
       user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
- // console.log(filteredUsers);
+  // console.log(filteredUsers);
   return (
     <section className="section-area">
       <div className="section-container">
@@ -74,7 +74,7 @@ export default function Users() {
               onChange={handleSearch}
               className="search-input"
             />
-            <ModalSaveUser/>
+            <ModalSaveUser />
           </div>
         </div>
         <table className="table-content">

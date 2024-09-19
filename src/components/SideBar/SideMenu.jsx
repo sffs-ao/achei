@@ -32,7 +32,7 @@ export default function SideMenu() {
               <span className="link-tex">Formadores</span>
             </Link>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link
               to="/inscricoes"
               className="nav-link d-flex align-items-center"
@@ -40,7 +40,7 @@ export default function SideMenu() {
               <i className="bi bi-calendar-plus me-2"></i>
               <span className="link-tex">Inscrições</span>
             </Link>
-          </li>
+          </li> */}
           <li className="nav-item">
             <Link to="/turmas" className="nav-link d-flex align-items-center">
               <i className="bi bi-journal-bookmark me-2"></i>

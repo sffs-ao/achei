@@ -5,7 +5,7 @@ import { ModalSaveStudent } from "../../Elements/ModalSaveStudent";
 import { ModalSaveClasse } from "../../Elements/ModalSaveClasse";
 import { GET_CLASSES } from "../../../utils/API";
 
-const classesData = [
+/* const classesData = [
   {
     image: "https://via.placeholder.com/50", // URL da imagem da turma
     name: "Turma A",
@@ -31,10 +31,11 @@ const classesData = [
     courses: [], // Nenhum curso associado
   },
   // Adicione mais turmas conforme necessário
-];
+]; */
 
 export default function MenuClasses() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [classeData, setClasseData] = useState([]);
 
   // Função para lidar com a alteração do campo de pesquisa
   const handleSearchChange = (event) => {
@@ -42,17 +43,17 @@ export default function MenuClasses() {
   };
 
   // Função para filtrar turmas com base no termo de pesquisa
-  const filteredClasses = classesData.filter((classItem) =>
+  /*   const filteredClasses = classesData.filter((classItem) =>
     classItem.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  ); */
   useEffect(() => {
     async function getClasses() {
-      const response = await GET_CLASSES()
-      console.log(response)
-     // setFilter(response)
-    } 
-    getClasses()
-  }, [])
+      const response = await GET_CLASSES();
+      console.log(response);
+      setClasseData(response);
+    }
+    getClasses();
+  }, []);
 
   return (
     <section className="section-area">
@@ -69,35 +70,39 @@ export default function MenuClasses() {
               value={searchTerm}
               onChange={handleSearchChange}
             />
-            <ModalSaveClasse/>
+            <ModalSaveClasse />
           </div>
         </div>
         <table className="table-content">
           <thead>
             <tr>
               <th>Nome</th>
-              <th>Professor</th>
+              <th>Formador</th>
               <th>Horário</th>
-              <th>Status</th>
-              <th>Cursos</th>
+              <th>Início</th>
+              <th>Fim</th>
+              <th>Curso</th>
             </tr>
           </thead>
           <tbody>
-            {filteredClasses.map((classItem) => (
-              <tr key={classItem.name}>
-                <td>{classItem.name}</td>
-                <td>{classItem.teacher}</td>
-                <td>{classItem.schedule}</td>
-                <td className={`status-${classItem.status.toLowerCase()}`}>
-                  {classItem.status}
-                </td>
-                <td>
-                  {classItem.courses.length > 0
-                    ? classItem.courses.join(", ")
-                    : "Nenhum Curso"}
+            {classeData.length > 0 ? (
+              classeData.map((classItem) => (
+                <tr key={classItem.name}>
+                  <td>{classItem.name}</td>
+                  <td>{classItem.teacher}</td>
+                  <td>{classItem.time}</td>
+                  <td>{classItem.start}</td>
+                  <td>{classItem.end}</td>
+                  <td>{classItem.schedule}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6" className="text-center">
+                  Nenhuma turma disponível
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
