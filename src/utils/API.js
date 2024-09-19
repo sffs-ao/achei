@@ -87,6 +87,7 @@ export const POST_INSTRUCTOR = async (data) => {
     },
     body: JSON.stringify(data),
   });
+
   return await response.json();
 };
 

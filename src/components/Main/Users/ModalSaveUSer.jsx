@@ -101,7 +101,8 @@ export const ModalSaveUser = () => {
     console.log("salvando ", data);
     try {
       const response = await POST_INSTRUCTOR(data);
-      flashMessage("Cadastrado com sucesso");
+      console.log(response);
+      flashMessage("Cadastrado com sucesso", "SUCCESS");
       form.reset();
     } catch (error) {
       flashMessage("Nao foi possivel cadastrar", "ERROR");
