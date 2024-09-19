@@ -22,9 +22,7 @@ export default function Students() {
     async function getStudents() {
       try {
         const response = await GET_STUDENTS()
-        if (response.message)
-          flashMessage("Nenhum estudante encontrado", "ERROR")
-        else
+        if (!response.message)
           setFilter(response)
       } catch (error) {
           flashMessage(error, "ERROR")
@@ -63,7 +61,8 @@ export default function Students() {
           </tr>
         </thead>
         <tbody>
-          {filteredUsers &&
+      
+          {filteredUsers.length > 0 ? (
             filteredUsers.map((user) => (
               <tr key={user.email}>
                 <td>{user.name}</td>
@@ -74,7 +73,13 @@ export default function Students() {
                 <td>{user.address}</td>
                 <td>{user.observations}</td>
               </tr>
-            ))}
+            ))) : (
+              <tr>
+                <td colSpan="6" className="text-center">
+                  Nenhum estudante disponível
+                </td>
+              </tr>
+            )}
         </tbody>
       </table>
     </div>

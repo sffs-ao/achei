@@ -13,6 +13,7 @@ const [step, setStep] = useState(1)
 const [userLogin,setUser] = useState({})
 useEffect(() => {
   if (user) {
+    console.log(user)
     navigate("/");
   }
   if (message) {

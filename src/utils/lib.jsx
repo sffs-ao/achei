@@ -1,5 +1,4 @@
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "./API";
 import  z from "zod";
 const MESSAGE_ERROR = "ERROR"
@@ -35,9 +34,9 @@ export const userSchema = z.object({
   name: z.string({ required_error: "Campo obrigatorio" }).min(1, "Campo obrigatorio"), // Nome não pode ser vazio
   email: z.string({ required_error: "Campo obrigatorio" }).email("Email invalido"), // Email deve ser um email válido
   user_title: z.string({ required_error: "Campo obrigatorio" }).min(1, "Campo obrigatorio"), // Título do usuário não pode ser vazio
-  user_type: z.string({ required_error: "Campo obrigatorio" }).transform(Number), // Tipo de usuário deve estar entre 1 e 3
+  user_type: z.string({ required_error: "Campo obrigatorio" }), // Tipo de usuário deve estar entre 1 e 3
   privileges: privilegesSchema, // Validação dos privilégios
-  account_status: z.number().int().min(0).max(1), // Status da conta deve ser 0 ou 1
+  account_status: z.string(), // Status da conta deve ser 0 ou 1
 });
 
 export const studentSchema = z.object({

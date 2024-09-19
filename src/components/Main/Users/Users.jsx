@@ -31,11 +31,22 @@ import { ModalSaveUser } from "./ModalSaveUSer";
     status: "Inativo",
   },
 ]; */
-
+ export const userType = {
+    1: "Administrador Geral",
+    2: "Gestor",
+    3: "Formador"
+  }
+  export const status = {
+    0: () => <span className="bg-orange-500 text-white p-0 rounded-full px-2 text-sm font-bold py-1">PENDENTE</span>,
+    10: () => <span className="bg-orange-500 text-white p-1 rounded-full px-2 text-sm font-bold py-1">PENDENTE</span>,
+    1: () =>  <span className="bg-green-700 text-white p-0 rounded-full px-2 text-sm font-bold py-1">ACTIVO</span>,
+    2: () => <span className="bg-red-700 text-white p-1 rounded-full px-2 text-sm font-bold py-1">BLOQUEADO</span>
+  }
 export default function Users() {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate(); // Hook para redirecionamento
   const [profiles, setProfiles] = useState([]);
+
   useEffect(() => {
     async function getProfiles() {
       const data = await GET_PROFILES();
@@ -105,13 +116,9 @@ export default function Users() {
                   </td>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
-                  <td>{user.user_title}</td>
-                  <td className={`status-${user.account_status.toLowerCase()}`}>
-                    {user.account_status == 0 && "Pendente"}
-                    {user.account_status == 10 && "Pendente"}
-                    {user.account_status == 1 && "Activo"}
-                    {user.account_status == 2 && "Bloquado"}
-                    {/* {user.status} */}
+                  <td>{userType[user.user_type]}</td>
+                  <td className={`status-${user.account_status}`}>
+                      {status[user.account_status]()}
                   </td>
                 </tr>
               ))}
