@@ -21,7 +21,7 @@ const schema = zod.object({
 });
 export default function UserProfile({ act }) {
   const { user } = useContext(UserContext);
-  console.log("O id é:", user.id);
+ // console.log("O id é:", user.id);
   const[open, setOpen] = useState(false)
  
   /*   console.log(user); */

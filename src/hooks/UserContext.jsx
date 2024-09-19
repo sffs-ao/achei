@@ -30,7 +30,7 @@ export const UserProvider = ({ children }) => {
           throw new Error("Token inválido");
         }
         const data = await response.json();
-
+console.log(data)
         /*if (!data.valid) {
           setMessage("Sessao espirada, faça login novamente");
           setUser(null);
