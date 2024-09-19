@@ -11,8 +11,9 @@ export const Previligies = () => {
     const[previlige, setPrevilige] = useState(false)
 
     function handleClickAll() {
-      setPrevilige(!previlige)
       const schema = form.watch("privileges")
+      const prev = !previlige
+      setPrevilige(prev)
       Object.keys(schema).forEach(key => {
         handlePrevilegies(`privileges.${key}.get`, previlige) 
         handlePrevilegies(`privileges.${key}.store`, previlige) 
