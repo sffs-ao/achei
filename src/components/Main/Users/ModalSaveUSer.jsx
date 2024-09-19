@@ -10,9 +10,9 @@ export const ModalSaveUser = () => {
   const { formState, ...form } = useForm({
     resolver: zodResolver(userSchema),
     defaultValues: {
-      user_type: "3",
+      user_type: "1",
       account_status: 0,
-      user_title: "",
+      user_title: "Null",
       privileges: {
         users: {
           get: 0, // Valor padrão para o privilégio "get" dos usuários
