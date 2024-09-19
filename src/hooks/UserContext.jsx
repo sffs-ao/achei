@@ -35,6 +35,7 @@ console.log(data)
           setMessage("Sessao espirada, faça login novamente");
           setUser(null);
         }*/
+       if(data.status != 2)
         setUser(data);
       } catch (error) {
         setUser(null);
