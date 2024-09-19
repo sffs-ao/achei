@@ -14,13 +14,29 @@ export default function Instructors() {
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
-  const [filteredUsers, setFilter] = useState([])
+  const [filteredUsers, setFilter] = useState([]);
   const status = {
-    0: () => <span className="bg-orange-500 text-white p-1 rounded-full px-2">PENDENTE</span>,
-    10: () => <span className="bg-orange-500 text-white p-1 rounded-full px-2">PENDENTE</span>,
-    1: () =>  <span className="bg-green-700 text-white p-1 rounded-full px-2">ACTIVO</span>,
-    2: () => <span className="bg-red-700 text-white p-1 rounded-full px-2">BLOQUEADO</span>
-  }
+    0: () => (
+      <span className="bg-orange-500 text-white p-1 rounded-full px-2">
+        PENDENTE
+      </span>
+    ),
+    10: () => (
+      <span className="bg-orange-500 text-white p-1 rounded-full px-2">
+        PENDENTE
+      </span>
+    ),
+    1: () => (
+      <span className="bg-green-700 text-white p-1 rounded-full px-2">
+        ACTIVO
+      </span>
+    ),
+    2: () => (
+      <span className="bg-red-700 text-white p-1 rounded-full px-2">
+        BLOQUEADO
+      </span>
+    ),
+  };
   useEffect(() => {
     async function getUsers() {
       const response = await GET_PROFILES();
@@ -52,7 +68,7 @@ export default function Instructors() {
               <th>Imagem</th>
               <th>Nome</th>
               <th>Email</th>
-              <th>Função</th>
+              <th>Area</th>
               <th>Status</th>
             </tr>
           </thead>
@@ -76,58 +92,13 @@ export default function Instructors() {
                   <td>{user.email}</td>
                   <td>{user.user_title}</td>
                   <td className={`status-${user.account_status.toLowerCase()}`}>
-                    {user.account_status == 0 && "Pendente"}
-                    {user.account_status == 10 && "Pendente"}
-                    {user.account_status == 1 && "Activo"}
-                    {user.account_status == 2 && "Bloquado"}
-                    {/* {user.status} */}
+                    {status[user.account_status]()}
                   </td>
                 </tr>
               ))}
           </tbody>
         </table>
       </div>
-<<<<<<< HEAD
     </section>
-=======
-      <table className="table-content">
-        <thead>
-          <tr>
-            <th>Imagem</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Area</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredUsers &&
-            filteredUsers.map((user) => (
-              <tr key={user.email} onClick={() => handleRowClick(user.id)}>
-                <td>
-                  <img
-                    /* src={user.image} */
-                    src={
-                      user.profile_image == null
-                        ? "https://cdn-icons-png.flaticon.com/512/1946/1946429.png"
-                        : `${IMAGE_URL}${user.profile_image}`
-                    }
-                    alt={user.name}
-                    className="table-image"
-                  />
-                </td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.user_title}</td>
-                <td className={`status-${user.account_status.toLowerCase()}`}>
-                    {status[user.account_status]()}
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
-    </div>
-  </section>
->>>>>>> 5b7cfadaef02245189ef62a4de02dbc9f4473fa6
   );
 }
