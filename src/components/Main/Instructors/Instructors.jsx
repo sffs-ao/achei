@@ -16,7 +16,12 @@ export default function Instructors() {
     setSearchTerm(event.target.value);
   };
   const [filteredUsers, setFilter] = useState([])
-
+  const status = {
+    0: () => <span className="bg-orange-500 text-white p-1 rounded-full px-2">PENDENTE</span>,
+    10: () => <span className="bg-orange-500 text-white p-1 rounded-full px-2">PENDENTE</span>,
+    1: () =>  <span className="bg-green-700 text-white p-1 rounded-full px-2">ACTIVO</span>,
+    2: () => <span className="bg-red-700 text-white p-1 rounded-full px-2">BLOQUEADO</span>
+  }
   useEffect(() => {
     async function getUsers() {
       const response = await GET_PROFILES()
@@ -48,7 +53,7 @@ export default function Instructors() {
             <th>Imagem</th>
             <th>Nome</th>
             <th>Email</th>
-            <th>Função</th>
+            <th>Area</th>
             <th>Status</th>
           </tr>
         </thead>
@@ -72,11 +77,7 @@ export default function Instructors() {
                 <td>{user.email}</td>
                 <td>{user.user_title}</td>
                 <td className={`status-${user.account_status.toLowerCase()}`}>
-                  {user.account_status == 0 && "Pendente"}
-                  {user.account_status == 10 && "Pendente"}
-                  {user.account_status == 1 && "Activo"}
-                  {user.account_status == 2 && "Bloquado"}
-                  {/* {user.status} */}
+                    {status[user.account_status]()}
                 </td>
               </tr>
             ))}

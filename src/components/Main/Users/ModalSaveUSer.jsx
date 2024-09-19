@@ -11,7 +11,7 @@ export const ModalSaveUser = () => {
     resolver: zodResolver(userSchema),
     defaultValues: {
       user_type: "1",
-      account_status: 0,
+      account_status: "0",
       user_title: "Null",
       privileges: {
         users: {

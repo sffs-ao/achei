@@ -42,10 +42,6 @@ export default function MenuClasses() {
     setSearchTerm(event.target.value);
   };
 
-  // Função para filtrar turmas com base no termo de pesquisa
-  /*   const filteredClasses = classesData.filter((classItem) =>
-    classItem.name.toLowerCase().includes(searchTerm.toLowerCase())
-  ); */
   useEffect(() => {
     async function getClasses() {
       const response = await GET_CLASSES();

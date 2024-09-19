@@ -63,15 +63,30 @@ export const GET_PROFILE = async (id) => {
   return await response.json();
 };
 
+
+export const GET_USER = async (id) => {
+  const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
+  const response = await fetch(`${BASE_URL}/users/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${AUTH_TOKEN}`,
+    },
+  });
+  return await response.json();
+};
+
 export const POST_INSTRUCTOR = async (data) => {
+  const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
   const response = await fetch(`${BASE_URL}/users`, {
+    Authorization: `Bearer ${AUTH_TOKEN}`,
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${AUTH_TOKEN}`,
     },
     body: JSON.stringify(data),
   });
-  console.log(response);
   return await response.json();
 };
 
@@ -88,10 +103,12 @@ export const POST_STUDENT = async (data) => {
 };
 
 export const POST_CLASSES = async (data) => {
+  const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
   const response = await fetch(`${BASE_URL}/classes`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${AUTH_TOKEN}`,
     },
     body: JSON.stringify(data),
   });

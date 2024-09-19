@@ -8,7 +8,7 @@ import { POST_INSTRUCTOR } from "../../utils/API";
 export const ModalSaveInstructor = () => {
     const {formState,...form} = useForm({
       resolver: zodResolver(userSchema),
-      defaultValues: {user_type: 3, account_status: 0, 
+      defaultValues: {user_type: 3, account_status: "0", 
   
         privileges: {
           users: {
