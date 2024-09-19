@@ -1,5 +1,6 @@
 .card_content {
   margin-bottom: 2em;
+  gap: 8px;
 }
 
 .card_content_cash {

@@ -22,7 +22,7 @@ export default function UserDetails() {
     <section className="section-area">
       <div className="section-container user-details">
         <h1>{user && <>{user.name}</>}</h1>
-    <img src={user?.profile_image || "https://randomuser.me/api/portraits/men/32.jpg"}  />
+        <img src={user?.profile_image || "https://randomuser.me/api/portraits/men/32.jpg"}  />
     
         {loading && <span>Carregando...</span>}
       <br />

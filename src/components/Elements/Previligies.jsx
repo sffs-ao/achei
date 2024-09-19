@@ -1,4 +1,5 @@
 import * as Dialog from "@radix-ui/react-dialog";
+import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 export const Previligies = () => {
@@ -7,6 +8,22 @@ export const Previligies = () => {
     function handlePrevilegies(column, checked) {
         form.setValue(column, checked ? 1 : 0)
     }
+    const[previlige, setPrevilige] = useState(false)
+
+    function handleClickAll() {
+      const schema = form.watch("privileges")
+      const prev = !previlige
+      setPrevilige(prev)
+      Object.keys(schema).forEach(key => {
+        handlePrevilegies(`privileges.${key}.get`, previlige) 
+        handlePrevilegies(`privileges.${key}.store`, previlige) 
+        handlePrevilegies(`privileges.${key}.put`, previlige) 
+        handlePrevilegies(`privileges.${key}.delete`, previlige) 
+      });    
+
+    }
+
+    
     console.log(form.watch("privileges.users.get"))
     return <Dialog.Root>
         <Dialog.Trigger asChild>
@@ -33,6 +50,7 @@ export const Previligies = () => {
                       <th>Adicionar</th>
                       <th>Editar</th>
                       <th>Apagar</th>
+                      <th onClick={handleClickAll}>Todos</th>
                     </tr>
                   </thead>
                  <tbody>
@@ -41,16 +59,17 @@ export const Previligies = () => {
                         Usuarios
                       </td>
                       <td><input onChange={(e)=>handlePrevilegies("privileges.users.get", e.target.checked)} checked={form.watch("privileges.users.get")===1} type="checkbox" /></td>
-                      <td><input onChange={(e)=>handlePrevilegies("privileges.users.post", e.target.checked)} checked={form.watch("privileges.users.post")===1} type="checkbox" /></td>
+                      <td><input onChange={(e)=>handlePrevilegies("privileges.users.store", e.target.checked)} checked={form.watch("privileges.users.store")===1} type="checkbox" /></td>
                       <td><input onChange={(e)=>handlePrevilegies("privileges.users.put", e.target.checked)} checked={form.watch("privileges.users.put")===1} type="checkbox" /></td>
                       <td><input onChange={(e)=>handlePrevilegies("privileges.users.delete", e.target.checked)} checked={form.watch("privileges.users.delete")===1} type="checkbox" /></td>
+
                     </tr>
                     <tr>
                       <td>
                         Formadores
                       </td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.instructors.get", e.target.checked)} checked={form.watch("privileges.instructors.get")===1} type="checkbox" /></td>
-                        <td><input onChange={(e)=>handlePrevilegies("privileges.instructors.post", e.target.checked)} checked={form.watch("privileges.instructors.post")===1} type="checkbox" /></td>
+                        <td><input onChange={(e)=>handlePrevilegies("privileges.instructors.store", e.target.checked)} checked={form.watch("privileges.instructors.store")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.instructors.put", e.target.checked)} checked={form.watch("privileges.instructors.put")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.instructors.delete", e.target.checked)} checked={form.watch("privileges.instructors.delete")===1} type="checkbox" /></td>
                     </tr>
@@ -60,7 +79,7 @@ export const Previligies = () => {
                       Inscrições
                       </td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.enrollments.get", e.target.checked)} checked={form.watch("privileges.enrollments.get")===1} type="checkbox" /></td>
-                        <td><input onChange={(e)=>handlePrevilegies("privileges.enrollments.post", e.target.checked)} checked={form.watch("privileges.enrollments.post")===1} type="checkbox" /></td>
+                        <td><input onChange={(e)=>handlePrevilegies("privileges.enrollments.store", e.target.checked)} checked={form.watch("privileges.enrollments.store")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.enrollments.put", e.target.checked)} checked={form.watch("privileges.enrollments.put")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.enrollments.delete", e.target.checked)} checked={form.watch("privileges.enrollments.delete")===1} type="checkbox" /></td>
                     </tr>
@@ -70,7 +89,7 @@ export const Previligies = () => {
                       Cursos
                       </td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.courses.get", e.target.checked)} checked={form.watch("privileges.courses.get")===1} type="checkbox" /></td>
-                        <td><input onChange={(e)=>handlePrevilegies("privileges.courses.post", e.target.checked)} checked={form.watch("privileges.courses.post")===1} type="checkbox" /></td>
+                        <td><input onChange={(e)=>handlePrevilegies("privileges.courses.store", e.target.checked)} checked={form.watch("privileges.courses.store")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.courses.put", e.target.checked)} checked={form.watch("privileges.courses.put")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.courses.delete", e.target.checked)} checked={form.watch("privileges.courses.delete")===1} type="checkbox" /></td>
                     </tr>
@@ -79,7 +98,7 @@ export const Previligies = () => {
                       Pagamentos
                       </td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.payments.get", e.target.checked)} checked={form.watch("privileges.payments.get")===1} type="checkbox" /></td>
-                        <td><input onChange={(e)=>handlePrevilegies("privileges.payments.post", e.target.checked)} checked={form.watch("privileges.payments.post")===1} type="checkbox" /></td>
+                        <td><input onChange={(e)=>handlePrevilegies("privileges.payments.store", e.target.checked)} checked={form.watch("privileges.payments.store")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.payments.put", e.target.checked)} checked={form.watch("privileges.payments.put")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.payments.delete", e.target.checked)} checked={form.watch("privileges.payments.delete")===1} type="checkbox" /></td>
                     </tr>
@@ -88,7 +107,7 @@ export const Previligies = () => {
                       Turnos
                       </td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.shifts.get", e.target.checked)} checked={form.watch("privileges.shifts.get")===1} type="checkbox" /></td>
-                        <td><input onChange={(e)=>handlePrevilegies("privileges.shifts.post", e.target.checked)} checked={form.watch("privileges.shifts.post")===1} type="checkbox" /></td>
+                        <td><input onChange={(e)=>handlePrevilegies("privileges.shifts.store", e.target.checked)} checked={form.watch("privileges.shifts.store")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.shifts.put", e.target.checked)} checked={form.watch("privileges.shifts.put")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.shifts.delete", e.target.checked)} checked={form.watch("privileges.shifts.delete")===1} type="checkbox" /></td>
                     </tr>
@@ -98,7 +117,7 @@ export const Previligies = () => {
                       conteúdo do curso
                       </td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.course-contents.get", e.target.checked)} checked={form.watch("privileges.course-contents.get")===1} type="checkbox" /></td>
-                        <td><input onChange={(e)=>handlePrevilegies("privileges.course-contents.post", e.target.checked)} checked={form.watch("privileges.course-contents.post")===1} type="checkbox" /></td>
+                        <td><input onChange={(e)=>handlePrevilegies("privileges.course-contents.store", e.target.checked)} checked={form.watch("privileges.course-contents.store")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.course-contents.put", e.target.checked)} checked={form.watch("privileges.course-contents.put")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.course-contents.delete", e.target.checked)} checked={form.watch("privileges.course-contents.delete")===1} type="checkbox" /></td>
                     </tr>
@@ -108,8 +127,8 @@ export const Previligies = () => {
                       calendário-resumo
                       </td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.summary-calendar.get", e.target.checked)} checked={form.watch("privileges.summary-calendar.get")===1} type="checkbox" /></td>
-                        <td><input onChange={(e)=>handlePrevilegies("privileges.summary-calendar.post", e.target.checked)} checked={form.watch("privileges.summary-calendar.post")===1} type="checkbox" /></td>
-                        <td><input onChange={(e)=>handlePrevilegies("privileges.summary-calendar.put", e.target.checked)} checked={form.watch("privileges.summary-calendarput")===1} type="checkbox" /></td>
+                        <td><input onChange={(e)=>handlePrevilegies("privileges.summary-calendar.store", e.target.checked)} checked={form.watch("privileges.summary-calendar.store")===1} type="checkbox" /></td>
+                        <td><input onChange={(e)=>handlePrevilegies("privileges.summary-calendar.put", e.target.checked)} checked={form.watch("privileges.summary-calendar.put")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.summary-calendar.delete", e.target.checked)} checked={form.watch("privileges.summary-calendar.delete")===1} type="checkbox" /></td>
                     </tr>
     
@@ -118,7 +137,7 @@ export const Previligies = () => {
                       Classe
                       </td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.classes.get", e.target.checked)} checked={form.watch("privileges.classes.get")===1} type="checkbox" /></td>
-                        <td><input onChange={(e)=>handlePrevilegies("privileges.classes.post", e.target.checked)} checked={form.watch("privileges.classes.post")===1} type="checkbox" /></td>
+                        <td><input onChange={(e)=>handlePrevilegies("privileges.classes.store", e.target.checked)} checked={form.watch("privileges.classes.store")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.classes.put", e.target.checked)} checked={form.watch("privileges.classes.put")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.classes.delete", e.target.checked)} checked={form.watch("privileges.classes.delete")===1} type="checkbox" /></td>
                     </tr>
@@ -128,7 +147,7 @@ export const Previligies = () => {
                       sessões de classe
                       </td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.class_sessions.get", e.target.checked)} checked={form.watch("privileges.class_sessions.get")===1} type="checkbox" /></td>
-                        <td><input onChange={(e)=>handlePrevilegies("privileges.class_sessions.post", e.target.checked)} checked={form.watch("privileges.class_sessions.post")===1} type="checkbox" /></td>
+                        <td><input onChange={(e)=>handlePrevilegies("privileges.class_sessions.store", e.target.checked)} checked={form.watch("privileges.class_sessions.store")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.class_sessions.put", e.target.checked)} checked={form.watch("privileges.class_sessions.put")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.class_sessions.delete", e.target.checked)} checked={form.watch("privileges.class_sessions.delete")===1} type="checkbox" /></td>
                     </tr>
@@ -139,7 +158,7 @@ export const Previligies = () => {
                       Notas
                       </td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.grades.get", e.target.checked)} checked={form.watch("privileges.grades.get")===1} type="checkbox" /></td>
-                        <td><input onChange={(e)=>handlePrevilegies("privileges.grades.post", e.target.checked)} checked={form.watch("privileges.grades.post")===1} type="checkbox" /></td>
+                        <td><input onChange={(e)=>handlePrevilegies("privileges.grades.store", e.target.checked)} checked={form.watch("privileges.grades.store")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.grades.put", e.target.checked)} checked={form.watch("privileges.grades.put")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.grades.delete", e.target.checked)} checked={form.watch("privileges.grades.delete")===1} type="checkbox" /></td>
                     </tr>
@@ -148,7 +167,7 @@ export const Previligies = () => {
                         produtos
                       </td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.products.get", e.target.checked)} checked={form.watch("privileges.products.get")===1} type="checkbox" /></td>
-                        <td><input onChange={(e)=>handlePrevilegies("privileges.products.post", e.target.checked)} checked={form.watch("privileges.products.post")===1} type="checkbox" /></td>
+                        <td><input onChange={(e)=>handlePrevilegies("privileges.products.store", e.target.checked)} checked={form.watch("privileges.products.store")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.products.put", e.target.checked)} checked={form.watch("privileges.products.put")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.products.delete", e.target.checked)} checked={form.watch("privileges.products.delete")===1} type="checkbox" /></td>
                     </tr>
@@ -157,7 +176,7 @@ export const Previligies = () => {
                       auditorias
                       </td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.audits.get", e.target.checked)} checked={form.watch("privileges.audits.get")===1} type="checkbox" /></td>
-                        <td><input onChange={(e)=>handlePrevilegies("privileges.audits.post", e.target.checked)} checked={form.watch("privileges.audits.post")===1} type="checkbox" /></td>
+                        <td><input onChange={(e)=>handlePrevilegies("privileges.audits.store", e.target.checked)} checked={form.watch("privileges.audits.store")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.audits.put", e.target.checked)} checked={form.watch("privileges.audits.put")===1} type="checkbox" /></td>
                         <td><input onChange={(e)=>handlePrevilegies("privileges.audits.delete", e.target.checked)} checked={form.watch("privileges.audits.delete")===1} type="checkbox" /></td>
                     </tr>
