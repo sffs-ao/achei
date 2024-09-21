@@ -4,6 +4,7 @@ import { MenuPopover } from "../MenuPopover";
 import { useEffect, useState } from "react";
 import { MenuPopoverProfile } from "../MenuPopoverProfile";
 import { MenuPopoverNotify } from "../MenuPopoverNotify";
+import ModalSearchModal from "../ModalSearchCurso";
 
 interface HeaderProps 
 {
@@ -78,7 +79,7 @@ export function HeaderLoged({toggleSideBar} : HeaderProps) {
                 </div>
     
                 <div className="flex gap-2">
-                    <Button variant={"outline"}><Search/></Button>
+                    <ModalSearchModal><Button variant={"outline"}><Search/></Button></ModalSearchModal>
                     <MenuPopoverNotify><Button variant={"outline"}><Bell/></Button></MenuPopoverNotify>
                     <MenuPopoverProfile><Button variant={"link"}>Fernando</Button></MenuPopoverProfile>
                 </div>
