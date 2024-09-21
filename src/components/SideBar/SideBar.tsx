@@ -7,7 +7,7 @@ interface SideBarProps {
 export default function SideBar({openSideBar} : SideBarProps) 
 {
     return (
-        <div className={clsx("w-0 overflow-hidden sticky h-[calc(100vh-80px)] overflow-y-auto border-r-2 border-zinc-100", openSideBar && "md:w-60", !openSideBar && "md:w-20")}>
+        <div className={clsx("w-0 overflow-hidden sticky h-[calc(100vh-80px)] overflow-y-auto border-r-2 border-zinc-100 transition-all", openSideBar && "md:w-60", !openSideBar && "md:w-20")}>
              <ul className="flex flex-col gap-2 w-full " >
                     {
                         MENU.map((item) => {

@@ -1,7 +1,9 @@
-import {   Infinity, Menu, Search } from "lucide-react";
+import {  Bell, Infinity, Menu, Search } from "lucide-react";
 import { Button } from "../ui/button";
 import { MenuPopover } from "../MenuPopover";
 import { useEffect, useState } from "react";
+import { MenuPopoverProfile } from "../MenuPopoverProfile";
+import { MenuPopoverNotify } from "../MenuPopoverNotify";
 
 interface HeaderProps 
 {
@@ -43,4 +45,43 @@ export default function Header({toggleSideBar} : HeaderProps) {
             </div>
         </header>
     )
+}
+
+
+export function HeaderLoged({toggleSideBar} : HeaderProps) {
+        const [width, setWidth] = useState(window.innerWidth);
+
+        useEffect(() => {
+            const handleResize = () => {
+                setWidth(window.innerWidth);
+            };
+    
+            // Adiciona o listener para o evento de resize
+            window.addEventListener('resize', handleResize);
+    
+            // Remove o listener quando o componente é desmontado
+            return () => {
+                window.removeEventListener('resize', handleResize);
+            };
+        }, []);
+    
+        function handleMenuClick() {
+              toggleSideBar(); 
+        }
+        return (
+            <header className="px-4 w-full shadow-md bg-white h-16 items-center justify-between flex ">
+                <div className="flex gap-1 items-center">
+                    {width < 768 ? 
+                        <MenuPopover><Button className="" variant={"outline"}><Menu/></Button></MenuPopover> :
+                        <Button onClick={handleMenuClick} className="" variant={"outline"}><Menu/></Button>}
+                    <Infinity />
+                </div>
+    
+                <div className="flex gap-2">
+                    <Button variant={"outline"}><Search/></Button>
+                    <MenuPopoverNotify><Button variant={"outline"}><Bell/></Button></MenuPopoverNotify>
+                    <MenuPopoverProfile><Button variant={"link"}>Fernando</Button></MenuPopoverProfile>
+                </div>
+            </header>
+        )
 }
