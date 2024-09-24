@@ -70,7 +70,7 @@ export function HeaderLoged({toggleSideBar} : HeaderProps) {
               toggleSideBar(); 
         }
         return (
-            <header className="px-4 w-full shadow-md bg-white h-16 items-center justify-between flex ">
+            <header className="px-4 w-full border-b-2 border-zinc-100 bg-white h-16 items-center justify-between flex ">
                 <div className="flex gap-1 items-center">
                     {width < 768 ? 
                         <MenuPopover><Button className="" variant={"outline"}><Menu/></Button></MenuPopover> :
@@ -81,7 +81,7 @@ export function HeaderLoged({toggleSideBar} : HeaderProps) {
                 <div className="flex gap-2">
                     <ModalSearchModal><Button variant={"outline"}><Search/></Button></ModalSearchModal>
                     <MenuPopoverNotify><Button variant={"outline"}><Bell/></Button></MenuPopoverNotify>
-                    <MenuPopoverProfile><Button variant={"link"}>Fernando</Button></MenuPopoverProfile>
+                    <MenuPopoverProfile><Button  className="bg-blue-700 rounded-full">{String("Fernando").substring(0,1)}</Button></MenuPopoverProfile>
                 </div>
             </header>
         )

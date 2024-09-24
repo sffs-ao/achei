@@ -13,13 +13,13 @@ export const MENU : MenuItem[] = [
         link: "/",
     },
     {
-        name: "Cursos",
-         icon: <Layers2 className="text-blue-900" />,
-        link: "/Layer",        
+        name: "Meu cursos",
+        icon: <BookOpen className="text-blue-900" />,
+        link: "/cursos",        
     },
     {
-        name: "Catalogo",
-        icon: <BookOpen className="text-blue-900" />,
+        name: "Cursos",
+         icon: <Layers2 className="text-blue-900" />,
         link: "/cursos",        
     },
     {
