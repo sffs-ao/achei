@@ -13,13 +13,13 @@ export default function Header() {
   const modalRef = useRef(null); // Referência para o modal
 
   const toggleModal = () => {
-    console.log("Modal toggled");
+    //console.log("Modal toggled");
     setModalVisible((prev) => !prev);
   };
 
   // Função para fechar o modal se o clique for fora do modal
   const handleClickOutside = (event) => {
-    console.log("Clicked outside");
+  //  console.log("Clicked outside");
     if (modalRef.current && !modalRef.current.contains(event.target)) {
       setModalVisible(false);
     }
@@ -36,7 +36,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="shadow bg-light py-3">
+    <header className="bg-light py-3">
       <div className="d-flex justify-content-between align-items-center">
         <div className="header-left">
           <div className="logo-area">

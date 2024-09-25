@@ -18,9 +18,9 @@ const ModalUser = forwardRef((props, ref) => {
             <span>Configurações</span>
           </Link>
         </li>
-        <li className="btn-logout">
+        <li className="btn-logout flex gap-2 items-center">
           <i className="bi bi-power"></i>
-          <span>Sair</span>
+          <Link to="/logout"><span>Sair</span></Link>
         </li>
       </ul>
     </div>

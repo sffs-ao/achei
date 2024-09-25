@@ -5,7 +5,7 @@ import "./SideMenu.css";
 
 export default function SideMenu() {
   return (
-    <aside className="bg-light shadow-sm">
+    <aside className="bg-light shadow-sm z-10">
       <nav>
         <ul className="nav-container ">
           <li className="nav-item">
@@ -20,7 +20,7 @@ export default function SideMenu() {
               className="nav-link d-flex align-items-center"
             >
               <i className="bi bi-person me-2"></i>
-              <span className="link-tex">Formandos</span>
+              <span className="link-tex">Estudantes</span>
             </Link>
           </li>
           <li className="nav-item">
@@ -33,18 +33,15 @@ export default function SideMenu() {
             </Link>
           </li>
           <li className="nav-item">
-            <Link
-              to="/inscricoes"
-              className="nav-link d-flex align-items-center"
-            >
-              <i className="bi bi-calendar-plus me-2"></i>
-              <span className="link-tex">Inscrições</span>
-            </Link>
-          </li>
-          <li className="nav-item">
             <Link to="/turmas" className="nav-link d-flex align-items-center">
               <i className="bi bi-journal-bookmark me-2"></i>
               <span className="link-tex">Turmas</span>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/cursos" className="nav-link d-flex align-items-center">
+              <i className="bi bi-journal-bookmark me-2"></i>
+              <span className="link-tex">Cursos</span>
             </Link>
           </li>
           <li className="nav-item">
@@ -60,6 +57,51 @@ export default function SideMenu() {
             >
               <i className="bi bi-clipboard-data me-2"></i>
               <span className="link-tex">Auditoria</span>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              to="/movimentos"
+              className="nav-link d-flex align-items-center"
+            >
+              <i className="bi bi-cash-stack me-2"></i>
+              <span className="link-tex">Movimentos</span>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/caixa" className="nav-link d-flex align-items-center">
+              <i className="bi bi-safe me-2"></i>
+              <span className="link-tex">Caixa</span>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/banco" className="nav-link d-flex align-items-center">
+              <i className="bi bi-bank me-2"></i>
+              <span className="link-tex">Banco</span>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              to="/faturacao"
+              className="nav-link d-flex align-items-center"
+            >
+              <i className="bi bi-receipt me-2"></i>
+              <span className="link-tex">Facturação</span>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              to="/relatorio"
+              className="nav-link d-flex align-items-center"
+            >
+              <i className="bi bi-file-earmark-bar-graph me-2"></i>
+              <span className="link-tex">Relatórios</span>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/taxa" className="nav-link d-flex align-items-center">
+              <i className="bi bi-cash-coin me-2"></i>
+              <span className="link-tex">Impostos</span>
             </Link>
           </li>
         </ul>
