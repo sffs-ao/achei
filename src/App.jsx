@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
+import "./App.css";
 import Dashboard from "./components/Main/Dashboard/Dashboard";
 import Students from "./components/Main/Students/Students";
 import Instructors from "./components/Main/Instructors/Instructors";
@@ -14,7 +14,7 @@ import Settings from "./components/Main/Settings/Settings";
 import Notification from "./components/Main/Notification/Notification";
 import Profile from "./components/Main/Profile/Profile";
 
-import "./app.css";
+
 import Layout from "./Layout";
 import Sign from "./components/Main/Sign/Sign";
 
