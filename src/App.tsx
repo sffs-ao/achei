@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage'
 import Layout from './components/Layout'
 import Home from './pages/Home/Home'
 import CatalogoPage from './pages/CatalogoPage/CatalogoPage'
+import ForumPage from './pages/Forum/Forum'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route path="/" element={<Home/>} />
         <Route path="/me" element={<Home/>} />
+        <Route path="/forum" element={<ForumPage/>} />
         <Route path="/cursos" element={<CatalogoPage/>} />
       </Route>
       <Route path="/entrar" element={<LoginPage />} />
