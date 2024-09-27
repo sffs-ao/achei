@@ -9,7 +9,9 @@ import { Previligies } from "../../Elements/Previligies";
 import { ModalSaveInstructor } from "../../Elements/ModalSaveInstructor";
 import { GET_PROFILES, IMAGE_URL } from "../../../utils/API";
 import { Pencil, Trash2 } from "lucide-react";
-import { Popover } from "@radix-ui/react-popover";
+import * as Popover from "@radix-ui/react-popover";
+import { Link } from "react-router-dom";
+import { ModalSaveCurse } from "../../Elements/ModalSaveCurse";
 
 export default function CoursePage() {
     const [searchTerm, setSearachTerm] = useState("");
@@ -41,7 +43,7 @@ export default function CoursePage() {
                             onChange={handleSearch}
                             className="search-input"
                         />
-                        <ModalSaveInstructor />
+                       <ModalSaveCurse />
                     </div>
                 </div>
                 <table className="table-content">
@@ -67,11 +69,8 @@ export default function CoursePage() {
                                     <td>nivel</td>
                                     <td>preco</td>
                                     <td>duracao</td>
-                                    <td>Requisitos</td>
-                                    <td>
-
-                                        descricao
-                                    </td>
+                                    <td><PopoverReq><span>Requisitos</span></PopoverReq></td>
+                                    <td><PopoverDescricao><span>Descricao bla bla bla</span></PopoverDescricao></td>
                                     <td>Observacoes</td>
                                     <td><button className="px-4 py-2 text-zinc-800 rounded border hover:bg-zinc-200"><Pencil /></button> <button className="px-4 py-2 text-zinc-800 rounded hover:bg-zinc-200 border"><Trash2 /></button></td>
                                 </tr>
@@ -82,3 +81,27 @@ export default function CoursePage() {
         </section>
     );
 }
+
+
+export const PopoverReq = ({ children }) => (
+    <Popover.Root>
+        <Popover.Trigger>{children}</Popover.Trigger>
+        <Popover.Content className="bg-white shadow-sm border p-1 rounded-md" width="360px">
+            <ul className="flex flex-col">
+                <li className="p-1 text-[16px] font-semibold">Idade: 10 Anos</li>
+                <li className="p-1 text-[16px] font-semibold">Escolaridade: 6ª Classe</li>
+                <li className="p-1 text-[16px] font-semibold">Documento de Identidade: Cédula/Bilhete/Passaporte</li>
+            </ul>
+        </Popover.Content>
+    </Popover.Root>
+);
+
+
+export const PopoverDescricao = ({ children }) => (
+    <Popover.Root>
+        <Popover.Trigger>{children}</Popover.Trigger>
+        <Popover.Content className="bg-white shadow-sm border rounded-md max-w-96 p-4">
+            <p className="font-normal text-zinc-900">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi consequuntur voluptatum voluptatem vitae atque quisquam placeat vel possimus neque ea iste eligendi quae voluptas, vero rem minus aut at doloremque!</p>
+        </Popover.Content>
+    </Popover.Root>
+);

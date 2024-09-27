@@ -120,3 +120,44 @@ export const checkTokenValidity = async (token) => {
 export function removeTokenLocalstorage(params) {
     window.localStorage.removeItem("enanza_")
 }
+
+export const courseSchema = z.object({
+  course_name: z.string({required_error:"O nome do curso é obrigatório"}),
+  description: z.string({required_error:"O descriçacao do curso é obrigatório"}),
+  duration: z.string().transform(Number),
+  level: z.string(),
+  price: z.number().min(0, "O preço deve ser um valor positivo"),
+  prerequisites: z.object({
+    Idade: z.string(),
+    Escolaridade: z.string(),
+    "Documento de Identidade": z.string()
+  }),
+  observations: z.string().optional()  // Observações também podem ser opcionais
+});
+
+export const ESCOLARIDADE = [
+  {
+      value: "6ª Classe",
+  },
+  {
+      value: "7ª Classe",
+  },
+  {
+      value: "8ª Classe",
+  },
+  {
+      value: "9ª Classe",
+  },
+  {
+      value: "10ª Classe",
+  },
+  {
+      value: "11ª Classe",
+  },
+  {
+      value: "12ª Classe",
+  },
+  {
+      value: "Frequencia / Licenciatura",
+  }
+]

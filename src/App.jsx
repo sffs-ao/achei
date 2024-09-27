@@ -27,6 +27,7 @@ import Invoice from "./components/Finance/Invoice/invoice";
 import Report from "./components/Finance/Report/Report";
 import Tax from "./components/Finance/Tax/Tax";
 import CoursePage from "./components/Main/Course/Course";
+import NewCurse from "./components/Main/Course/NewCurse";
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
               <Route path="/relatorio" element={<Report />} />
               <Route path="/cursos" element={<CoursePage />} />
               <Route path="/taxa" element={<Tax />} />
+              <Route path="/novo-curso" element={<NewCurse />}/>
             </Route>
           </Route>
           <Route path="/entrar" element={<Sign />} />
