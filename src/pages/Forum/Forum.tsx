@@ -1,5 +1,5 @@
 import CardForum from "@/components/CardForum";
-import { Link } from "react-router-dom";
+
 
 export default function ForumPage() {
     return (
@@ -8,11 +8,11 @@ export default function ForumPage() {
             <p>Explore as nossas comunidades</p>
 
             <h1 className="font-semibold mt-10">Todos os fóruns</h1>
-            <div className="mt-2">
-                <Link to="/">
-                    <CardForum/>
-                </Link>
-               
+            <div className="mt-2 grid gap-2 md:grid-cols-2 lg:grid-cols-3">
+                <CardForum />
+                <CardForum />
+                <CardForum />
+                <CardForum />
             </div>
         </div>
     )

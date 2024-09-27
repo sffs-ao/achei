@@ -25,7 +25,7 @@ export const MENU : MenuItem[] = [
     {
         name: "Fórum",
         icon: <MessageCircle className="text-blue-900" />,
-        link: "/cursos",        
+        link: "/forum",        
     },
     {
         name: "Suporte",
