@@ -9,10 +9,10 @@ export default function CatalogoPage()
             <p className="font-semibold">Navegue por todo conteudo da SFFS</p>
             <div className="flex mt-4 items-start gap-4">
                 <div className=" overflow-y-scroll scrol flex-1 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                   <Link to="/"> <CardCourse /> </Link>
-                   <Link to="/"> <CardCourse /> </Link>
-                   <Link to="/"> <CardCourse /> </Link>
-                   <Link to="/"> <CardCourse /> </Link>
+                   <Link to="/cursos/2"> <CardCourse /> </Link>
+                   <Link to="/cursos/2"> <CardCourse /> </Link>
+                   <Link to="/cursos/2"> <CardCourse /> </Link>
+                   <Link to="/cursos/2"> <CardCourse /> </Link>
                 </div>
                 <div className="w-64 sticky">
                     <span>Filtros</span>

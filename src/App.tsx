@@ -6,6 +6,8 @@ import Home from './pages/Home/Home'
 import CatalogoPage from './pages/CatalogoPage/CatalogoPage'
 import ForumPage from './pages/Forum/Forum'
 import NotifyPage from './pages/Notifity/NotifyPage'
+import CoursePage from './pages/CursoPage/CoursePage'
+import MyCourseView from './pages/MyCourseView/MyCourseView'
 
 function App() {
   return (
@@ -15,7 +17,11 @@ function App() {
         <Route path="/me" element={<Home/>} />
         <Route path="/forum" element={<ForumPage/>} />
         <Route path="/cursos" element={<CatalogoPage/>} />
+        <Route path="/cursos/:id" element={<CoursePage/>} />
+        <Route path="/cursos/my" element={<MyCourseView/>} />
         <Route path="/notificacoes" element={<NotifyPage/>} />
+        <Route path="/classroom/:id" element={<MyCourseView/>} />
+        
       </Route>
       <Route path="/entrar" element={<LoginPage />} />
     </Routes>

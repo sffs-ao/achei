@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -6,6 +6,7 @@ import { Card, CardHeader } from "../components/ui/card";
 
 export default function LoginPage()
 {
+    const navigate = useNavigate()
     return (
         <div className="flex items-start min-h-screen">
             <div className="relative w-0 overflow-hidden md:flex-1 bg-[url(login.jpg)] h-screen  brightness-50 flex justify-center items-center" >
@@ -30,7 +31,7 @@ export default function LoginPage()
                     </div>
                     <div><Link to="" className="text-sm text-sky-700 text-bold">Esqueci minha senha</Link></div>
                     <div className="w-full flex flex-col mt-2">
-                        <Button className="bg-blue-700 hover:bg-blue-900 transition-colors" type="submit">Entrar</Button>
+                        <Button className="bg-blue-700 hover:bg-blue-900 transition-colors" onClick={()=>navigate("/")} type="button">Entrar</Button>
                     </div>
 
                     <Card className="mt-4">
