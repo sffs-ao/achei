@@ -8,6 +8,7 @@ import ForumPage from './pages/Forum/Forum'
 import NotifyPage from './pages/Notifity/NotifyPage'
 import CoursePage from './pages/CursoPage/CoursePage'
 import MyCourseView from './pages/MyCourseView/MyCourseView'
+import ProfilePage from './pages/Profile/ProgilePage'
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
         <Route path="/cursos/my" element={<MyCourseView/>} />
         <Route path="/notificacoes" element={<NotifyPage/>} />
         <Route path="/classroom/:id" element={<MyCourseView/>} />
-        
+        <Route path="/me/" element={<ProfilePage/>} />
       </Route>
       <Route path="/entrar" element={<LoginPage />} />
     </Routes>
