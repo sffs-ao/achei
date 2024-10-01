@@ -1,4 +1,3 @@
-import CardCourse from "@/components/CardCourse"
 import { Link } from "react-router-dom"
 import CourseCard from "./CourseCard"
 import { CursoMap } from "@/utils"
@@ -18,8 +17,7 @@ export default function CatalogoPage()
                    {CursoMap.map((curso, index)=>(
                         <Link to="/cursos/2" key={index}>
                             <CourseCard course={curso.course}
-                                course_state={curso.course_state}
-                                level={curso.level}
+                                 level={curso.level}
                                 structor={curso.structor}
                                 structor_about={curso.structor_about}
                                 imageCourse={curso.imageCourse}

@@ -1,4 +1,4 @@
-import {  Bell, Infinity, Menu, Search } from "lucide-react";
+import {  Bell, Menu, Search } from "lucide-react";
 import { Button } from "../ui/button";
 import { MenuPopover } from "../MenuPopover";
 import { useEffect, useState } from "react";
