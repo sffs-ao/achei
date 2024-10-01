@@ -12,7 +12,7 @@ export default function MyCourses()
                 <div className=" overflow-y-scroll scrol flex-1 grid md:grid-cols-2 gap-4">
         
                    {CursoMap.map((curso, index)=>(
-                        <Link to="/cursos/2" key={index}>
+                        <Link to="/classroom/2" key={index}>
                             <CourseCard course={curso.course}
                                 level={curso.level}
                                 is_my={true}
