@@ -12,7 +12,7 @@ export default function Home() {
                         <span>Meu perfil</span>
                     </CardHeader>
                     <CardContent>
-                        <Button>Ver perfil</Button>
+                    <Link to="/me"> <Button>Ver perfil</Button></Link>
                         <div className="mt-4">
                             <span className="font-semibold text-zinc-900 text-md">Nivel básico</span>
                             <div className="bg-zinc-300 w-full h-6 rounded-lg  relative">
