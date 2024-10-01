@@ -8,7 +8,10 @@ import ForumPage from './pages/Forum/Forum'
 import NotifyPage from './pages/Notifity/NotifyPage'
 import CoursePage from './pages/CursoPage/CoursePage'
 import MyCourseView from './pages/MyCourseView/MyCourseView'
-import ProfilePage from './pages/Profile/ProgilePage'
+import ProfilePage from './pages/Profile/ProfilePage'
+import MyCourses from './pages/MyCourse/MyCourse'
+import QuizPage from './pages/QuizPage'
+import PostsForum from './pages/PostsForum/PostsForum'
 
 function App() {
   return (
@@ -17,12 +20,15 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/me" element={<Home/>} />
         <Route path="/forum" element={<ForumPage/>} />
+        <Route path="/forum/:id" element={<PostsForum/>} />
         <Route path="/cursos" element={<CatalogoPage/>} />
         <Route path="/cursos/:id" element={<CoursePage/>} />
         <Route path="/cursos/my" element={<MyCourseView/>} />
         <Route path="/notificacoes" element={<NotifyPage/>} />
         <Route path="/classroom/:id" element={<MyCourseView/>} />
+        <Route path="/meus-cursos/" element={<MyCourses/>} />
         <Route path="/me/" element={<ProfilePage/>} />
+        <Route path="/quiz/" element={<QuizPage/>} />
       </Route>
       <Route path="/entrar" element={<LoginPage />} />
     </Routes>

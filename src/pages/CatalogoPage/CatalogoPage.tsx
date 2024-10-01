@@ -1,5 +1,9 @@
 import CardCourse from "@/components/CardCourse"
 import { Link } from "react-router-dom"
+import CourseCard from "./CourseCard"
+import { CursoMap } from "@/utils"
+import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 export default function CatalogoPage()
 {
@@ -9,33 +13,57 @@ export default function CatalogoPage()
             <p className="font-semibold">Navegue por todo conteudo da SFFS</p>
             <div className="flex mt-4 items-start gap-4">
                 <div className=" overflow-y-scroll scrol flex-1 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                   <Link to="/cursos/2"> <CardCourse /> </Link>
-                   <Link to="/cursos/2"> <CardCourse /> </Link>
-                   <Link to="/cursos/2"> <CardCourse /> </Link>
-                   <Link to="/cursos/2"> <CardCourse /> </Link>
+           
+                    
+                   {CursoMap.map((curso, index)=>(
+                        <Link to="/cursos/2" key={index}>
+                            <CourseCard course={curso.course}
+                                course_state={curso.course_state}
+                                level={curso.level}
+                                structor={curso.structor}
+                                structor_about={curso.structor_about}
+                                imageCourse={curso.imageCourse}
+                            />
+                    </Link>
+                   ))}
+                   
                 </div>
                 <div className="w-64 sticky">
-                    <span>Filtros</span>
-                    <div>
+                    <span className="text-lg">Filtros</span>
+
+                    <div className="mt-4">
+                    <Label>Ordem de visualização</Label>
+                        <Select>
+                            <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Selecione a ordem" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem  value="apple">A - Z</SelectItem>
+                                <SelectItem value="banana">Z - A</SelectItem>         
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    <div className="mt-4">
                         <div className="text-zinc-600">
-                            <h3 className="text-lg text-zinc- 800">Nivel</h3>
+                            <h3 className="text-sm font-bold text-zinc-800">Nivel</h3>
                             <div className="flex gap-1 flex-1">
-                                <input id="basico" type="checkbox" />
+                                <input className="text-sm" id="basico" type="checkbox" />
                                 <label htmlFor="basico">Básico</label>
                             </div>
                             <div className="flex gap-1">
-                                <input id="interme" type="checkbox" />
+                                <input className="text-sm" id="interme" type="checkbox" />
                                 <label htmlFor="interme">Intermediario</label>
                             </div>
                             <div className="flex gap-1">
-                                <input id="avancado" type="checkbox" />
+                                <input className="text-sm" id="avancado" type="checkbox" />
                                 <label htmlFor="avancado">Avançado</label>
                             </div>
                         </div>
-                        
                         <div className="w-full h-[3px] bg-slate-100 my-2"></div>
- 
                     </div>
+
+
+                    
                 </div>
             </div>
         </div>

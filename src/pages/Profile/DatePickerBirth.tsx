@@ -77,7 +77,7 @@ const DatePicker = ({ selectedDate, setSelectedDate }: DatePickerProps) => {
             variant={'outline'}
             type="button"
             className={cn(
-              'w-[240px] pl-3 text-left font-normal',
+              'w-full md:w-[240px] pl-3 text-left font-normal',
               !selectedDate && 'text-muted-foreground',
             )}
           >
@@ -91,10 +91,11 @@ const DatePicker = ({ selectedDate, setSelectedDate }: DatePickerProps) => {
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start" onKeyDown={handleKeyDown}>
           <Calendar
+         
             required
             fromYear={new Date().getFullYear() - 100}
             mode="single"
-            toDate={new Date(Date.now() - 1000 * 60 * 60 * 24 * 365 * 18)}
+            toDate={new Date(Date.now() - 1000 * 60 * 60 * 24 * 365 * 17)}
             selected={selectedDate}
             onSelect={(e) => {
               setSelectedDate(e)

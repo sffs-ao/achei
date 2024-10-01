@@ -55,9 +55,11 @@ const form = useForm<FormData>()
   },[messageList])
     useEffect(() => {
        async function firstMessage() {
+            setIsLoading(true)
             const message = await POST_MESSAGE('O que é o verbo to be')
             setMessagesList([...messageList, message])
             console.log(message)
+            setIsLoading(false)
        }
        if (!update){
             firstMessage()

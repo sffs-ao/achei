@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { MenuPopoverProfile } from "../MenuPopoverProfile";
 import { MenuPopoverNotify } from "../MenuPopoverNotify";
 import ModalSearchModal from "../ModalSearchCurso";
-
+import logo from "./../../assets/logo.png"
 interface HeaderProps 
 {
     toggleSideBar: () => void;
@@ -36,7 +36,7 @@ export default function Header({toggleSideBar} : HeaderProps) {
                 {width < 768 ? 
                     <MenuPopover><Button className="" variant={"outline"}><Menu/></Button></MenuPopover> :
                     <Button onClick={handleMenuClick} className="" variant={"outline"}><Menu/></Button>}
-                <Infinity />
+                <img className="w-8" src={logo} />
             </div>
 
             <div className="flex gap-2">
@@ -75,7 +75,7 @@ export function HeaderLoged({toggleSideBar} : HeaderProps) {
                     {width < 768 ? 
                         <MenuPopover><Button className="" variant={"outline"}><Menu/></Button></MenuPopover> :
                         <Button onClick={handleMenuClick} className="" variant={"outline"}><Menu/></Button>}
-                    <Infinity />
+                    <img className="w-8" src={logo} alt="" />
                 </div>
     
                 <div className="flex gap-2">

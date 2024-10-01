@@ -43,57 +43,7 @@ export default function Home() {
                      </Link>
                     
 
-                     <Link to="">
-                        <div className="h-20 flex rounded-sm overflow-hidden">
-                            <div className="bg-primary flex flex-col items-center p-4 text-white" >
-                                    <span className="text-2xl font-semibold">26</span>
-                                    <span className="text-sm ">setembro</span>
-                                </div> 
-                                <div className="flex pl-4 flex-col border shadow-sm w-full justify-center">
-                                    <span className="font-semibold">Exame final</span>
-                                    <span className="text-sm text-zinc-700">11:00 AM</span>
-                                </div>
-                            </div>
-                     </Link>
-                    
-                     <Link to="">
-                        <div className="h-20 flex rounded-sm overflow-hidden">
-                            <div className="bg-primary flex flex-col items-center p-4 text-white" >
-                                    <span className="text-2xl font-semibold">26</span>
-                                    <span className="text-sm ">setembro</span>
-                                </div> 
-                                <div className="flex pl-4 flex-col border shadow-sm w-full justify-center">
-                                    <span className="font-semibold">Exame final</span>
-                                    <span className="text-sm text-zinc-700">11:00 AM</span>
-                                </div>
-                            </div>
-                     </Link>
-
-                     <Link to="">
-                        <div className="h-20 flex rounded-sm overflow-hidden">
-                            <div className="bg-primary flex flex-col items-center p-4 text-white" >
-                                    <span className="text-2xl font-semibold">26</span>
-                                    <span className="text-sm ">setembro</span>
-                                </div> 
-                                <div className="flex pl-4 flex-col border shadow-sm w-full justify-center">
-                                    <span className="font-semibold">Exame final</span>
-                                    <span className="text-sm text-zinc-700">11:00 AM</span>
-                                </div>
-                            </div>
-                     </Link>
-
-                     <Link to="">
-                        <div className="h-20 flex rounded-sm overflow-hidden">
-                            <div className="bg-primary flex flex-col items-center p-4 text-white" >
-                                    <span className="text-2xl font-semibold">26</span>
-                                    <span className="text-sm ">setembro</span>
-                                </div> 
-                                <div className="flex pl-4 flex-col border shadow-sm w-full justify-center">
-                                    <span className="font-semibold">Exame final</span>
-                                    <span className="text-sm text-zinc-700">11:00 AM</span>
-                                </div>
-                            </div>
-                     </Link>
+               
 
                     </div>
                 </div>
