@@ -6,7 +6,7 @@ import DatePicker from "./DatePickerBirth";
 import { useState } from "react";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { GraduationCap, Trophy } from "lucide-react";
+import { GraduationCap } from "lucide-react";
 
 export default function ProfilePage() {
     return (
