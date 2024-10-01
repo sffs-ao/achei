@@ -7,7 +7,7 @@ export default function PostsForum() {
     return (
         <div className="flex flex-col max-w-2xl mx-auto">
             <h1 className="font-semibold text-lg">Comunidade - curso de ingles</h1>
-            <form>
+            <form className="flex flex-col gap-2 items-start">
                 <textarea  className="w-full border shadow-sm rounded-sm  p-2 focus-visible:outline-none" name="" id="" placeholder="Escreva algo..."/>
                 <Button>Publicar</Button>
             </form>
