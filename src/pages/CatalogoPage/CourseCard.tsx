@@ -4,7 +4,6 @@ interface CourseCardProps {
     structor: string;
     course: string;
     structor_about: string;
-    course_state: string;
     imageCourse: any;
     is_my?:boolean
 }
@@ -13,7 +12,6 @@ export default function CourseCard({
   structor,
   course,
   structor_about,
-  course_state,
   imageCourse,
   is_my = false
   

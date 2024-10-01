@@ -14,7 +14,6 @@ export default function MyCourses()
                    {CursoMap.map((curso, index)=>(
                         <Link to="/cursos/2" key={index}>
                             <CourseCard course={curso.course}
-                                course_state={curso.course_state}
                                 level={curso.level}
                                 is_my={true}
                                 structor={curso.structor}
