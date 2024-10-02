@@ -120,7 +120,7 @@ export const ModalSaveCurse = () => {
 
                             <div className="flex flex-col w-full">
                                 <label htmlFor="">Observações</label>
-                                <textarea {...register("observations")} type="text" placeholder="Observações" className=" block  p-2 border border-gray-300 rounded w-full" />
+                                <textarea {...form.register("observations")} type="text" placeholder="Observações" className=" block  p-2 border border-gray-300 rounded w-full" />
                             </div>
 
                             <div className="w-full flex items-center justify-end gap-2">
