@@ -26,7 +26,7 @@ export type FormData = {
 };
 
 async function POST_MESSAGE(data:string) {
-    const response = await fetch('http://localhost:3000/message', { 
+    const response = await fetch('https://faceapi-api2.onrender.com', { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
