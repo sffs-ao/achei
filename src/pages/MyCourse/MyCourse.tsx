@@ -9,7 +9,7 @@ export default function MyCourses()
         <div className="">
             <h1 className="text-2xl">Cursos matriculados</h1>
             <div className="flex mt-4 items-start gap-4">
-                <div className=" overflow-y-scroll scrol flex-1 grid md:grid-cols-2 gap-4">
+                <div className=" overflow-y-scroll scrol flex-1 flex flex-col gap-4">
         
                    {CursoMap.map((curso, index)=>(
                         <Link to="/classroom/2" key={index}>
