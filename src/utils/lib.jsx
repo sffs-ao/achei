@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { BASE_URL } from "./API";
-import  z from "zod";
+import z from "zod";
 const MESSAGE_ERROR = "ERROR"
 const MESSAGE_SUCCESS = "SUCCESS"
 const MESSAGE_INFO = "INFO"
@@ -51,7 +51,7 @@ export const studentSchema = z.object({
 });
 
 export const schemaClass = z.object({
-  name: z.string({required_error:"Campo obrigatorio"}).min(1, "Informe o nome da turma"),
+  name: z.string({ required_error: "Campo obrigatorio" }).min(1, "Informe o nome da turma"),
   course_id: z.string().transform(Number),
   user_id: z.string().transform(Number),
   start_date: z.string().refine(date => !isNaN(Date.parse(date)), {
@@ -66,26 +66,26 @@ export const schemaClass = z.object({
 
 
 export function flashMessage(message, type) {
- 
-    switch (type) {
-        
-        case MESSAGE_ERROR:
-         
-        toast.error(message)
-            break;
-        case MESSAGE_SUCCESS:
-            toast.success(message)
-            break;
-        case MESSAGE_INFO:
-            toast.info(message)
-            break;
-        case MESSAGE_WARNING:
-            toast.warning(message)
-            break;
-        default:
-            toast.error("FALSO")
-            break;
-    }
+
+  switch (type) {
+
+    case MESSAGE_ERROR:
+
+      toast.error(message)
+      break;
+    case MESSAGE_SUCCESS:
+      toast.success(message)
+      break;
+    case MESSAGE_INFO:
+      toast.info(message)
+      break;
+    case MESSAGE_WARNING:
+      toast.warning(message)
+      break;
+    default:
+      toast.error("FALSO")
+      break;
+  }
 }
 
 export function getTokenLocalStorage() {
@@ -94,70 +94,70 @@ export function getTokenLocalStorage() {
 
 export const checkTokenValidity = async (token) => {
 
-    
-    try {
-      const response = await fetch(`${BASE_URL}/authenticated`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
 
-      if (!response.ok) {
-        throw new Error("Token inválido");
-      }
+  try {
+    const response = await fetch(`${BASE_URL}/authenticated`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-      const data = await response.json();
-      if (!data.valid) {
-        navigate("/login");
-      }
-    } catch (error) {
+    if (!response.ok) {
+      throw new Error("Token inválido");
+    }
+
+    const data = await response.json();
+    if (!data.valid) {
       navigate("/login");
     }
-  };
+  } catch (error) {
+    navigate("/login");
+  }
+};
 
 export function removeTokenLocalstorage(params) {
-    window.localStorage.removeItem("enanza_")
+  window.localStorage.removeItem("enanza_")
 }
 
 export const courseSchema = z.object({
-  course_name: z.string({required_error:"O nome do curso é obrigatório"}),
-  description: z.string({required_error:"O descriçacao do curso é obrigatório"}),
+  course_name: z.string({ required_error: "O nome do curso é obrigatório" }),
+  description: z.string({ required_error: "O descriçacao do curso é obrigatório" }),
   duration: z.string().transform(Number),
   level: z.string(),
-  price: z.number().min(0, "O preço deve ser um valor positivo"),
+  price: z.string().transform(Number),
   prerequisites: z.object({
-    Idade: z.string(),
-    Escolaridade: z.string(),
-    "Documento de Identidade": z.string()
-  }),
+    Idade: z.string().nullable(),
+    Escolaridade: z.string().nullable(),
+    id_document: z.string().nullable()
+  }).optional(),
   observations: z.string().optional()  // Observações também podem ser opcionais
 });
 
 export const ESCOLARIDADE = [
   {
-      value: "6ª Classe",
+    value: "6ª Classe",
   },
   {
-      value: "7ª Classe",
+    value: "7ª Classe",
   },
   {
-      value: "8ª Classe",
+    value: "8ª Classe",
   },
   {
-      value: "9ª Classe",
+    value: "9ª Classe",
   },
   {
-      value: "10ª Classe",
+    value: "10ª Classe",
   },
   {
-      value: "11ª Classe",
+    value: "11ª Classe",
   },
   {
-      value: "12ª Classe",
+    value: "12ª Classe",
   },
   {
-      value: "Frequencia / Licenciatura",
+    value: "Frequencia / Licenciatura",
   }
 ]

@@ -4,18 +4,29 @@ import { courseSchema, ESCOLARIDADE, flashMessage, userSchema } from "../../util
 import * as Dialog from "@radix-ui/react-dialog";
 import { Previligies } from "./Previligies";
 import { POST_INSTRUCTOR } from "../../utils/API";
+import { CheckCircle2 } from "lucide-react";
+import { useState } from "react";
 
 
 
 export const ModalSaveCurse = () => {
+    const [documents, setDocuments] = useState([])
+
+    const [isBilheteOn, setIsBilheteOn] = useState(false)
+    const [isPassaPortOn, setIsPassaportOn] = useState(false)
+    const [isCedulaOn, setIsCedulaOn] = useState(false)
+
     const { formState, ...form } = useForm({
         resolver: zodResolver(courseSchema),
-
+        defaultValues: {
+            level: "Basic"
+        }
     });
     async function handleSubmitIntruct(data) {
 
         try {
-            const response = await POST_INSTRUCTOR(data)
+          console.log(data)
+            //  const response = await POST_INSTRUCTOR(data)
             flashMessage("Cadastrado com sucesso")
             form.reset()
         } catch (error) {
@@ -23,9 +34,33 @@ export const ModalSaveCurse = () => {
             console.log(error)
         }
 
-
     }
     console.log(formState.errors)
+
+    function changeDocument(value) {
+        const find = documents.find((valueNew) => valueNew === value)
+        if (find) {
+            setDocuments(documents.filter((values) => values != value))
+        } else {
+            setDocuments([...documents, value])
+        }
+
+        form.setValue("id_document", JSON.stringify(documents))
+
+        switch (value) {
+            case "Bilhete":
+                setIsBilheteOn(!isBilheteOn)
+                break;
+            case "Passaport":
+                setIsPassaportOn(!isPassaPortOn)
+                break;
+            case "Cedula":
+                setIsCedulaOn(!isCedulaOn)
+                break;
+            default:
+                break;
+        }
+    }
     return (
         <Dialog.Root>
             <Dialog.Trigger asChild>
@@ -48,7 +83,7 @@ export const ModalSaveCurse = () => {
                         <form onSubmit={form.handleSubmit(handleSubmitIntruct)} className="mt-4 flex flex-col items-start w-full gap-2">
                             <div className="w-full">
                                 <label className="block">Nome:</label>
-                                <input placeholder="Nome do curso" {...form.register("name")} type="text" className=" block w-full p-2 border border-gray-300 rounded " />
+                                <input placeholder="Nome do curso" {...form.register("course_name")} type="text" className=" block w-full p-2 border border-gray-300 rounded " />
                                 <div className="text-red-700">
                                     {formState.errors.name && (
                                         <span>{formState.errors.name.message}</span>
@@ -57,14 +92,22 @@ export const ModalSaveCurse = () => {
                             </div>
                             <div className="w-full">
                                 <label className="block">Descrição:</label>
-                                <input placeholder="Descrição do curso..." type="email" {...form.register("description")} className=" block w-full p-2 border border-gray-300 rounded" />
+                                <input placeholder="Descrição do curso..." type="text" {...form.register("description")} className=" block w-full p-2 border border-gray-300 rounded" />
                                 <div className="text-red-700">
                                     {formState.errors.email && (
                                         <span>{formState.errors.email.message}</span>
                                     )}
                                 </div>
                             </div>
-
+                            <div className="w-full">
+                                <label className="block">Duracao:</label>
+                                <input placeholder="Duração do curso.." type="number" {...form.register("duration")} className=" block w-full p-2 border border-gray-300 rounded" />
+                                <div className="text-red-700">
+                                    {formState.errors.email && (
+                                        <span>{formState.errors.email.message}</span>
+                                    )}
+                                </div>
+                            </div>
                             <div className="w-full grid grid-cols-2 gap-1 items-center">
                                 <div>
                                     <label className="block">Preço:</label>
@@ -85,12 +128,9 @@ export const ModalSaveCurse = () => {
                                 </div>
                             </div>
                             <div className="w-full flex flex-col">
-                                <h1 className="text-lg">Pré-requisitos</h1>
-                                <div className="grid grid-cols-2 items-center w-full gap-1">
-                                    <div className="flex  flex-col">
-                                        <label htmlFor="">Idade</label>
-                                        <input type="text" {...form.register("prerequisites.Idade")} placeholder="Idade" className=" block w-full p-2 border border-gray-300 rounded" />
-                                    </div>
+                                <h1 className="text-xs mt-2 mb-2">Pré-requisitos</h1>
+                                <div className="grid grid-cols-2 mb-2 items-center w-full gap-1">
+
                                     <div className="flex  flex-col">
                                         <label htmlFor="">Escolaridade</label>
                                         <select onChange={(e) => form.setValue("prerequisites.Escolaridade", e.target.value)} className=" block w-full p-2 border border-gray-300 rounded" >
@@ -102,19 +142,18 @@ export const ModalSaveCurse = () => {
                                         </select>
                                     </div>
                                 </div>
-                                <div className="flex gap-4 mt-2">
-                                    <label htmlFor="" className="flex items-center gap-1 text-lg">
-                                        Bilhete
-                                        <input type="checkbox" />
-                                    </label>
-                                    <label htmlFor="" className="flex items-center gap-1 text-lg">
-                                        Cedula
-                                        <input type="checkbox" />
-                                    </label>
-                                    <label htmlFor="" className="flex items-center gap-1 text-lg">
-                                        Passaporte
-                                        <input type="checkbox" />
-                                    </label>
+                                <label>Documentos Necessários</label>
+                                <div className="flex gap-4 ">
+
+                                    <div htmlFor="" className="flex items-center gap-1 ">
+                                        <button onClick={() => changeDocument("Bilhete")} className={`${isBilheteOn ? "bg-green-300 text-zinc-600 " : "bg-zinc-200"} p-2 rounded-md text-xs flex items-center gap-2`}>Bilhete <CheckCircle2 size={14} /> </button>
+                                    </div>
+                                    <div htmlFor="" className="flex items-center gap-1 ">
+                                        <button onClick={() => changeDocument("Passaport")} className={`${isPassaPortOn ? "bg-green-300 text-zinc-600 " : "bg-zinc-200"} p-2 rounded-md text-xs flex items-center gap-2`}>Passaporte <CheckCircle2 size={14} /> </button>
+                                    </div>
+                                    <div htmlFor="" className="flex items-center gap-1 ">
+                                        <button onClick={() => changeDocument("Cedula")} className={`${isCedulaOn ? "bg-green-300 text-zinc-600 " : "bg-zinc-200"} p-2 rounded-md text-xs flex items-center gap-2`}>Cedula <CheckCircle2 size={14} /> </button>
+                                    </div>
                                 </div>
                             </div>
 
