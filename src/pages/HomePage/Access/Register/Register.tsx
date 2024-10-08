@@ -5,6 +5,9 @@ import imageName from "../../../../assets/image/logo-bg.png"
 import "./ModalRegister";
 import ModalRegister from "./ModalRegister";
 import { CREATE_USER_ACCOUNT } from "./RegisterReq";
+import { useMutation } from "@tanstack/react-query";
+import { CREATE_ACCOUNT, SUBMIT_CODE_VERIFY } from "../../../../lib/API";
+import { Loader2 } from "lucide-react";
 
 
 export default function Register() {  // Estado para os campos do formulário
@@ -15,10 +18,21 @@ export default function Register() {  // Estado para os campos do formulário
   const [error, setError] = useState("");
   const [submit, setSubmit] = useState(false);
 
+  const {mutateAsync: createRegister, isPending} = useMutation({
+    mutationFn: CREATE_ACCOUNT,
+    onSuccess(data){
+      console.log("onSuccess ", data)
+      setSubmit(true);
+    },
+    onError(error){
+      alert("Código inválido")
+      console.log("onError ", error)
+    }
+  })
   // Função para lidar com o envio do formulário
   const handleSubmit = async (e: any) => {
     e.preventDefault(); // Previne o comportamento padrão do formulário (refresh da página)
-
+   
     // Validação simples das senhas
     if (password !== confirmPassword) {
       setError("As senhas não coincidem.");
@@ -33,18 +47,8 @@ export default function Register() {  // Estado para os campos do formulário
       return;
     }
 
-
     try {
-      // Chama a função para criar a conta de usuário
-      const response = await CREATE_USER_ACCOUNT(name, email, password);
-
-      // Verifica se a resposta é um JSON válido
-      if (!response || typeof response !== "object") {
-        throw new Error("Resposta inválida do servidor");
-      }
-      setSubmit(true);
-      console.log("Usuário criado com sucesso:", response);
-      // Continue o fluxo com base na resposta
+      createRegister({name, email, password})
     } catch (err) {
       console.error("Erro ao criar conta:", err);
       setError("Ocorreu um erro ao criar a conta.");
@@ -53,7 +57,7 @@ export default function Register() {  // Estado para os campos do formulário
 
   return (
     <div className="register-container">
-      <ModalRegister submit={submit} setSubmit={setSubmit} />
+      <ModalRegister email={email} submit={submit} setSubmit={setSubmit} />
       <div className="register">
         <div className="publicidade">
           <img src={imageName} alt="" className="image-name" />
@@ -122,8 +126,8 @@ export default function Register() {  // Estado para os campos do formulário
           </div>
           <div className="form-group ">
             {/* <Link to="/confirm"> */}
-            <button type="submit" className="btn" id="btn-submit-register">
-              Avançar
+            <button type="submit" className="btn flex items-center justify-center gap-2" id="btn-submit-register">
+              Avançar {isPending && <Loader2 className="animate-spin" size={14}/>}
             </button>
             {/* </Link> */}
           </div>
