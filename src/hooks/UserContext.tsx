@@ -1,4 +1,4 @@
-import { BASE_URL, APP_NAME  } from "../lib/API";
+import { BASE_URL, APP_NAME, removeLocalStorageToken  } from "../lib/API";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 export interface User {
@@ -14,6 +14,7 @@ interface contextProps {
   setUser: (user: User) => void;
   loading: boolean;
   message: string | null;
+  logout: () => void;
 }
 
 export const UserContext = createContext({} as contextProps);
@@ -22,14 +23,17 @@ export const UserProvider = ({ children }: {children: ReactNode}) => {
   const [user, setUser] = useState<User|null>(null);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
+ 
+  function logout() {
+    removeLocalStorageToken();
+    setUser(null);
+  }
+
   useEffect(() => {
     async function getToken() {
       const token = localStorage.getItem(`${APP_NAME}_`);
       if (!token) {
-        alert("Nao tem token");
         setUser(null);
-        setMessage("Deve iniciar sessão");
-        setLoading(false);
         return;
       }else
         console.log("token already exists")
@@ -41,20 +45,17 @@ export const UserProvider = ({ children }: {children: ReactNode}) => {
             Authorization: `Bearer ${token}`,
           },
         });
-
         if (!response.ok) {
           setMessage("Sessao espirada, faça login novamente");
           throw new Error("Token inválido");
         }
         const data = await response.json();
-        console.log(data)
-        /*if (!data.valid) {
-          setMessage("Sessao espirada, faça login novamente");
-          setUser(null);
-        }*/
-       if(data.status != 2)
-        setUser(data);
-      } catch (error) {
+        if(data.id)
+          setUser(data);
+        else
+          throw new Error("Token inválido");   
+  }
+     catch (error) {
         setUser(null);
         setMessage("Deve iniciar sessão");
         console.log(error);
@@ -66,7 +67,7 @@ export const UserProvider = ({ children }: {children: ReactNode}) => {
   }, []);
 console.log(user)
   return (
-    <UserContext.Provider value={{ user, setUser: setUser, loading, message }}>
+    <UserContext.Provider value={{ user, setUser: setUser, loading, message, logout }}>
       {children}
     </UserContext.Provider>
   );

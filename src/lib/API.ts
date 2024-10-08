@@ -21,6 +21,16 @@ export const SUBMIT_CODE_VERIFY = async ({email, code}: {email:string, code: str
     return await response.json();
   };
 
+  export const login = async ({email, password}:{email:string, password:string}) => {
+    const response = await fetch(`${BASE_URL}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+    return await response.json();
+  };
 
   export const CREATE_ACCOUNT = async (data: CreateStudent) => {
     const response = await fetch(`${BASE_URL}/account/create`, {
@@ -41,3 +51,7 @@ export const SUBMIT_CODE_VERIFY = async ({email, code}: {email:string, code: str
     window.localStorage.getItem(`${APP_NAME}_`);
   };
 
+
+  export const removeLocalStorageToken = () => {
+    window.localStorage.removeItem(`${APP_NAME}_`);
+  }

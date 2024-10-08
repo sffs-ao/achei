@@ -26,7 +26,7 @@ export default function Register() {
       setSubmit(true);
     },
     onError(error) {
-      toast.error("Mo nengue, tá errado");
+      toast.error("O Email já existe");
       console.log("onError ", error);
     },
   });

@@ -18,6 +18,8 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 /* import { Toast } from '@radix-ui/react-toast' */
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProtectedRoutes from "./ProtectedRoute";
+import Logout from "./pages/Logout/Logout";
 
 function App() {
   const client = new QueryClient();
@@ -26,22 +28,29 @@ function App() {
       <ToastContainer />
       <QueryClientProvider client={client}>
         <Routes>
-          <Route path="/" element={<Start />} />
-          <Route path="/portal" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="forum" element={<ForumPage />} />
-            <Route path="forum/:id" element={<PostsForum />} />
-            <Route path="add-curso/:id" element={<PostsForum />} />
-            <Route path="cursos" element={<CatalogoPage />} />
-            <Route path="cursos/:id" element={<CoursePage />} />
-            <Route path="cursos/my" element={<MyCourseView />} />
-            <Route path="notificacoes" element={<NotifyPage />} />
-            <Route path="classroom/:id" element={<MyCourseView />} />
-            <Route path="meus-cursos/" element={<MyCourses />} />
-            <Route path="me" element={<ProfilePage />} />
-            <Route path="quiz" element={<QuizPage />} />
+            <Route path="/" element={<Start />} />
+            <Route path="/portal" element={<ProtectedRoutes />}>
+                <Route path="" element={<Layout />}>
+                <Route path="" element={<Home />} />
+                <Route path="forum" element={<ForumPage />} />
+                <Route path="forum/:id" element={<PostsForum />} />
+                <Route path="add-curso/:id" element={<PostsForum />} />
+                <Route path="cursos" element={<CatalogoPage />} />
+                <Route path="cursos/:id" element={<CoursePage />} />
+                <Route path="cursos/my" element={<MyCourseView />} />
+                <Route path="notificacoes" element={<NotifyPage />} />
+                <Route path="classroom/:id" element={<MyCourseView />} />
+                <Route path="meus-cursos/" element={<MyCourses />} />
+                <Route path="me" element={<ProfilePage />} />
+              </Route>
+              
+              <Route path="quiz" element={<ProtectedRoutes />} >
+                  <Route path="" element={<QuizPage />} />
+              </Route>
+              <Route path="quiz" element={<QuizPage />} />
           </Route>
           <Route path="/entrar" element={<LoginPage />} />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
       </QueryClientProvider>
     </UserProvider>

@@ -7,6 +7,7 @@ import { saveLocalStorageToken, SUBMIT_CODE_VERIFY } from "../../../../lib/API";
 import { UserContext, useUserContext } from "@/hooks/UserContext";
 import { Loader2 } from "lucide-react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const ModalRegister = ({
   submit,
@@ -17,6 +18,7 @@ const ModalRegister = ({
   setSubmit: (state: boolean) => void;
   email: string;
 }) => {
+  const navigate = useNavigate();
   const [code, setCode] = React.useState("");
   const { setUser } = useUserContext();
   const { mutateAsync: createRegister, isPending } = useMutation({
@@ -26,16 +28,17 @@ const ModalRegister = ({
       console.log("onSuccess ", data);
       saveLocalStorageToken(data.token);
       setUser(data.student);
+      navigate("/portal");
     },
     onError(error) {
-      toast.error("Não foi possível cadastrar");
+      toast.error("NCodigo invalido");
       console.log("onError ", error);
     },
   });
 
   function handleSubmit() {
     if (code.length < 6) {
-      alert("Código inválido");
+      toast.error("Codigo invalido");
       return;
     }
     createRegister({ email, code });
