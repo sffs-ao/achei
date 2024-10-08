@@ -1,5 +1,11 @@
-import { BASE_URL, APP_NAME, removeLocalStorageToken  } from "../lib/API";
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { BASE_URL, APP_NAME, removeLocalStorageToken } from "../lib/API";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 export interface User {
   id: number;
@@ -19,11 +25,11 @@ interface contextProps {
 
 export const UserContext = createContext({} as contextProps);
 
-export const UserProvider = ({ children }: {children: ReactNode}) => {
-  const [user, setUser] = useState<User|null>(null);
+export const UserProvider = ({ children }: { children: ReactNode }) => {
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
- 
+
   function logout() {
     removeLocalStorageToken();
     setUser(null);
@@ -34,9 +40,9 @@ export const UserProvider = ({ children }: {children: ReactNode}) => {
       const token = localStorage.getItem(`${APP_NAME}_`);
       if (!token) {
         setUser(null);
+        setLoading(false);
         return;
-      }else
-        console.log("token already exists")
+      } else console.log("token already exists");
       try {
         const response = await fetch(`${BASE_URL}/profiles`, {
           method: "GET",
@@ -50,12 +56,9 @@ export const UserProvider = ({ children }: {children: ReactNode}) => {
           throw new Error("Token inválido");
         }
         const data = await response.json();
-        if(data.id)
-          setUser(data);
-        else
-          throw new Error("Token inválido");   
-  }
-     catch (error) {
+        if (data.id) setUser(data);
+        else throw new Error("Token inválido");
+      } catch (error) {
         setUser(null);
         setMessage("Deve iniciar sessão");
         console.log(error);
@@ -65,16 +68,17 @@ export const UserProvider = ({ children }: {children: ReactNode}) => {
     }
     getToken();
   }, []);
-console.log(user)
+  console.log(user);
   return (
-    <UserContext.Provider value={{ user, setUser: setUser, loading, message, logout }}>
+    <UserContext.Provider
+      value={{ user, setUser: setUser, loading, message, logout }}
+    >
       {children}
     </UserContext.Provider>
   );
 };
 
-
 export const useUserContext = () => {
   const contexto = useContext(UserContext);
-  return contexto
-}
+  return contexto;
+};
