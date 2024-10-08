@@ -14,28 +14,32 @@ import QuizPage from './pages/QuizPage'
 import PostsForum from './pages/PostsForum/PostsForum'
 import Start from './pages/HomePage/HomePage'
 import {  UserProvider } from './hooks/UserContext'
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 
 function App() {
+  const client = new QueryClient()
   return (
     <UserProvider>
-    <Routes>
-      <Route path="/" element={<Start />} />
-      <Route path="/portal" element={<Layout />}>
-        <Route index element={<Home/>} />
-        <Route path="forum" element={<ForumPage/>} />
-        <Route path="forum/:id" element={<PostsForum/>} />
-        <Route path="add-curso/:id" element={<PostsForum/>} />
-        <Route path="cursos" element={<CatalogoPage/>} />
-        <Route path="cursos/:id" element={<CoursePage/>} />
-        <Route path="cursos/my" element={<MyCourseView/>} />
-        <Route path="notificacoes" element={<NotifyPage/>} />
-        <Route path="classroom/:id" element={<MyCourseView/>} />
-        <Route path="meus-cursos/" element={<MyCourses/>} />
-        <Route path="me" element={<ProfilePage/>} />
-        <Route path="quiz" element={<QuizPage/>} />
-      </Route>
-      <Route path="/entrar" element={<LoginPage />} />
-    </Routes>
+      <QueryClientProvider client={client}>
+        <Routes>
+          <Route path="/" element={<Start />} />
+          <Route path="/portal" element={<Layout />}>
+            <Route index element={<Home/>} />
+            <Route path="forum" element={<ForumPage/>} />
+            <Route path="forum/:id" element={<PostsForum/>} />
+            <Route path="add-curso/:id" element={<PostsForum/>} />
+            <Route path="cursos" element={<CatalogoPage/>} />
+            <Route path="cursos/:id" element={<CoursePage/>} />
+            <Route path="cursos/my" element={<MyCourseView/>} />
+            <Route path="notificacoes" element={<NotifyPage/>} />
+            <Route path="classroom/:id" element={<MyCourseView/>} />
+            <Route path="meus-cursos/" element={<MyCourses/>} />
+            <Route path="me" element={<ProfilePage/>} />
+            <Route path="quiz" element={<QuizPage/>} />
+          </Route>
+          <Route path="/entrar" element={<LoginPage />} />
+        </Routes>
+      </QueryClientProvider>
     </UserProvider>
   )
 }

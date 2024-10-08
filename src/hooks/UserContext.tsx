@@ -1,25 +1,38 @@
 import { BASE_URL, APP_NAME  } from "../lib/API";
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  created_at: string;
+  updated_at: string;
+}
 
-export const UserContext = createContext({});
+interface contextProps {
+  user: User | null;
+  setUser: (user: User) => void;
+  loading: boolean;
+  message: string | null;
+}
+
+export const UserContext = createContext({} as contextProps);
 
 export const UserProvider = ({ children }: {children: ReactNode}) => {
-  const [user, setUser] = useState<string|null>("");
+  const [user, setUser] = useState<User|null>(null);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
   useEffect(() => {
     async function getToken() {
-      const token = localStorage.getItem(APP_NAME);
+      const token = localStorage.getItem(`${APP_NAME}_`);
       if (!token) {
         alert("Nao tem token");
         setUser(null);
-       // setMessage("Deve iniciar sessão");
+        setMessage("Deve iniciar sessão");
         setLoading(false);
         return;
-      }else{
-        console.log("tem token")
-      }
+      }else
+        console.log("token already exists")
       try {
         const response = await fetch(`${BASE_URL}/profiles`, {
           method: "GET",
@@ -51,10 +64,16 @@ export const UserProvider = ({ children }: {children: ReactNode}) => {
     }
     getToken();
   }, []);
-
+console.log(user)
   return (
-    <UserContext.Provider value={{ user, setUser, loading, message }}>
+    <UserContext.Provider value={{ user, setUser: setUser, loading, message }}>
       {children}
     </UserContext.Provider>
   );
 };
+
+
+export const useUserContext = () => {
+  const contexto = useContext(UserContext);
+  return contexto
+}
