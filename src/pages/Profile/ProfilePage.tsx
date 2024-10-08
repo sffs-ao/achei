@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -24,7 +24,6 @@ export default function ProfilePage() {
         <CardHeader className="relative h-20">
           <div className="absolute flex items-center justify-center rounded-full h-28 w-28 -bottom-28 left-2/4 -translate-y-2/4 -translate-x-2/4 ">
             <img src={userProfile} alt="" />
-            {/* <CardTitle className="text-white">FS</CardTitle> */}
           </div>
         </CardHeader>
 
