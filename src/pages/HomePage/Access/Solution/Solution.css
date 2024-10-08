@@ -1,0 +1,39 @@
+.solution-content h1 {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 0.5em;
+  line-height: 1.2em;
+}
+
+.solution-content .sub-title {
+  opacity: 0.7;
+  text-align: center;
+}
+
+.solution-content ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5em 0;
+}
+
+.solution-content ul li {
+  color: var(--text-color);
+  padding: 0.7em 1.5em;
+  background-color: #fff;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: 0.3s;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.solution-content ul li:hover {
+  background-color: #f8f8f8;
+}
+@media screen and (min-width: 1000px) {
+  
+}
