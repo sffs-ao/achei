@@ -99,7 +99,7 @@ export default function Start() {
   ];
 
   return (
-    <>
+    <div className="home-page">
       <Header />
 
       <div className="hidden" ref={(el) => sectionsRef.current.push(el)}>
@@ -111,7 +111,7 @@ export default function Start() {
       </div>
 
       <div
-        className="card-contact hidden"
+        className="hidden card-contact"
         ref={(el) => sectionsRef.current.push(el)}
       >
         <ContactCard
@@ -135,7 +135,7 @@ export default function Start() {
       <div className="funcionamento center-text">
         <h1>Como funciona a plataforma</h1>
         <div
-          className="card-funcionamento-content hidden"
+          className="hidden card-funcionamento-content"
           ref={(el) => sectionsRef.current.push(el)}
         >
           <FunctionCard
@@ -165,7 +165,7 @@ export default function Start() {
         <div className="center-text">
           <h1>Veja a nossa gama de cursos</h1>
           <div
-            className="course-content hidden"
+            className="hidden course-content"
             ref={(el) => sectionsRef.current.push(el)}
           >
             {cursos.map((curso, index) => (
@@ -187,7 +187,7 @@ export default function Start() {
         <div className="center-text">
           <h3>Além de formações, ganhe acesso a diversos previlégios</h3>
           <div
-            className="card-previlegies-content hidden"
+            className="hidden card-previlegies-content"
             ref={(el) => sectionsRef.current.push(el)}
           >
             <Previlegies image={imagePrevilegies} type="Gold" clr="#f3d678" />
@@ -198,7 +198,7 @@ export default function Start() {
       </div>
       <div className="center-text">
         <div
-          className="about-container hidden"
+          className="hidden about-container"
           ref={(el) => sectionsRef.current.push(el)}
         >
           <About
@@ -238,7 +238,7 @@ export default function Start() {
             </div>
           </div>
           <div
-            className="depoiments-downn hidden"
+            className="hidden depoiments-downn"
             ref={(el) => sectionsRef.current.push(el)}
           >
             <DepoimentsCard />
@@ -280,6 +280,6 @@ export default function Start() {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }

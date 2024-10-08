@@ -2,11 +2,11 @@
   background-color: #fff;
   padding: 4em 2em;
 }
+
 .depoiments-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /*   background-color: red; */
   margin-bottom: 2em;
 }
 
@@ -59,6 +59,7 @@
   height: 40px;
   border-radius: 50%;
 }
+
 .img-depoiments {
   margin-right: 0.5em;
 }

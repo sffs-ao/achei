@@ -11,21 +11,15 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #fff;
+  background-color: var(--box-bg);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 999;
+  z-index: 10;
 }
 
-/* @media screen and (max-width: 430px) {
-  #header-area {
-    padding: 1em;
-  }
-}
- */
 @media screen and (max-width: 600px) {
   #header-area {
     padding: 1em;
@@ -38,11 +32,6 @@ a {
   }
 }
 
-/* @media screen and (min-width: 431px) {
-  #header-area {
-    padding: 1em 2em;
-  }
-} */
 .header-left-side {
   display: flex;
   align-items: center;
@@ -76,6 +65,7 @@ a {
 
   padding-left: 0.5em;
 }
+
 .menu-header {
   padding-right: 0.5em;
   height: 100%;
@@ -106,18 +96,9 @@ a {
   font-weight: bold;
   margin-left: 0.4em;
 }
-/* .logo-name span:nth-child(1) {
-  color: blue;
-}
-.logo-name span:nth-child(2) {
-  color: red;
-} */
 
 .access-area {
   padding-left: 1em;
-  display: flex;
-  align-items: center;
-  /*   border-left: 1px solid rgba(0, 0, 0, 0.1); */
 }
 
 .access-area button {
@@ -168,15 +149,17 @@ a {
 .access-area button:nth-child(2):hover {
   background-color: var(--primary-color);
 }
+
 @media screen and (max-width: 1199px) {
   .logo-name {
     display: none;
   }
 
   .access-area button:nth-child(1) span {
-  /*  display: none;*/
+    display: none;
   }
 }
+
 @media screen and (min-width: 1200px) {
   .menu-header {
     display: flex;
@@ -203,10 +186,15 @@ a {
     display: none;
   }
 
+  .access-area button {
+    font-weight: 900;
+  }
+
   .access-area button:nth-child(1) .bi {
     position: absolute;
     font-size: 1.9em;
   }
+
   .link-logo {
     border-right: 1px solid rgba(0, 0, 0, 0.1);
   }

@@ -21,7 +21,7 @@
 .publicidade {
   background: linear-gradient(90deg, #a2c2e2, #b2e0d0, #f0c2b7, #e6b3e0);
   padding: 2.5em;
-  height: 611.38px;
+  height: 630px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,6 +61,7 @@
 }
 
 .register form h1 {
+  font-weight: 900;
   font-size: 1em;
   margin-bottom: 0.7em;
 }
@@ -68,6 +69,9 @@
 .register .form-group {
   position: relative;
   margin-bottom: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .bi-left {
@@ -84,6 +88,7 @@
   border-radius: 4px;
   padding: 1em 0.4em 1em 3em;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 0.8em;
 }
 
 .terms {
@@ -116,14 +121,12 @@
 }
 
 #btn-submit-register {
-  background: #ff6b6b;
+  background: var(--primary-color);
   border: none;
-  font-weight: 700;
+  font-weight: 600;
   width: 100%;
   border-radius: 4px;
   cursor: pointer;
-  color: white;
-  height: 3rem;
 }
 
 .contact-area {
@@ -156,9 +159,6 @@
 .contact-text {
   font-size: 0.8em;
   line-height: 1.5em;
-}
-
-@media screen and (max-width: 1039px) {
 }
 
 @media screen and (min-width: 1040px) {

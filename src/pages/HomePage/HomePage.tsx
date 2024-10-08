@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from "react";
 
-import "./Start.css";
+import "./HomePage.css";
 import imagePrevilegies from "../../assets/image/pacotes.png";
-
 
 import { Link } from "react-router-dom";
 
@@ -22,7 +21,6 @@ import Footer from "./Layout/Footer/Footer";
 import Slogan from "./Access/Slogan/Slogan";
 import Faq from "./Access/Faq/Faq";
 import Register from "./Access/Register/Register";
-
 
 export default function Start() {
   const sectionsRef = useRef<(HTMLDivElement | HTMLUListElement | null)[]>([]);
@@ -103,14 +101,20 @@ export default function Start() {
   ];
 
   return (
-    <>
+    <div className="home-page">
       <HeaderHomePage />
 
-      <div className="hide" ref={(el: HTMLDivElement | null) => sectionsRef.current.push(el)}>
+      <div
+        className="hide"
+        ref={(el: HTMLDivElement | null) => sectionsRef.current.push(el)}
+      >
         <Slogan />
       </div>
 
-      <div className="hide" ref={(el: HTMLDivElement | null) => sectionsRef.current.push(el)}>
+      <div
+        className="hide"
+        ref={(el: HTMLDivElement | null) => sectionsRef.current.push(el)}
+      >
         <Register />
       </div>
 
@@ -174,7 +178,7 @@ export default function Start() {
           >
             {cursos.map((curso, index) => (
               <CourseCard
-              address=""
+                address=""
                 key={index}
                 course={curso.course}
                 level={curso.level}
@@ -187,7 +191,7 @@ export default function Start() {
           </div>
         </div>
       </div>
-{/*
+      {/*
       <div className="promotions">
         <div className="center-text">
           <h3>Além de formações, ganhe acesso a diversos previlégios</h3>
@@ -287,6 +291,6 @@ export default function Start() {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
