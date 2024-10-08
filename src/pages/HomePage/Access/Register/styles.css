@@ -1,15 +1,7 @@
-/* @import "@radix-ui/colors/black-alpha.css";
+@import "@radix-ui/colors/black-alpha.css";
 @import "@radix-ui/colors/green.css";
 @import "@radix-ui/colors/mauve.css";
-@import "@radix-ui/colors/violet.css"; */
-
-/* reset */
-
-/* button,
-fieldset,
-input {
-  all: unset;
-} */
+@import "@radix-ui/colors/violet.css";
 
 .DialogOverlay {
   background-color: rgba(0, 0, 0, 0.7);
@@ -67,7 +59,7 @@ input {
 .Button.violet {
   background-color: white;
   color: var(--violet-11);
-  box-shadow: 0 2px 10px var(--black-a7);
+  box-shadow: 0 1px 4px var(--black-a7);
 }
 
 .Button.violet:hover {
@@ -120,13 +112,6 @@ input {
   margin-bottom: 15px;
 }
 
-/* .Label {
-  font-size: 15px;
-  color: var(--violet-11);
-  width: 90px;
-  text-align: right;
-} */
-
 .Input {
   width: 100%;
   flex: 1;
@@ -134,16 +119,27 @@ input {
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  padding: 0 10px;
   font-size: 15px;
   line-height: 1;
   color: var(--violet-11);
   box-shadow: 0 0 0 1px var(--violet-7);
   height: 35px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 1.5em 0.5em;
 }
 
 .Input:focus {
   box-shadow: 0 0 0 2px var(--violet-8);
+}
+
+Fieldset input[type="number"]::-webkit-outer-spin-button,
+Fieldset input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+Fieldset input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 @keyframes overlayShow {
@@ -164,4 +160,8 @@ input {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
+}
+
+.btn-confirm {
+  margin-right: 01em;
 }
