@@ -25,8 +25,6 @@ export default function LoginPage() {
 
     useEffect(() => {
         if (user) {
-        
-
           navigate("/portal");
         }
       }, [user]);
@@ -45,15 +43,12 @@ export default function LoginPage() {
             console.log(data);
             if(data.token){
                 saveLocalStorageToken(data.token);
-                setUser(data.user);
+                setUser(data);
                 toast.success("Sessão iniciada com sucesso")
-                //  navigate("/portal");
+                navigate("/portal");
             }else {
                 toast.error("Nao foi possivel iniciar sessão")
             }
-          //  useClient.invalidateQueries("get-classes")
-          //  flashMessage("Cadastrado com sucesso", "SUCCESS")
-          //  setOpenChangeModal(false)
         },
         onError(error){
             toast.error("Nao foi possivel iniciar sessão")
