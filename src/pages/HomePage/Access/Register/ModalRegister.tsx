@@ -1,10 +1,13 @@
 import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-/* import { Cross2Icon } from "@radix-ui/react-icons"; */
 import "./styles.css";
+import {useQuery, useMutation} from "@tanstack/react-query"
 
 const ModalRegister = ({ submit, setSubmit }: {submit:boolean, setSubmit:(state:boolean)=>void}) => (
-  <Dialog.Root open={submit} onOpenChange={setSubmit}>
+ 
+
+
+ <Dialog.Root open={submit} onOpenChange={setSubmit}>
     <Dialog.Portal>
       <Dialog.Overlay className="DialogOverlay" />
       <Dialog.Content className="DialogContent">

@@ -116,12 +116,14 @@
 }
 
 #btn-submit-register {
-  background: var(--primary-color);
+  background: #ff6b6b;
   border: none;
-  font-weight: 600;
+  font-weight: 700;
   width: 100%;
   border-radius: 4px;
   cursor: pointer;
+  color: white;
+  height: 3rem;
 }
 
 .contact-area {

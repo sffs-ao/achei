@@ -24,6 +24,15 @@ export default function Register() {  // Estado para os campos do formulário
       setError("As senhas não coincidem.");
       return;
     }
+    if (password.length < 8) {
+      setError("A senha deve ter pelo menos 6 caracteres.");
+      return;
+    }
+    if (name.length < 3) {
+      setError("O nome deve ter pelo menos 3 caracteres.");
+      return;
+    }
+
 
     try {
       // Chama a função para criar a conta de usuário

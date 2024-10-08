@@ -13,9 +13,11 @@ import MyCourses from './pages/MyCourse/MyCourse'
 import QuizPage from './pages/QuizPage'
 import PostsForum from './pages/PostsForum/PostsForum'
 import Start from './pages/HomePage/HomePage'
+import {  UserProvider } from './hooks/UserContext'
 
 function App() {
   return (
+    <UserProvider>
     <Routes>
       <Route path="/" element={<Start />} />
       <Route path="/portal" element={<Layout />}>
@@ -33,8 +35,8 @@ function App() {
         <Route path="quiz" element={<QuizPage/>} />
       </Route>
       <Route path="/entrar" element={<LoginPage />} />
-      
     </Routes>
+    </UserProvider>
   )
 }
 
