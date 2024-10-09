@@ -56,6 +56,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
           throw new Error("Token inválido");
         }
         const data = await response.json();
+        console.log(data)
         if (data.id) setUser(data);
         else throw new Error("Token inválido");
       } catch (error) {

@@ -55,3 +55,23 @@ export const SUBMIT_CODE_VERIFY = async ({email, code}: {email:string, code: str
   export const removeLocalStorageToken = () => {
     window.localStorage.removeItem(`${APP_NAME}_`);
   }
+
+
+  export const SUBMIT_DATA_STUDENT = async (data: {
+    full_name: string;
+    birth_date: string;
+    id_type: string;
+    id_number: string;
+    phone_number: string;
+    address: string;
+    observations: string;
+  }) => {
+    const response = await fetch(`${BASE_URL}/students/store-data`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  };

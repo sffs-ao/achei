@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DatePicker from "./DatePickerBirth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -16,7 +16,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { GraduationCap } from "lucide-react";
 import userProfile from "../../assets/user-profile.png";
-
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import { SUBMIT_DATA_STUDENT } from "@/lib/API";
 export default function ProfilePage() {
   return (
     <div className="flex flex-col items-start gap-6 md:flex-row">
@@ -65,24 +70,76 @@ export default function ProfilePage() {
   );
 }
 
+
+const schema = z.object({
+  full_name: z.string().min(1, "Nome é obrigatório"),
+  phone_number: z.string().min(10, "Telefone deve ter no mínimo 10 dígitos"),
+  birth_date: z.string(),
+  address: z.string().min(1, "Endereço é obrigatório"),
+  id_type: z.enum(["1", "2", "3"], {required_error: "Tipo de documento é obrigatório", }),
+  id_number: z.string().min(1, "Número de identificação é obrigatório"),
+  observations: z.string().default(""),
+});
+
 export function MyAccount() {
   const [date, setDate] = useState<Date>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    getValues
+  } = useForm({
+    resolver: zodResolver(schema, {
+     
+    }),
+  });
+
+
+ 
+  const {mutateAsync: submitData} = useMutation(
+    {
+      mutationFn: SUBMIT_DATA_STUDENT,
+      onSuccess(data) {
+        console.log(data);
+        toast.success("Dados salvos com sucesso");
+    },
+    onError(error) {
+      console.log(error);
+      toast.error("Erro ao salvar dados");
+    }
+  })
+
+  const onSubmit = (data: any) => {
+    submitData(data);
+  };
+
+  useEffect(() => { setValue("birth_date", date?.toISOString().split("T")[0]) },[date])
+
+console.log("getValues ",getValues())
   return (
-    <form className="flex flex-col w-full gap-4">
+    <form className="flex flex-col w-full gap-4" onSubmit={handleSubmit(onSubmit)}>
       <h1>Dados pessoais</h1>
       <div className="flex flex-col items-center w-full gap-4 md:flex-row md:flex-1">
         <fieldset className="flex flex-col w-full gap-2 md:flex-1 min-w-80">
           <Label>Nome</Label>
-          <Input placeholder="Seu nome" type="text" />
+          <Input placeholder="Seu nome" type="text" {...register("full_name")} />
+          {errors.name && <span>{String(errors.name.message)}</span>}
         </fieldset>
         <fieldset className="flex flex-col w-full gap-2 md:w-72">
           <Label>Telefone</Label>
-          <Input placeholder="number" type="seu Telefone" />
+          <Input placeholder="Seu Telefone" type="text" {...register("phone_number")} />
+          {errors.phone && <span>{String(errors.phone.message)}</span>}
         </fieldset>
       </div>
       <fieldset className="flex flex-col w-full gap-2">
         <Label>Data de nascimento</Label>
         <DatePicker selectedDate={date} setSelectedDate={setDate} />
+      </fieldset>
+      <fieldset className="flex flex-col w-full gap-2">
+        <Label>Endereço</Label>
+        <Input placeholder="Seu Endereço" type="text" {...register("address")} />
+        {errors.address && <span>{String(errors.address.message)}</span>}
       </fieldset>
       <fieldset className="flex flex-col w-full gap-2">
         <Label>Email</Label>
@@ -92,31 +149,36 @@ export function MyAccount() {
           disabled
           type="email"
         />
+     
       </fieldset>
       <div className="flex flex-col items-center w-full gap-4 md:flex-row md:flex-1">
         <fieldset className="flex flex-col w-full gap-2 md:flex-1">
           <Label>Selecione tipo de documento</Label>
-          <Select>
+          <Select {...register("id_type")}  
+          onValueChange={(value) => setValue("id_type", value)}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Tipo de documento" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Fruits</SelectLabel>
-                <SelectItem value="apple">Bilhere de ID</SelectItem>
-                <SelectItem value="banana">Passaporte</SelectItem>
-                <SelectItem value="blueberry">Certidao</SelectItem>
+                <SelectLabel>Documentos</SelectLabel>
+                <SelectItem value="0">Selecione o tipo</SelectItem>
+                <SelectItem value="1">Bilhete de ID</SelectItem>
+                <SelectItem value="2">Passaporte</SelectItem>
+                <SelectItem value="3">Certidão</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
+          {errors.documentType && <span>{String(errors.documentType.message)}</span>}
         </fieldset>
         <fieldset className="flex flex-col w-full gap-2 md:flex-1">
           <Label>Nº de identificação</Label>
-          <Input placeholder="number" type="seu Telefone" />
+          <Input placeholder="Número de identificação" type="text" {...register("id_number")} />
+          {errors.documentNumber && <span>{String(errors.documentNumber.message)}</span>}
         </fieldset>
       </div>
       <div className="flex items-end justify-end">
-        <Button>Salvar</Button>
+        <Button type="submit">Salvar</Button>
       </div>
     </form>
   );
