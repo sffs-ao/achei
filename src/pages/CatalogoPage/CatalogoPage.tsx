@@ -6,6 +6,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 export default function CatalogoPage()
 {
+    const {data, isPending} = useQuery({
+        queryKey: ["get-classes"],
+        queryFn: GET_CLASSES,
+       onSuccess: (data) => {
+          console.log(data);
+          setClasseData(data);
+       }
+    })
     return(
         <div className="">
             <h1 className="text-2xl">Catalogo</h1>

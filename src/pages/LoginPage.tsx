@@ -40,7 +40,7 @@ export default function LoginPage() {
     const {mutateAsync: sign, isPending: isPendingCreate} = useMutation({
         mutationFn: login,
         onSuccess(data){
-            console.log(data);
+            console.log(data.user_data);
             if(data.token){
                 saveLocalStorageToken(data.token);
                 setUser(data);

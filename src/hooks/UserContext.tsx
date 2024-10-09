@@ -8,11 +8,11 @@ import {
 } from "react";
 
 export interface User {
-  id: number;
-  name: string;
-  email: string;
-  created_at: string;
-  updated_at: string;
+  id?: number;
+  name?: string;
+  email?: string;
+  created_at?: string;
+  updated_at?: string;
 }
 
 interface contextProps {
