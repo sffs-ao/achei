@@ -9,12 +9,12 @@ export default function ForumPage() {
             <p>Explore as nossas comunidades</p>
             <h1 className="font-semibold mt-10">Todos os fóruns</h1>
             <div className="mt-2 grid gap-2 md:grid-cols-2 lg:grid-cols-3">
-                <CardForum />
+                <CardForum  title="Curso de ingles"/>
                 <Link to="2">
-                    <CardForum />
+                    <CardForum title="Curso de fiscalidade"/>
                 </Link>
-                <CardForum />
-                <CardForum />
+                <CardForum title="Curso de RH"/>
+                <CardForum title="Curso de Frances" />
             </div>
         </div>
     )

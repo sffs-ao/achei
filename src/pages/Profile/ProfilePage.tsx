@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { GraduationCap } from "lucide-react";
+import { GraduationCap, Loader2 } from "lucide-react";
 import userProfile from "../../assets/user-profile.png";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,20 +22,22 @@ import * as z from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { SUBMIT_DATA_STUDENT } from "@/lib/API";
+import { useUserContext } from "@/hooks/UserContext";
 export default function ProfilePage() {
+   const {user} = useUserContext()
   return (
     <div className="flex flex-col items-start gap-6 md:flex-row">
-      <Card className="w-full md:w-fit">
+      <Card className="w-full md:w-96">
         <CardHeader className="relative h-20">
           <div className="absolute flex items-center justify-center rounded-full h-28 w-28 -bottom-28 left-2/4 -translate-y-2/4 -translate-x-2/4 ">
             <img src={userProfile} alt="" />
           </div>
         </CardHeader>
 
-        <CardContent className="flex flex-col items-center justify-center pt-16 bg-zinc-100">
-          <h1 className="text-lg font-bold text-center">Fernando Silva</h1>
+        <CardContent className="min-w flex flex-col items-center justify-center pt-16 bg-zinc-100">
+          <h1 className="text-lg font-bold text-center">{user?.name}</h1>
           <span className="font-normal text-center text-zinc-600">
-            fernandowonder123@gmail.com
+            {user?.email}
           </span>
         </CardContent>
       </Card>
@@ -95,9 +97,9 @@ export function MyAccount() {
     }),
   });
 
-
+  const {user} = useUserContext()
  
-  const {mutateAsync: submitData} = useMutation(
+  const {mutateAsync: submitData, isPending} = useMutation(
     {
       mutationFn: SUBMIT_DATA_STUDENT,
       onSuccess(data) {
@@ -111,7 +113,8 @@ export function MyAccount() {
   })
 
   const onSubmit = (data: any) => {
-    submitData(data);
+  console.log(data)
+     submitData(data);
   };
 
   useEffect(() => { setValue("birth_date", date?.toISOString().split("T")[0]) },[date])
@@ -121,7 +124,7 @@ console.log("getValues ",getValues())
     <form className="flex flex-col w-full gap-4" onSubmit={handleSubmit(onSubmit)}>
       <h1>Dados pessoais</h1>
       <div className="flex flex-col items-center w-full gap-4 md:flex-row md:flex-1">
-        <fieldset className="flex flex-col w-full gap-2 md:flex-1 min-w-80">
+        <fieldset className="flex flex-col w-full gap-2 md:flex-1 ">
           <Label>Nome</Label>
           <Input placeholder="Seu nome" type="text" {...register("full_name")} />
           {errors.name && <span>{String(errors.name.message)}</span>}
@@ -145,7 +148,7 @@ console.log("getValues ",getValues())
         <Label>Email</Label>
         <Input
           placeholder=""
-          value={"fernandowonder123@gmail.com"}
+          value={user?.email}
           disabled
           type="email"
         />
@@ -178,7 +181,7 @@ console.log("getValues ",getValues())
         </fieldset>
       </div>
       <div className="flex items-end justify-end">
-        <Button type="submit">Salvar</Button>
+        <Button type="submit" className="flex items-center gap-2">Salvar {isPending && <Loader2 className="animate-spin w-4 "/>}</Button>
       </div>
     </form>
   );

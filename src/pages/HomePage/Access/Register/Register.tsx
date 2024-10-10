@@ -39,8 +39,9 @@ export default function Register() {
       setError("As senhas não coincidem.");
       return;
     }
+    
     if (password.length < 8) {
-      setError("A senha deve ter pelo menos 6 caracteres.");
+      setError("A senha deve ter pelo menos 8 caracteres.");
       return;
     }
     if (name.length < 3) {
@@ -65,7 +66,7 @@ export default function Register() {
         </div>
         <form onSubmit={handleSubmit}>
           <h1>Comece Agora</h1>
-          {error && <p className="error">{error}</p>}{" "}
+          {error && <p className="error text-xs text-red-800">{error}</p>}{" "}
           {/* Mostra a mensagem de erro, se houver */}
           <div className="form-group">
             <label htmlFor="new-user-name">
@@ -87,6 +88,7 @@ export default function Register() {
             <input
               type="email"
               name="email"
+              required
               id="new-user-email"
               placeholder="Digite o seu email"
               value={email}

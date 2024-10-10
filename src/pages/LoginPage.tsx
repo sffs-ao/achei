@@ -92,7 +92,7 @@ export default function LoginPage() {
 
                     <Card className="mt-4">
                         <CardHeader className="flex items-center justify-center">
-                            <div><Link to="" className="text-foreground text-sm">Não tem ainda uma conta? <span className="text-violet-800">Inscreve-se</span></Link></div>
+                            <div><Link to="/" className="text-foreground text-sm">Não tem ainda uma conta? <span className="text-violet-800">Inscreve-se</span></Link></div>
                         </CardHeader>
                     </Card>
                 </form>
