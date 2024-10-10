@@ -94,10 +94,22 @@ export const SUBMIT_CODE_VERIFY = async ({email, code}: {email:string, code: str
   };
 
   export const GET_CLASSES_PUBLIC = async () => {
-     const response = await fetch(`https://www.enanza.ao/api/courses-all`, {
+    const response = await fetch(`https://www.enanza.ao/api/courses-all`, {
+     method: "GET",
+     headers: {
+       "Content-Type": "application/json",
+     },
+   });
+   return await response.json();
+ };
+  export const GET_COURSE = async (id:string) => {
+    const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
+     const response = await fetch(`https://www.enanza.ao/api/courses/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+            Authorization: `Bearer ${AUTH_TOKEN}`,
+
       },
     });
     return await response.json();
