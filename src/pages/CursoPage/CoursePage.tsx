@@ -97,7 +97,7 @@ export function ModalRegisterCourse({children, id, title}: {children: React.Reac
         if(data){
             const newTurmas = data?.find((curso:any)=>curso.id == id)
             setTurmas(newTurmas)
-            console.log(newTurmas)
+            console.log("-- turmas ",newTurmas)
         }
     }, [data])
     console.log(turmas)
@@ -131,29 +131,26 @@ export function ModalRegisterCourse({children, id, title}: {children: React.Reac
                                 </SelectContent>
                             </Select>
 
-                            <Select   
-                            disabled
-                            value="1"
-                         >
-                            
+                            <Select value="1">            
                                 <SelectTrigger className="w-full">
                                 <SelectValue placeholder="Turma" />
                                 </SelectTrigger>
                                 <SelectContent >
                                  <SelectGroup>
-                                    <SelectItem value="0">Sff00001</SelectItem>
-                                    <SelectItem  value="1">Sff00002</SelectItem>
+                                    {turmas && turmas?.map((turma, index) => (
+                                        <SelectItem key={index} value={turma.id}>{turma.class_name}</SelectItem>
+                                    ))}
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>
                              </fieldset>
                             <div className="flex gap-1 items-start justify-start w-full mt-1">
-                            <Button type="submit">Inscrever-se</Button>
-                            <DialogClose asChild>
-                                <Button variant={"outline"}  type="button" >Cancelar</Button>
-                             </DialogClose>
-                        </div>
-                        </div>
+                                <Button type="submit">Inscrever-se</Button>
+                                <DialogClose asChild>
+                                    <Button variant={"outline"}  type="button" >Cancelar</Button>
+                                </DialogClose>
+                              </div>
+                         </div>
                     </form>
                 </DialogDescription>
                 </DialogHeader>
