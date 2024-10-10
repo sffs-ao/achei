@@ -30,7 +30,6 @@ export default function Home() {
             </div>
           </CardContent>
         </Card>
-
         <div className="flex flex-col max-md:mt-8 md:max-w-[512px]">
           <h1 className="mb-2">Agenda</h1>
           <div className="flex flex-col gap-2 max-h-[340px] overflow-y-auto">
