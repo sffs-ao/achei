@@ -1,11 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { useUserContext } from "@/hooks/UserContext";
 import { Link } from "react-router-dom";
 
 export default function Home() {
+  const { user } = useUserContext();
+
   return (
     <div>
-      <h1 className="mb-8">Olá, Fernando! </h1>
+      <h1 className="mb-8">Olá, {user?.name?.split(" ")[0]}! </h1>
       <div className="grid items-start gap-4">
         <Card>
           <CardHeader>

@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../../assets/image/logo.png";
 import "./Header.css";
@@ -48,7 +47,12 @@ export default function HeaderHomePage() {
               <span>Entrar</span>
             </Link>
           </button>
-          <button>
+          <button
+            onClick={() => {
+              const scrollTopValue = window.innerWidth < 1040 ? 700 : 0;
+              window.scrollTo({ top: scrollTopValue, behavior: "smooth" });
+            }}
+          >
             <Link to="">
               <span>Registrar-se</span>
               <i className="bi bi-chevron-right"></i>

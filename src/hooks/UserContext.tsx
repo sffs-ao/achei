@@ -8,11 +8,11 @@ import {
 } from "react";
 
 export interface User {
-  id: number;
-  name: string;
-  email: string;
-  created_at: string;
-  updated_at: string;
+  id?: number;
+  name?: string;
+  email?: string;
+  created_at?: string;
+  updated_at?: string;
 }
 
 interface contextProps {
@@ -56,6 +56,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
           throw new Error("Token inválido");
         }
         const data = await response.json();
+        console.log(data)
         if (data.id) setUser(data);
         else throw new Error("Token inválido");
       } catch (error) {

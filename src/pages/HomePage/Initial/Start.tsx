@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import Header from "../../Layout/Header/Header";
+import { useEffect, useRef } from "react";
+
 import "./Start.css";
 import imagePrevilegies from "../../assets/image/pacotes.png";
 import Register from "../Access/Register/Register";
@@ -12,43 +12,13 @@ import Solution from "../Access/Solution/Solution";
 import DepoimentsCard from "../Access/DepoimentsCard/DepoimentsCard";
 import Faq from "../Access/Faq/Faq";
 import { Link } from "react-router-dom";
-import Footer from "../../Layout/Footer/Footer";
 import Slogan from "../Access/Slogan/Slogan";
 
 import cursoIngles from "../../assets/image/cursos-ingles.jpg";
 import cursoGestao from "../../assets/image/curso-gestao.jpeg";
 import cursoPrevisoes from "../../assets/image/curso-previsoes.jpeg";
-import cursoFiscalidade from "../../assets/image/cursos-fiscalidade.jpeg";
-import cursoMediacao from "../../assets/image/cursos-mediacao.jpg";
-import cursoRh from "../../assets/image/cursos-rh.jpeg";
 
 export default function Start() {
-  const sectionsRef = useRef([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-          } else {
-            entry.target.classList.remove("show");
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    sectionsRef.current.forEach((section) => {
-      if (section) observer.observe(section);
-    });
-
-    return () => {
-      if (sectionsRef.current) {
-        sectionsRef.current.forEach((section) => observer.unobserve(section));
-      }
-    };
-  }, []);
   const faqs = [
     {
       number: "01",
@@ -100,20 +70,15 @@ export default function Start() {
 
   return (
     <div className="home-page">
-      <Header />
-
-      <div className="hidden" ref={(el) => sectionsRef.current.push(el)}>
+      {/*  <div className="hidden">
         <Slogan />
       </div>
 
-      <div className="hidden" ref={(el) => sectionsRef.current.push(el)}>
+      <div className="hidden">
         <Register />
-      </div>
+      </div> */}
 
-      <div
-        className="hidden card-contact"
-        ref={(el) => sectionsRef.current.push(el)}
-      >
+      {/* <div className="hidden card-contact">
         <ContactCard
           contentTitle="Possui alguma dúvida?"
           btnMsg="Chamar no WhatsApp"
@@ -131,13 +96,10 @@ export default function Start() {
           textColor="black"
           idButton="card-contant-normal"
         />
-      </div>
-      <div className="funcionamento center-text">
+      </div> */}
+      {/* <div className="funcionamento center-text">
         <h1>Como funciona a plataforma</h1>
-        <div
-          className="hidden card-funcionamento-content"
-          ref={(el) => sectionsRef.current.push(el)}
-        >
+        <div className="hidden card-funcionamento-content">
           <FunctionCard
             titulo="Conteúdo Atualizado"
             icon="bi-journal-check"
@@ -159,15 +121,12 @@ export default function Start() {
             text="Conquiste certificações validadas por especialistas da indústria ao completar cursos."
           />
         </div>
-      </div>
-
+      </div> */}
+{/* 
       <div className="courses">
         <div className="center-text">
           <h1>Veja a nossa gama de cursos</h1>
-          <div
-            className="hidden course-content"
-            ref={(el) => sectionsRef.current.push(el)}
-          >
+          <div className="hidden course-content">
             {cursos.map((curso, index) => (
               <CourseCard
                 key={index}
@@ -186,10 +145,7 @@ export default function Start() {
       <div className="promotions">
         <div className="center-text">
           <h3>Além de formações, ganhe acesso a diversos previlégios</h3>
-          <div
-            className="hidden card-previlegies-content"
-            ref={(el) => sectionsRef.current.push(el)}
-          >
+          <div className="hidden card-previlegies-content">
             <Previlegies image={imagePrevilegies} type="Gold" clr="#f3d678" />
             <Previlegies image={imagePrevilegies} type="Silver" clr="#afaeae" />
             <Previlegies image={imagePrevilegies} type="Bronze" clr="#eef08e" />
@@ -197,10 +153,7 @@ export default function Start() {
         </div>
       </div>
       <div className="center-text">
-        <div
-          className="hidden about-container"
-          ref={(el) => sectionsRef.current.push(el)}
-        >
+        <div className="hidden about-container">
           <About
             title="Excelentes avaliações"
             icon="bi-star-fill"
@@ -226,9 +179,9 @@ export default function Start() {
 
       <div className="solution-container">
         <Solution />
-      </div>
+      </div> */}
 
-      <div className="depoiments">
+      {/*  <div className="depoiments">
         <div className="center-text">
           <div className="depoiments-top">
             <h1>Veja o depoimento de quem passou pela nossa instituição</h1>
@@ -237,22 +190,19 @@ export default function Start() {
               <i className="bi bi-arrow-down"></i>
             </div>
           </div>
-          <div
-            className="hidden depoiments-downn"
-            ref={(el) => sectionsRef.current.push(el)}
-          >
+          <div className="hidden depoiments-downn">
             <DepoimentsCard />
             <DepoimentsCard />
             <DepoimentsCard />
           </div>
         </div>
-      </div>
-
-      <div className="faq" ref={(el) => sectionsRef.current.push(el)}>
+      </div> */}
+      {/* 
+      <div className="faq">
         <div className="center-text">
           <h1 className="faq-top">Perguntas e respostas mais frequentes</h1>
           <div className="question">
-            <ul className="hidden" ref={(el) => sectionsRef.current.push(el)}>
+            <ul className="hidden">
               {faqs.map((faq, index) => (
                 <Faq
                   key={index}
@@ -278,8 +228,7 @@ export default function Start() {
             </div>
           </div>
         </div>
-      </div>
-      <Footer />
+      </div> */}
     </div>
   );
 }

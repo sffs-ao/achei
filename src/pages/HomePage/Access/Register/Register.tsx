@@ -4,9 +4,9 @@ import "./Register.css";
 import imageName from "../../../../assets/image/logo-bg.png";
 import "./ModalRegister";
 import ModalRegister from "./ModalRegister";
-import { CREATE_USER_ACCOUNT } from "./RegisterReq";
+/* import { CREATE_USER_ACCOUNT } from "./RegisterReq"; */
 import { useMutation } from "@tanstack/react-query";
-import { CREATE_ACCOUNT, SUBMIT_CODE_VERIFY } from "../../../../lib/API";
+import { CREATE_ACCOUNT } from "../../../../lib/API";
 import { Loader2 } from "lucide-react";
 import { toast } from "react-toastify";
 
@@ -39,8 +39,9 @@ export default function Register() {
       setError("As senhas não coincidem.");
       return;
     }
+
     if (password.length < 8) {
-      setError("A senha deve ter pelo menos 6 caracteres.");
+      setError("A senha deve ter pelo menos 8 caracteres.");
       return;
     }
     if (name.length < 3) {
@@ -65,7 +66,7 @@ export default function Register() {
         </div>
         <form onSubmit={handleSubmit}>
           <h1>Comece Agora</h1>
-          {error && <p className="error">{error}</p>}{" "}
+          {error && <p className="text-xs text-red-800 error">{error}</p>}{" "}
           {/* Mostra a mensagem de erro, se houver */}
           <div className="form-group">
             <label htmlFor="new-user-name">
@@ -87,6 +88,7 @@ export default function Register() {
             <input
               type="email"
               name="email"
+              required
               id="new-user-email"
               placeholder="Digite o seu email"
               value={email}

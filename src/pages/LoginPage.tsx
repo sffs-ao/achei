@@ -40,7 +40,7 @@ export default function LoginPage() {
     const {mutateAsync: sign, isPending: isPendingCreate} = useMutation({
         mutationFn: login,
         onSuccess(data){
-            console.log(data);
+            console.log(data.user_data);
             if(data.token){
                 saveLocalStorageToken(data.token);
                 setUser(data);
@@ -92,7 +92,7 @@ export default function LoginPage() {
 
                     <Card className="mt-4">
                         <CardHeader className="flex items-center justify-center">
-                            <div><Link to="" className="text-foreground text-sm">Não tem ainda uma conta? <span className="text-violet-800">Inscreve-se</span></Link></div>
+                            <div><Link to="/" className="text-foreground text-sm">Não tem ainda uma conta? <span className="text-violet-800">Inscreve-se</span></Link></div>
                         </CardHeader>
                     </Card>
                 </form>
