@@ -6,12 +6,12 @@ function Scroll() {
     <div>
       <ScrollToTop
         smooth
-        component={<FaArrowUp />} // Adiciona ícone de seta para cima
+        component={<FaArrowUp />}
         style={{
-          backgroundColor: "#007bff", // Cor de fundo do botão
-          borderRadius: "50%", // Botão arredondado
-          padding: "10px", // Espaçamento interno
-          color: "white", // Cor do ícone
+          backgroundColor: "#007bff",
+          borderRadius: "50%",
+          padding: "10px",
+          color: "white",
         }}
       />
       {/* Conteúdo da página */}
