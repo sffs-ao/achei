@@ -49,7 +49,7 @@ export default function HeaderHomePage() {
           </button>
           <button
             onClick={() => {
-              const scrollTopValue = window.innerWidth < 1040 ? 700 : 0;
+              const scrollTopValue = window.innerWidth < 1040 ? 850 : 0;
               window.scrollTo({ top: scrollTopValue, behavior: "smooth" });
             }}
           >
