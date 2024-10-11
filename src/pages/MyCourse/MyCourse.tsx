@@ -20,8 +20,8 @@ export default function MyCourses()
             <div className="flex mt-4 items-start gap-4">
                 <div className=" overflow-y-scroll scrol flex-1 flex flex-col gap-4">
                     {isPending && <div className="w-full h-96 flex items-center justify-center"><Loader2 className="w-10 h-10 animate-spin" /></div>}
-
-                     {data &&  data[0].registrations.map((curso:any, index:number) =>(
+                        {!isPending && data.message && <h1>Nenhum curso inscrito</h1>}
+                     {data && data[0]?.registrations.map((curso:any, index:number) =>(
                         <Link to={`/portal/classroom/${curso.id}`} key={index}>
                             <CourseCard course={curso.course.course_name}
                                 level={curso.courselevel}

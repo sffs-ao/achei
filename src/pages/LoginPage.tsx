@@ -41,11 +41,11 @@ export default function LoginPage() {
     const {mutateAsync: sign, isPending: isPendingCreate} = useMutation({
         mutationFn: login,
         onSuccess(data){
-           // console.log(data.user_data);
+            console.log(data);
             if(data.token){
                 saveLocalStorageToken(data.token);
               
-                setUser({name:data.user_data.user_name,email: data.user_data.user_email});
+                setUser({name:data.user_name,email: data.user_email});
                 toast.success("Sessão iniciada com sucesso")
                 navigate("/portal");
             }else {

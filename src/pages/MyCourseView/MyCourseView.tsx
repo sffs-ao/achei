@@ -6,6 +6,8 @@ import { Link, useParams } from "react-router-dom";
 import {useForm } from "react-hook-form"
 import { Loader2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
+import { GET_CLASSES_PUBLIC } from "@/lib/API";
 
 const summary = [
     {
@@ -35,7 +37,16 @@ async function POST_MESSAGE(data:string) {
      })
      const json = await response.json()
      return json
+     
 }
+
+const {data, isPending} = useQuery({
+    queryKey: ["get-my-course"],
+    queryFn: GET_CLASSES_PUBLIC,
+})
+if(data)
+    console.log("Data ",data )
+
 export default function MyCourseView() {
  const { id } = useParams<{ id: string }>(); 
  const[update, setUpdaet] = useState(false)
