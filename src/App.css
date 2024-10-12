@@ -66,10 +66,6 @@
     @apply bg-background text-foreground;
   }
 }
-/* 
-body {
-  font-family: "Inter", sans-serif;
-} */
 
 .scrol::-webkit-scrollbar {
   display: none;

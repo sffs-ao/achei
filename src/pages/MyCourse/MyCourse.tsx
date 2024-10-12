@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
-import { CursoMap } from "@/utils"
-import CourseCard from "../CatalogoPage/CourseCard"
-import { useQuery } from "@tanstack/react-query"
-import { GET_MY_CLASSES } from "@/lib/API"
-import { Loader2 } from "lucide-react"
+import { CursoMap } from "@/utils";
+import CourseCard from "../CatalogoPage/CourseCard";
+import { useQuery } from "@tanstack/react-query";
+import { GET_MY_CLASSES } from "@/lib/API";
+import { Loader2 } from "lucide-react";
 
 export default function MyCourses()
 {
@@ -39,6 +39,8 @@ export default function MyCourses()
                 </div>
               
             </div>
-        </div>
-    )
+    
+    
+    </div>
+  );
 }

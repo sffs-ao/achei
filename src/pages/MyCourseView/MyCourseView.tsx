@@ -1,52 +1,57 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Card, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import {useForm } from "react-hook-form"
+import { useForm } from "react-hook-form";
 import { Loader2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { GET_CLASSES_PUBLIC, GET_CONTENT_COURSE, GET_COURSE_ONE } from "@/lib/API";
 import { CourseContent } from "@/lib/utils";
- 
+
 export type FormData = {
-    message:string
+  message: string;
 };
 
-async function POST_MESSAGE(data:string) {
-    const response = await fetch('https://faceapi-api2.onrender.com', { 
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({message: data})
-     })
-     const json = await response.json()
-     return json
-     
+async function POST_MESSAGE(data: string) {
+  const response = await fetch("https://faceapi-api2.onrender.com", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ message: data }),
+  });
+  const json = await response.json();
+  return json;
 }
 
-
 export default function MyCourseView() {
- const { id , question} = useParams<{ id: string, question: string }>(); 
- const[update, setUpdaet] = useState(false)
- const[isLoading, setIsLoading] = useState(false)
-const form = useForm<FormData>()
+  const { id, question } = useParams<{ id: string; question: string }>();
+  const [update, setUpdate] = useState(false); // Corrigido: setUpdate
+  const [isLoading, setIsLoading] = useState(false);
+  const form = useForm<FormData>();
 
-  const[messageList,setMessagesList] = useState<{message:string, sender:string}[]>([])
-  const  divMessage = useRef<HTMLDivElement>(null)
+  const [messageList, setMessagesList] = useState<
+    { message: string; sender: string }[]
+  >([]);
+  const divMessage = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (divMessage.current) {
-        divMessage.current.scrollTo({
-            top: divMessage.current.scrollHeight,
-            behavior: "smooth", // Animação suave
-          });
+      divMessage.current.scrollTo({
+        top: divMessage.current.scrollHeight,
+        behavior: "smooth", // Animação suave
+      });
     }
-  },[messageList])
+  }, [messageList]);
 
-  const {data, isPending} = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["get-view-course", id],
     queryFn: ()=>GET_COURSE_ONE(id!),
 })
@@ -68,7 +73,7 @@ const urlCompleta = window.location.href;
        }
        if (!update){
             firstMessage()
-            setUpdaet(true)
+            setUpdate(true)
        }
        
     },[id, question])
@@ -111,8 +116,7 @@ async function handleSubmit(data:FormData) {
                         </form>
                     </div>            
             </div>
-         
-            <div className="flex flex-col w-full md:w-96 gap-2">
+           <div className="flex flex-col w-full md:w-96 gap-2">
                 <h1 className="font-bold text-lg">Conteúdo</h1>
                 <Card>
                     <CardHeader>
@@ -136,8 +140,6 @@ async function handleSubmit(data:FormData) {
                     </Accordion>
                  </CardHeader>
                 </Card>
-
-            </div>
-        </div>
-    )
-}
+          </div>
+      </div>
+            )}

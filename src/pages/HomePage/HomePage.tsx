@@ -1,8 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import "./HomePage.css";
-import imagePrevilegies from "../../assets/image/pacotes.png";
-
+/* import imagePrevilegies from "../../assets/image/pacotes.png"; */
 import { Link } from "react-router-dom";
 
 import cursoIngles from "../../assets/cursos-ingles.jpg";
@@ -11,7 +10,7 @@ import cursoPrevisoes from "../../assets/image/curso-previsoes.jpeg";
 
 import HeaderHomePage from "./Layout/Header/Header";
 import ContactCard from "./Access/ContactCard/ContactCard";
-import Previlegies from "./Access/Previlegies/Previlegies";
+/* import Previlegies from "./Access/Previlegies/Previlegies"; */
 import FunctionCard from "./Access/FunctionCard/FunctionCard";
 import CourseCard from "./Access/CourseCard/CourseCard";
 import About from "./Access/About/About";
@@ -21,6 +20,7 @@ import Footer from "./Layout/Footer/Footer";
 import Slogan from "./Access/Slogan/Slogan";
 import Faq from "./Access/Faq/Faq";
 import Register from "./Access/Register/Register";
+import Scroll from "./Access/Scroll/Scroll";
 
 export default function Start() {
   const sectionsRef = useRef<(HTMLDivElement | HTMLUListElement | null)[]>([]);
@@ -234,7 +234,7 @@ export default function Start() {
           />
         </div>
       </div>
-
+      <Scroll />
       <div className="solution-container">
         <Solution />
       </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import "./SolutionCard.css";
 
 type SolutionCardProps = {
@@ -7,17 +7,28 @@ type SolutionCardProps = {
   text: string;
 };
 
-export default function SolutionCard({ title, image_url, text }: SolutionCardProps) {
+export default function SolutionCard({
+  title,
+  image_url,
+  text,
+}: SolutionCardProps) {
   return (
     <div className="solution-card">
       <div className="solution-left">
         <h2>{title}</h2>
         <p className="solution-text">{text}</p>
         <button>
-          <a href="#">
-            <span>Fazer o Cadastro</span>
+          <Link to="">
+            <span
+              onClick={() => {
+                const scrollTopValue = window.innerWidth < 1040 ? 850 : 0;
+                window.scrollTo({ top: scrollTopValue, behavior: "smooth" });
+              }}
+            >
+              Fazer o Cadastro
+            </span>
             <i className="bi bi-chevron-right"></i>
-          </a>
+          </Link>
         </button>
       </div>
       <div className="image-soluction">
