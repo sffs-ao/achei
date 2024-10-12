@@ -11,21 +11,10 @@ import { Link, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Loader2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
+import { GET_CLASSES_PUBLIC, GET_CONTENT_COURSE } from "@/lib/API";
+import { CourseContent } from "@/lib/utils";
 
-const summary = [
-  {
-    id: 1,
-    title: "introducao a gramatica do ingles",
-  },
-  {
-    id: 2,
-    title: "Conjugacao do verbo to be",
-  },
-  {
-    id: 3,
-    title: "Contagem de numeros",
-  },
-];
 export type FormData = {
   message: string;
 };
@@ -41,9 +30,10 @@ async function POST_MESSAGE(data: string) {
   const json = await response.json();
   return json;
 }
+
 export default function MyCourseView() {
-  const { id } = useParams<{ id: string }>();
-  const [update, setUpdaet] = useState(false);
+  const { id, question } = useParams<{ id: string; question: string }>();
+  const [update, setUpdate] = useState(false); // Corrigido: setUpdate
   const [isLoading, setIsLoading] = useState(false);
   const form = useForm<FormData>();
 
@@ -60,7 +50,24 @@ export default function MyCourseView() {
       });
     }
   }, [messageList]);
+
+  const { data, isPending } = useQuery({
+    queryKey: ["get-view-course", id],
+    queryFn: () => GET_CONTENT_COURSE(2),
+  });
+  if (data) console.log("Data ", data);
+  const urlCompleta = window.location.href;
+
   useEffect(() => {
+    console.log("Question ", question);
+    window.localStorage.setItem(
+      "data-study",
+      JSON.stringify({
+        question: question ?? "",
+        linkUrl: urlCompleta,
+        date: new Date().toLocaleDateString() + "|" + new Date().toLocaleTimeString(),
+      })
+    );
     async function firstMessage() {
       setIsLoading(true);
       const message = await POST_MESSAGE("O que é o verbo to be");
@@ -70,9 +77,10 @@ export default function MyCourseView() {
     }
     if (!update) {
       firstMessage();
-      setUpdaet(true);
+      setUpdate(true); // Corrigido: setUpdate
     }
-  }, [id]);
+  }, [id, question]);
+
   async function handleSubmit(data: FormData) {
     setIsLoading(true);
     setMessagesList((state) => [
@@ -92,11 +100,14 @@ export default function MyCourseView() {
   return (
     <div className="flex flex-col items-start gap-2 md:flex-row md:gap-4">
       <div className="w-full border shadow-sm rounded-sm md:flex-1 p-4 flex flex-col gap-4 min-h-[calc(100vh-150px)] overflow-y-auto ">
+        <h1>{data?.course_name}</h1>
         <div
-          className="  h-[calc(100vh-200px)] overflow-y-auto"
+          className="h-[calc(100vh-200px)] overflow-y-auto"
           ref={divMessage}
         >
-          <h1 className="text-lg font-bold">O que é o verbo to be</h1>
+          <h1 className="text-lg font-bold">
+            {question?.replace(/-/g, " ")}
+          </h1>
           <div className="flex flex-col gap-4">
             {messageList.map((message, index) => (
               <div
@@ -105,7 +116,7 @@ export default function MyCourseView() {
                   message.sender === "me"
                     ? "bg-green-900 text-zinc-100 "
                     : "bg-zinc-100 text-zinc-800"
-                } p-2 text-sm leading-loose flex flex-col w-fit rounded-md max-w-[800px]  `}
+                } p-2 text-sm leading-loose flex flex-col w-fit rounded-md max-w-[800px]`}
               >
                 {message.message.split("\n").map((line, index) => (
                   <p key={index}>{line}</p>
@@ -114,13 +125,12 @@ export default function MyCourseView() {
             ))}
             {isLoading && (
               <span className="flex items-center gap-2 text-sm font-bold text-zinc-700">
-                Espere um pouco{" "}
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Espere um pouco <Loader2 className="w-4 h-4 mr-2 animate-spin" />
               </span>
             )}
           </div>
         </div>
-        <div className="h-10 ">
+        <div className="h-10">
           <form onSubmit={form.handleSubmit(handleSubmit)} className="flex">
             <Input
               required
@@ -142,60 +152,29 @@ export default function MyCourseView() {
         <Card>
           <CardHeader>
             <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="item-1">
-                <AccordionTrigger>Modulo 1</AccordionTrigger>
-                <AccordionContent>
-                  <ul className="flex flex-col gap-0">
-                    {summary.map((item, index) => (
-                      <Link
-                        to={`/classroom/${item.id}`}
-                        key={index}
-                        className="p-2 rounded-sm hover:bg-zinc-100"
-                      >
-                        <li>{item.title}</li>
-                      </Link>
-                    ))}
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-2">
-                <AccordionTrigger>Modulo 2</AccordionTrigger>
-                <AccordionContent>
-                  <ul className="flex flex-col gap-0">
-                    <Link to="" className="p-2 rounded-sm hover:bg-zinc-100">
-                      <li>Introducao a gramatica</li>
-                    </Link>
-                    <Link to="" className="p-2 rounded-sm hover:bg-zinc-100">
-                      <li>Verbo to be</li>
-                    </Link>
-                    <Link to="" className="p-2 rounded-sm hover:bg-zinc-100">
-                      <li>Conjugacao do verbo</li>
-                    </Link>
-                    <Link to="" className="p-2 rounded-sm hover:bg-zinc-100">
-                      <li> Introducao a gramatica</li>
-                    </Link>
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-3">
-                <AccordionTrigger>Modulo 3</AccordionTrigger>
-                <AccordionContent>
-                  <ul className="flex flex-col gap-0">
-                    <Link to="" className="p-2 rounded-sm hover:bg-zinc-100">
-                      <li>Introducao a gramatica</li>
-                    </Link>
-                    <Link to="" className="p-2 rounded-sm hover:bg-zinc-100">
-                      <li>Verbo to be</li>
-                    </Link>
-                    <Link to="" className="p-2 rounded-sm hover:bg-zinc-100">
-                      <li>Conjugacao do verbo</li>
-                    </Link>
-                    <Link to="" className="p-2 rounded-sm hover:bg-zinc-100">
-                      <li> Introducao a gramatica</li>
-                    </Link>
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
+              {data?.contents.map((content: CourseContent, index: number) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="text-nowrap text-ellipsis">
+                    {content.title}
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <ul className="flex flex-col gap-0">
+                      {content.contents.map((item, idx) => (
+                        <Link
+                          to={`/portal/classroom/${id}/${item.replace(
+                            / /g,
+                            "-"
+                          )}`}
+                          key={idx}
+                          className="p-2 rounded-sm hover:bg-zinc-100"
+                        >
+                          <li>{item}</li>
+                        </Link>
+                      ))}
+                    </ul>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
             </Accordion>
           </CardHeader>
         </Card>

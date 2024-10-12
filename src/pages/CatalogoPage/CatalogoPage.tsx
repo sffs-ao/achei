@@ -11,7 +11,7 @@ import CourseCardPublic from "./CourseCardPublic"
 export default function CatalogoPage()
 {
     const {data, isPending} = useQuery({
-        queryKey: ["get-my-classes"],
+        queryKey: ["get-public-courses"],
         queryFn: GET_CLASSES_PUBLIC,
     })
     if(data)
