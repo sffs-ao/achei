@@ -6,25 +6,22 @@ export default function Slogan() {
       <div className="up-content">
         <figure>
           <img
-            src="https://randomuser.me/api/portraits/women/44.jpg"
-            alt="Pessoa 1"
+            src="https://i.ibb.co/LdDfKFK/71514733.jpg"
+            alt="Aluno do SFFS"
           />
           <img
-            src="https://randomuser.me/api/portraits/men/32.jpg"
-            alt="Pessoa 2"
+            src="https://i.ibb.co/JkgFKQb/137581478.jpg"
+            alt="Aluno do SFFS"
           />
           <img
-            src="https://randomuser.me/api/portraits/women/65.jpg"
-            alt="Pessoa 3"
+            src="https://i.ibb.co/RpvwPtc/112092024172106.jpg"
+            alt="Aluno do SFFS"
           />
           <img
-            src="https://randomuser.me/api/portraits/men/76.jpg"
-            alt="Pessoa 4"
+            src="https://i.ibb.co/pyj1cFd/1725810446013.jpg"
+            alt="Aluno do SFFS"
           />
-          <img
-            src="https://randomuser.me/api/portraits/women/52.jpg"
-            alt="Pessoa 5"
-          />
+          <img src="https://i.ibb.co/XZmYGhj/Josemar.jpg" alt="Aluno do SFFS" />
         </figure>
         <div className="banner-text">
           Se junte aos alunos que aprendem todos os dias com Achei
