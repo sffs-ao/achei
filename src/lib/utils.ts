@@ -54,3 +54,10 @@ export interface ClassDetails {
     name: string;
   };
 }
+
+
+export interface QuestionPayload {
+  question: string;
+  linkUrl: string;
+  date: string;
+}

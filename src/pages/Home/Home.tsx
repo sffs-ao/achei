@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useUserContext } from "@/hooks/UserContext";
+import { QuestionPayload } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -11,12 +12,12 @@ function numeroParaMes(numero:string) {
     "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"
   ];
 
-  return meses[numero - 1];  // Subtraímos 1 porque o array começa do índice 0
+  return meses[Number(numero) - 1];  // Subtraímos 1 porque o array começa do índice 0
 }
 
 export default function Home() {
   const { user } = useUserContext();
-  const [dataStudy, setDataStudy] = useState<string>("");
+  const [dataStudy, setDataStudy] = useState<QuestionPayload>();
 useEffect(() => {
   
   (async ()=>{
@@ -24,8 +25,8 @@ useEffect(() => {
           if (!dataLocalStorage) {
             return; 
           }
-          const data_study = await JSON.parse(dataLocalStorage)
-          setDataStudy(data_study ?? "")
+          const data_study = await JSON.parse(dataLocalStorage) as QuestionPayload
+          setDataStudy(data_study ?? null)
           console.log("Data study ", data_study)  
   })()
 

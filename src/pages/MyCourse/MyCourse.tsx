@@ -9,7 +9,7 @@ import { Loader2 } from "lucide-react"
 export default function MyCourses()
 {
     const {data, isPending} = useQuery({
-        queryKey: ["get-classes"],
+        queryKey: ["get-my-entity"],
         queryFn: GET_MY_CLASSES,
     })
     if(data)
@@ -22,16 +22,16 @@ export default function MyCourses()
                     {isPending && <div className="w-full h-96 flex items-center justify-center"><Loader2 className="w-10 h-10 animate-spin" /></div>}
                         {!isPending && data.message && <h1>Nenhum curso inscrito</h1>}
                      {data && data[0]?.registrations.map((curso:any, index:number) =>(
-                        <Link to={`/portal/classroom/${curso.id}`} key={index}>
+                        <Link to={`/portal/classroom/${curso.course.course_id}`} key={index}>
                             <CourseCard course={curso.course.course_name}
-                                level={curso.courselevel}
+                                level={curso.course.level}
                                 is_my={true}
                                 payment_status={curso.payment_data.payment_status}
                                 structor={curso.teacher.name}
                                 structor_about={curso.structor_about}
                                 imageCourse={curso.imageCourse}
-                                time_start={curso.shift.start_time}
-                                time_end={curso.shift.end_time}
+                                time_start={curso.shift.start_time.toString().substring(0, 5)}
+                                time_end={curso.shift.end_time.toString().substring(0, 5)}
                             />
                     </Link>
                    ))}

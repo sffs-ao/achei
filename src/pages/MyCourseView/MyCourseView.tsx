@@ -7,7 +7,7 @@ import {useForm } from "react-hook-form"
 import { Loader2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
-import { GET_CLASSES_PUBLIC, GET_CONTENT_COURSE } from "@/lib/API";
+import { GET_CLASSES_PUBLIC, GET_CONTENT_COURSE, GET_COURSE_ONE } from "@/lib/API";
 import { CourseContent } from "@/lib/utils";
  
 export type FormData = {
@@ -48,15 +48,17 @@ const form = useForm<FormData>()
 
   const {data, isPending} = useQuery({
     queryKey: ["get-view-course", id],
-    queryFn: ()=>GET_CONTENT_COURSE(2),
+    queryFn: ()=>GET_COURSE_ONE(id!),
 })
 if(data)
     console.log("Data ",data )
-    const urlCompleta = window.location.href;
+    
+const urlCompleta = window.location.href;
 
     useEffect(() => {
         console.log("Question ", question)
-       window.localStorage.setItem("data-study",JSON.stringify({ question:question??"",linkUrl: urlCompleta, date: new Date().toLocaleDateString()+"|"+ new Date().toLocaleTimeString()}))
+        if (question)
+            window.localStorage.setItem("data-study",JSON.stringify({ question:question??"",linkUrl: urlCompleta, date: new Date().toLocaleDateString()+"|"+ new Date().toLocaleTimeString()}))
        async function firstMessage() {
             setIsLoading(true)
             const message = await POST_MESSAGE('O que é o verbo to be')
@@ -85,7 +87,7 @@ async function handleSubmit(data:FormData) {
         <div className="flex flex-col md:flex-row gap-2 md:gap-4 items-start">
            
             <div className="w-full border shadow-sm rounded-sm md:flex-1 p-4 flex flex-col gap-4 min-h-[calc(100vh-150px)] overflow-y-auto ">
-            <h1>{data?.course_name}</h1>
+            <h1>{data?.course.course_name}</h1>
                  <div className="  h-[calc(100vh-200px)] overflow-y-auto" ref={divMessage}>
                         <h1 className="text-lg font-bold">{question?.replace(/-/g, " ")}</h1>
                         <div className="flex flex-col gap-4" >
@@ -110,14 +112,12 @@ async function handleSubmit(data:FormData) {
                     </div>            
             </div>
          
-         
-         
             <div className="flex flex-col w-full md:w-96 gap-2">
                 <h1 className="font-bold text-lg">Conteúdo</h1>
                 <Card>
                     <CardHeader>
                     <Accordion type="single" collapsible className="w-full">
-                    {data?.contents.map((content: CourseContent, index: number) => (
+                    {data?.course.contents?.map((content: CourseContent, index: number) => (
                         <AccordionItem key={index} value={`item-${index}`}>
                             <AccordionTrigger className="text-nowrap text-ellipsis">{content.title}</AccordionTrigger>
                             <AccordionContent>

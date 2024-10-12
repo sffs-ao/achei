@@ -151,7 +151,7 @@ export const SUBMIT_CODE_VERIFY = async ({email, code}: {email:string, code: str
    return await response.json();
  };
  
-  
+ 
 
   export const GET_MY_CLASSES = async () => {
     const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
@@ -162,6 +162,7 @@ export const SUBMIT_CODE_VERIFY = async ({email, code}: {email:string, code: str
        Authorization: `Bearer ${AUTH_TOKEN}`,
      },
    });
+
    return await response.json();
  };
  
