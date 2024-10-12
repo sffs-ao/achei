@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Course } from "./utils";
+import { Course, CourseDescription } from "./utils";
 export const BASE_URL = "https://app.enanza.ao/api";
 export const APP_NAME = "achei_portal";
 export const APP_API = "https://wwww.enanza.ao/api";
@@ -104,6 +104,16 @@ export const SUBMIT_CODE_VERIFY = async ({email, code}: {email:string, code: str
    return await response.json();
  };
 
+ export const GET_COURSE_ONE = async (id:string): Promise<CourseDescription> => {
+  const response = await fetch(`https://www.enanza.ao/api/courses-one/${id}`, {
+   method: "GET",
+   headers: {
+     "Content-Type": "application/json",
+   },
+ });
+ return await response.json();
+};
+
  export const GET_CONTENT_COURSE = async (id:string): Promise<Course[]> => {
   //const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
   const AUTH_TOKEN = "22|QTVhnwrPg3nFuakW3lCCEru1LjBWjGbk2hGfDWCj41b6f0ab" 
@@ -140,6 +150,7 @@ export const SUBMIT_CODE_VERIFY = async ({email, code}: {email:string, code: str
    });
    return await response.json();
  };
+ 
   
 
   export const GET_MY_CLASSES = async () => {
