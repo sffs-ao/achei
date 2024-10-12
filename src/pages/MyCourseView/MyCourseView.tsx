@@ -7,22 +7,9 @@ import {useForm } from "react-hook-form"
 import { Loader2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
-import { GET_CLASSES_PUBLIC } from "@/lib/API";
-
-const summary = [
-    {
-        id: 1,
-        "title": "introducao a gramatica do ingles",
-    },
-    {
-        id: 2,
-        "title": "Conjugacao do verbo to be",
-    },
-    {
-        id: 3,
-        "title": "Contagem de numeros",
-    },
-]
+import { GET_CLASSES_PUBLIC, GET_CONTENT_COURSE } from "@/lib/API";
+import { CourseContent } from "@/lib/utils";
+ 
 export type FormData = {
     message:string
 };
@@ -40,15 +27,9 @@ async function POST_MESSAGE(data:string) {
      
 }
 
-const {data, isPending} = useQuery({
-    queryKey: ["get-my-course"],
-    queryFn: GET_CLASSES_PUBLIC,
-})
-if(data)
-    console.log("Data ",data )
 
 export default function MyCourseView() {
- const { id } = useParams<{ id: string }>(); 
+ const { id , question} = useParams<{ id: string, question: string }>(); 
  const[update, setUpdaet] = useState(false)
  const[isLoading, setIsLoading] = useState(false)
 const form = useForm<FormData>()
@@ -64,7 +45,18 @@ const form = useForm<FormData>()
           });
     }
   },[messageList])
+
+  const {data, isPending} = useQuery({
+    queryKey: ["get-view-course", id],
+    queryFn: ()=>GET_CONTENT_COURSE(2),
+})
+if(data)
+    console.log("Data ",data )
+    const urlCompleta = window.location.href;
+
     useEffect(() => {
+        console.log("Question ", question)
+       window.localStorage.setItem("data-study",JSON.stringify({ question:question??"",linkUrl: urlCompleta, date: new Date().toLocaleDateString()+"|"+ new Date().toLocaleTimeString()}))
        async function firstMessage() {
             setIsLoading(true)
             const message = await POST_MESSAGE('O que é o verbo to be')
@@ -77,7 +69,7 @@ const form = useForm<FormData>()
             setUpdaet(true)
        }
        
-    },[id])
+    },[id, question])
 async function handleSubmit(data:FormData) {
     setIsLoading(true)
     setMessagesList((state) => [...state, {message:data.message, sender: "me"}])
@@ -91,9 +83,11 @@ async function handleSubmit(data:FormData) {
 
     return (
         <div className="flex flex-col md:flex-row gap-2 md:gap-4 items-start">
+           
             <div className="w-full border shadow-sm rounded-sm md:flex-1 p-4 flex flex-col gap-4 min-h-[calc(100vh-150px)] overflow-y-auto ">
-                    <div className="  h-[calc(100vh-200px)] overflow-y-auto" ref={divMessage}>
-                        <h1 className="text-lg font-bold">O que é o verbo to be</h1>
+            <h1>{data?.course_name}</h1>
+                 <div className="  h-[calc(100vh-200px)] overflow-y-auto" ref={divMessage}>
+                        <h1 className="text-lg font-bold">{question?.replace(/-/g, " ")}</h1>
                         <div className="flex flex-col gap-4" >
                             
                             {
@@ -123,41 +117,22 @@ async function handleSubmit(data:FormData) {
                 <Card>
                     <CardHeader>
                     <Accordion type="single" collapsible className="w-full">
-                    <AccordionItem value="item-1">
-                        <AccordionTrigger>Modulo 1</AccordionTrigger>
-                        <AccordionContent>
-                           <ul className="flex flex-col gap-0">
-                            {
-                                summary.map((item, index) => (
-                                    <Link to={`/classroom/${item.id}`} key={index} className="hover:bg-zinc-100 p-2 rounded-sm"><li>{item.title}</li></Link>
-                                ))
-                            }
-                           
-                           </ul>
-                        </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="item-2">
-                        <AccordionTrigger>Modulo 2</AccordionTrigger>
-                        <AccordionContent>
-                           <ul className="flex flex-col gap-0">
-                                <Link to="" className="hover:bg-zinc-100 p-2 rounded-sm"><li>Introducao a gramatica</li></Link>
-                                <Link to="" className="hover:bg-zinc-100 p-2 rounded-sm"><li>Verbo to be</li></Link>
-                                <Link to="" className="hover:bg-zinc-100 p-2 rounded-sm"><li>Conjugacao do verbo</li></Link>
-                                <Link to="" className="hover:bg-zinc-100 p-2 rounded-sm"><li> Introducao a gramatica</li></Link>
-                           </ul>
-                        </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="item-3">
-                        <AccordionTrigger>Modulo 3</AccordionTrigger>
-                        <AccordionContent>
-                           <ul className="flex flex-col gap-0">
-                                <Link to="" className="hover:bg-zinc-100 p-2 rounded-sm"><li>Introducao a gramatica</li></Link>
-                                <Link to="" className="hover:bg-zinc-100 p-2 rounded-sm"><li>Verbo to be</li></Link>
-                                <Link to="" className="hover:bg-zinc-100 p-2 rounded-sm"><li>Conjugacao do verbo</li></Link>
-                                <Link to="" className="hover:bg-zinc-100 p-2 rounded-sm"><li> Introducao a gramatica</li></Link>
-                           </ul>
-                        </AccordionContent>
-                    </AccordionItem>
+                    {data?.contents.map((content: CourseContent, index: number) => (
+                        <AccordionItem key={index} value={`item-${index}`}>
+                            <AccordionTrigger className="text-nowrap text-ellipsis">{content.title}</AccordionTrigger>
+                            <AccordionContent>
+                                <ul className="flex flex-col gap-0">
+                                    {content.contents.map((item, idx) => (
+                                        <Link to={`/portal/classroom/${id}/${item.replace(/ /g, "-")}`} key={idx} className="hover:bg-zinc-100 p-2 rounded-sm">
+                                            <li>{item}</li>
+                                        </Link>
+                                    ))}
+                                </ul>
+                            </AccordionContent>
+                        </AccordionItem>
+                    ))}
+                    
+                
                     </Accordion>
                  </CardHeader>
                 </Card>

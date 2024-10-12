@@ -8,12 +8,14 @@ interface CourseCardProps {
     is_my?:boolean,
     time_start: string,
     time_end: string,
+    payment_status: string | null
 }
 export default function CourseCard({
   level,
   structor,
   course,
   time_start,
+  payment_status,
   time_end,
   structor_about,
   imageCourse,
@@ -23,9 +25,9 @@ export default function CourseCard({
   return (
     <div className="relative border  shadow-sm rounded-md overflow-auto flex flex-col bg-white hover:bg-zinc-100">
       {is_my && <span className=" absolute top-2 right-2 bg-yellow-400 text-black rounded-sm p-2 text-[10px]">Estudando</span>}
-       <div className="flex flex-col p-2 gap-2">
+       <div className="flex flex-col p-2 gap-2 items-start">
         <div className=" text-sm font-bold">{course}</div>
-       
+        {!payment_status ? <span className="   bg-red-400 text-white rounded-sm p-1 text-[10px]">Não Pago</span> : <span className=" bg-green-400 text-white rounded-sm p-2 text-[10px]">Pago</span> }
        <div className="flex flex-col">
          <span className="text-xs text-zinc-600"> Horario: {time_start} | {time_end}</span>
           <span className="text-xs text-zinc-600">Seg | Terc | Quart | Quin | Sext</span>

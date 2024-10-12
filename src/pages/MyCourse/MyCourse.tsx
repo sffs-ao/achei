@@ -26,6 +26,7 @@ export default function MyCourses()
                             <CourseCard course={curso.course.course_name}
                                 level={curso.courselevel}
                                 is_my={true}
+                                payment_status={curso.payment_data.payment_status}
                                 structor={curso.teacher.name}
                                 structor_about={curso.structor_about}
                                 imageCourse={curso.imageCourse}

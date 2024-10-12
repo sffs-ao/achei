@@ -39,7 +39,7 @@ function App() {
                 <Route path="cursos/:id" element={<CoursePage />} />
                 <Route path="cursos/my" element={<MyCourseView />} />
                 <Route path="notificacoes" element={<NotifyPage />} />
-                <Route path="classroom/:id" element={<MyCourseView />} />
+                <Route path="classroom/:id/:question?" element={<MyCourseView />} />
                 <Route path="meus-cursos/" element={<MyCourses />} />
                 <Route path="me" element={<ProfilePage />} />
               </Route>

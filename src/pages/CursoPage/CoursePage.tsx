@@ -3,11 +3,12 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { useEffect, useState } from "react";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../../components/ui/dialog";
 import { useParams } from "react-router-dom";
-import { GET_CLASSES_AVAL, GET_CLASSES_PUBLIC, REGISTER_CLASS } from "@/lib/API";
+import { GET_CLASSES_AVAL, GET_CLASSES_PUBLIC, GET_CONTENT_COURSE, REGISTER_CLASS } from "@/lib/API";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { toast } from "react-toastify";
+import { CourseContent } from "@/lib/utils";
 export default function CoursePage() {
     const [course, setCourse] = useState<any>(null);
     const { id } = useParams();
@@ -16,10 +17,23 @@ export default function CoursePage() {
         queryFn: GET_CLASSES_PUBLIC,
     })
 
+    const {data: content, isPending:isLoadingContent} = useQuery({
+        queryKey: ["get-view-course", id],
+        queryFn: ()=>GET_CONTENT_COURSE(id!),
+    })
+    if(data)
+        console.log("Data ",data )
+    
+
     useEffect(() => {
         if (data)
             setCourse(data.courses.find((curso: any) => curso.id == id))
     }, [data])
+
+    useEffect(() => {
+        if (content)
+        console.log("Data ----------------------- ", content)
+    }, [content])
     console.log("Data ----------------------- ", course)
     return (
         <div className="w-full  bg-zinc-100">
@@ -30,25 +44,20 @@ export default function CoursePage() {
             </div>
             <div className="flex flex-col md:flex-row mt-4 items-start gap-4 w-full">
                 <div className="md:flex-1 flex flex-col gap-2">
-                    <div className="border shadow-sm rounded-sm p-4 bg-white">
-                        <h1 className="font-semibold">Sobre o curso</h1>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam in magni temporibus minus itaque unde non excepturi, quia cum quo praesentium blanditiis fugit nemo ex, earum perferendis sapiente architecto impedit!
-                        </p>
-                    </div>
-                    <div className="border shadow-sm rounded-sm p-4 bg-white">
-                        <h1 className="font-semibold">Modulo 1</h1>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae repudiandae soluta sapiente molestias quisquam voluptate numquam laudantium, quidem non cumque debitis atque sit ipsam quos autem ipsum, porro error animi.
-                        </p>
-                    </div>
-
-                    <div className="border shadow-sm rounded-sm p-4 bg-white">
-                        <h1 className="font-semibold">Modulo 2</h1>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae repudiandae soluta sapiente molestias quisquam voluptate numquam laudantium, quidem non cumque debitis atque sit ipsam quos autem ipsum, porro error animi.
-                        </p>
-                    </div>
+                   
+                   
+                    {content?.contents.map((content: CourseContent, index: number) => (
+                        <div key={index} className="border shadow-sm rounded-sm p-4 bg-white">
+                            <h1 className="font-semibold">{content.title}</h1>
+                            <ul className="list-disc pl-5">
+                                {content.contents.map((item:string, idx:number) => (
+                                    <li key={idx}>{item}</li>
+                                ))}
+                            </ul>
+                            <p className="italic">{content.obsarvations}</p>
+                        </div>
+                    ))}
+                   
                 </div>
 
                 <div className="w-full gap-2 md:w-80 flex flex-col">
