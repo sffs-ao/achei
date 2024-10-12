@@ -1,20 +1,11 @@
 import ScrollToTop from "react-scroll-to-top";
-import { FaArrowUp } from "react-icons/fa"; // Biblioteca react-icons
+import { FaArrowUp } from "react-icons/fa";
+import "./Scroll.css";
 
 function Scroll() {
   return (
     <div>
-      <ScrollToTop
-        smooth
-        component={<FaArrowUp />}
-        style={{
-          backgroundColor: "#007bff",
-          borderRadius: "50%",
-          padding: "10px",
-          color: "white",
-        }}
-      />
-      {/* Conteúdo da página */}
+      <ScrollToTop smooth component={<FaArrowUp />} id="scroll-content" />
     </div>
   );
 }
