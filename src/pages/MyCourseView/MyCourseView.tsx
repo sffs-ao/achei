@@ -140,6 +140,33 @@ async function handleSubmit(data:FormData) {
                     </Accordion>
                  </CardHeader>
                 </Card>
+                <div>
+                    <h1 className="font-bold text-lg">Testes</h1>
+                     <div className="flex flex-col gap-1">
+                      <Link to={`/portal/quiz/${id}`} className="hover:bg-zinc-100 rounded-sm">
+                  
+                          <Card>
+                                <CardHeader>
+                                    <span>Quiz 01</span>
+                                </CardHeader>
+                            </Card>
+                          </Link>
+                          <Link to={`/portal/quiz/${id}`} className="hover:bg-zinc-100 placeholder:rounded-sm">
+                            <Card>
+                                <CardHeader>
+                                    <span>Quiz 02</span>
+                                </CardHeader>
+                            </Card>
+                          </Link>
+                          <Link to={`/portal/quiz/${id}`} className="hover:bg-zinc-100 rounded-sm">
+                            <Card>
+                                <CardHeader>
+                                    <span>Quiz 03</span>
+                                </CardHeader>
+                            </Card>
+                          </Link>
+                    </div>
+                </div>
           </div>
       </div>
             )}

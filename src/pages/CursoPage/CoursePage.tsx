@@ -128,7 +128,6 @@ export function ModalRegisterCourse({ children, course }: { children: React.Reac
  
     return (
         <>
-
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
                 <DialogTrigger>{children}</DialogTrigger>
                 <DialogContent>

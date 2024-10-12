@@ -21,7 +21,7 @@ export default function CatalogoPage()
             <h1 className="text-2xl">Catalogo</h1>
             <p className="font-semibold">Navegue por todo conteudo da SFFS</p>
             <div className="flex mt-4 items-start gap-4">
-                <div className=" overflow-y-scroll scrol flex-1 grid md:grid-cols-2 lg:grid-cols-3 gap-4">     
+                <div className="flex-1 grid md:grid-cols-2 lg:grid-cols-3 gap-4">     
                  {isPending && <div className="w-full h-96 flex items-center justify-center"><Loader2 className="w-10 h-10 animate-spin" /></div>}
                    {data && data.courses.map((curso:any, index:number)=>(
                         <Link to={`/portal/cursos/${curso.id}`} key={index}>

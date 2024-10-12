@@ -24,6 +24,7 @@ export default function Register() {
     onSuccess(data) {
       console.log("onSuccess ", data);
       setSubmit(true);
+      window.localStorage.setItem("data-aready", JSON.stringify(data));
     },
     onError(error) {
       toast.error("O Email já existe");

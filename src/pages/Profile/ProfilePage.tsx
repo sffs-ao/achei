@@ -105,6 +105,7 @@ export function MyAccount() {
       onSuccess(data) {
         console.log(data);
         toast.success("Dados salvos com sucesso");
+        window.localStorage.removeItem("data-aready")
     },
     onError(error) {
       console.log(error);
