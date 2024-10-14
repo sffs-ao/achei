@@ -61,17 +61,18 @@ if(data)
 const urlCompleta = window.location.href;
 
     useEffect(() => {
+        setMessagesList([])
         console.log("Question ", question)
         if (question)
             window.localStorage.setItem("data-study",JSON.stringify({ question:question??"",linkUrl: urlCompleta, date: new Date().toLocaleDateString()+"|"+ new Date().toLocaleTimeString()}))
        async function firstMessage() {
             setIsLoading(true)
             const message = await POST_MESSAGE(question!)
-            setMessagesList([...messageList, message])
+            setMessagesList([message])
             console.log(message)
             setIsLoading(false)
        }
-             firstMessage()
+    firstMessage()
         
     },[id, question])
 async function handleSubmit(data:FormData) {
