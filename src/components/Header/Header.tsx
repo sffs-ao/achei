@@ -82,7 +82,7 @@ export function HeaderLoged({toggleSideBar} : HeaderProps) {
     
                 <div className="flex gap-2">
                     <ModalSearchModal><Button variant={"outline"}><Search/></Button></ModalSearchModal>
-                    <MenuPopoverNotify><Button variant={"outline"}><Bell/></Button></MenuPopoverNotify>
+                   {/* <MenuPopoverNotify><Button variant={"outline"}><Bell/></Button></MenuPopoverNotify> */}
                     <MenuPopoverProfile><Button  className="bg-blue-700 rounded-full">{user?.name?.substring(0,1)}</Button></MenuPopoverProfile>
                 </div>
             </header>

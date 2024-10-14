@@ -1,4 +1,4 @@
-import { MessageCircleMore, PencilRuler, Users2 } from "lucide-react";
+import { Lock, MessageCircleMore, PencilRuler, Users2 } from "lucide-react";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { Dialog, DialogHeader , DialogContent, DialogFooter} from "./ui/dialog";
 
@@ -45,7 +45,7 @@ export function ModalForumSign({openModal, setOpenModal}: ModalForumSign) {
                 <DialogFooter>
                     <div className="flex gap-2 items-end justify-center w-full">
                         <Button onClick={()=>setOpenModal(false)} variant={"outline"}>Fechar</Button>
-                        <Button className="bg-blue-800">Matricular-se</Button>
+                        <Button className="bg-blue-800">Brevemente &nbsp; <Lock size={18}/></Button>
                     </div>
                  </DialogFooter>
             </DialogContent>
