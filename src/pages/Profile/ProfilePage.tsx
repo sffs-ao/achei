@@ -75,7 +75,7 @@ export default function ProfilePage() {
 
 const schema = z.object({
   full_name: z.string().min(1, "Nome é obrigatório"),
-  phone_number: z.string().min(9, "Telefone deve ter no mínimo 10 dígitos"),
+  phone_number: z.string().min(9, "Telefone deve ter no mínimo 9 dígitos"),
   birth_date: z.string(),
   address: z.string().min(1, "Endereço é obrigatório"),
   id_type: z.enum(["1", "2", "3"], {required_error: "Tipo de documento é obrigatório", }),

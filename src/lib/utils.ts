@@ -37,6 +37,45 @@ export interface CourseDescription {
   }
 }
 
+
+export interface CourseListFilter {
+  id: number;
+  course_name: string;
+  price: string;
+  price_registration: string | null;
+  description: string;
+  level: string;
+  prerequisites: {
+    id_documentation: string[];
+    school: string;
+  };
+  duration: string;
+  open_classes: ClassDetails[];
+  contents: CourseContent[];
+  obs: string | null;
+  status: string | null;
+}
+
+export interface CourseDescriptionList {
+  courses: [{
+    id: number;
+    course_name: string;
+    price: string;
+    price_registration: string | null;
+    description: string;
+    level: string;
+    prerequisites: {
+      id_documentation: string[];
+      school: string;
+    };
+    duration: string;
+    open_classes: ClassDetails[];
+    contents: CourseContent[];
+    obs: string | null;
+    status: string | null;
+  }]
+}
+
 export interface ClassDetails {
   class_id: number;
   class_name: string;
