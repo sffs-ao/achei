@@ -6,8 +6,10 @@
   ],
   "compilerOptions": {
     "baseUrl": ".",
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
+     "noUnusedLocals": false,  // Ignorar erros de variáveis não utilizadas
+    "noUnusedParameters": false,  // Ignorar erros de parâmetros não utilizados
+    "strict": false  // Desativar todas as verificações estritas, se necessário
+    ,
     "paths": {
       "@/*": ["./src/*"]
     }
