@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { Loader2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
-import { GET_CLASSES_PUBLIC, GET_CONTENT_COURSE, GET_COURSE_ONE } from "@/lib/API";
+import {  GET_COURSE_ONE } from "@/lib/API";
 import { CourseContent } from "@/lib/utils";
 
 export type FormData = {
@@ -20,7 +20,7 @@ export type FormData = {
 };
 
 async function POST_MESSAGE(data: string) {
-  const response = await fetch("https://faceapi-api2.onrender.com", {
+  const response = await fetch("https://chatbot.mtapp.ao/message", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -66,16 +66,13 @@ const urlCompleta = window.location.href;
             window.localStorage.setItem("data-study",JSON.stringify({ question:question??"",linkUrl: urlCompleta, date: new Date().toLocaleDateString()+"|"+ new Date().toLocaleTimeString()}))
        async function firstMessage() {
             setIsLoading(true)
-            const message = await POST_MESSAGE('O que é o verbo to be')
+            const message = await POST_MESSAGE(question!)
             setMessagesList([...messageList, message])
             console.log(message)
             setIsLoading(false)
        }
-       if (!update){
-            firstMessage()
-            setUpdate(true)
-       }
-       
+             firstMessage()
+        
     },[id, question])
 async function handleSubmit(data:FormData) {
     setIsLoading(true)

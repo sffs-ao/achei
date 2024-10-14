@@ -9,13 +9,22 @@ import { Loader2 } from "lucide-react"
 import CourseCardPublic from "./CourseCardPublic"
 import { useEffect, useState } from "react"
 import { CourseDescription, CourseDescriptionList, CourseListFilter } from "@/lib/utils"
-import { MenubarCheckboxItem } from "@/components/ui/menubar"
+
 import { Checkbox } from "@/components/ui/checkbox"
 
 export default function CatalogoPage()
 {
 
     const [filterCourses , setFilterCourses] = useState<CourseListFilter[]>([])
+    function orderBy(e: string) {
+        let sortedCourses = [...filterCourses];
+        if (e === "A") {
+            sortedCourses.sort((a, b) => a.course_name.localeCompare(b.course_name));
+        } else if (e === "Z") {
+            sortedCourses.sort((a, b) => b.course_name.localeCompare(a.course_name));
+        }
+        setFilterCourses(sortedCourses);
+    }
     const {data, isPending} = useQuery({
         queryKey: ["get-public-courses"],
         queryFn: GET_CLASSES_PUBLIC,
@@ -89,13 +98,13 @@ export default function CatalogoPage()
 
                     <div className="mt-4">
                     <Label>Ordem de visualização</Label>
-                        <Select>
+                        <Select onValueChange={(e) => orderBy(e)}>
                             <SelectTrigger className="w-full">
                                 <SelectValue placeholder="Selecione a ordem" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem  value="apple">A - Z</SelectItem>
-                                <SelectItem value="banana">Z - A</SelectItem>         
+                                <SelectItem  value="A">A - Z</SelectItem>
+                                <SelectItem value="Z">Z - A</SelectItem>         
                             </SelectContent>
                         </Select>
                     </div>
