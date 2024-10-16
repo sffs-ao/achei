@@ -22,7 +22,7 @@ export const SUBMIT_CODE_VERIFY = async ({email, code}: {email:string, code: str
     return await response.json();
   };
 
-  export const login = async ({email, password}:{email:string, password:string}) => {
+  export const login = async ({email, password}:{email?:string, password?:string}) => {
     const response = await fetch(`${BASE_URL}/login`, {
       method: "POST",
       headers: {
