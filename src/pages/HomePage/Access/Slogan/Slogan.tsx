@@ -24,12 +24,13 @@ export default function Slogan() {
           <img src="https://i.ibb.co/XZmYGhj/Josemar.jpg" alt="Aluno do SFFS" />
         </figure>
         <div className="banner-text">
-          Se junte aos alunos que aprendem todos os dias com Achei
+          Junte-se aos alunos que aprendem todos os dias com o SFFS
         </div>
       </div>
 
       <div className="slogan">
-        Sua jornada de <span>aprendizado contínuo</span> e enriquecedor.
+        Inicie a sua jornada de <span>aprendizado contínuo</span> e
+        enriquecedora
       </div>
     </div>
   );
