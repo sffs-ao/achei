@@ -1,0 +1,187 @@
+@media screen and (max-width: 600px) {
+  .register-container {
+    padding: 0 1em;
+  }
+}
+
+@media screen and (min-width: 601px) {
+  .register-container {
+    padding: 0 2em;
+  }
+}
+
+.register {
+  width: 100%;
+  min-height: 500px;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: var(--box-bg);
+}
+
+.publicidade {
+  background: linear-gradient(90deg, #a2c2e2, #b2e0d0, #f0c2b7, #e6b3e0);
+  padding: 2.5em;
+  height: 630px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.publicidade figure {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.image-name {
+  transition: 0.3s ease;
+  width: 400px;
+}
+
+@media screen and (max-width: 500px) {
+  .image-name {
+    width: 350px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .image-name {
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .image-name {
+    width: 200px;
+  }
+}
+
+.register form {
+  padding: 2.5em;
+}
+
+.register form h1 {
+  font-weight: 900;
+  font-size: 1em;
+  margin-bottom: 0.7em;
+}
+
+.register .form-group {
+  position: relative;
+  margin-bottom: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.bi-left {
+  position: absolute;
+  font-size: 1.5em;
+  top: 10%;
+  left: 0.3em;
+}
+
+.register .form-group input[type="text"],
+.register .form-group input[type="email"],
+.register .form-group input[type="password"] {
+  width: 100%;
+  border-radius: 4px;
+  padding: 1em 0.4em 1em 3em;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 0.8em;
+}
+
+.terms {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.space {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
+}
+
+.terms a {
+  font-weight: bold;
+  color: var(--text-color);
+  text-decoration: underline;
+  transition: 0.3s;
+}
+
+.terms a:hover {
+  color: var(--primary-color);
+}
+
+.terms label {
+  font-size: 0.8em;
+  margin-left: 0.5em;
+}
+
+#btn-submit-register {
+  background: var(--primary-color);
+  border: none;
+  font-weight: 600;
+  width: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.contact-area {
+  margin-top: 2.5em;
+  border-radius: 15px;
+  padding: 1em;
+  background: linear-gradient(90deg, #e0e0e0, #a8d5a2);
+  user-select: none;
+}
+
+.contact-area .bi {
+  color: var(--primary-color);
+  padding: 2px;
+  border-radius: 4px;
+  font-size: 1.5em;
+}
+
+.contact-top {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.contact-top p {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-left: 0.5em;
+}
+
+.contact-text {
+  font-size: 0.8em;
+  line-height: 1.5em;
+}
+
+@media screen and (min-width: 1040px) {
+  .register {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .publicidade {
+    width: 50%;
+    position: relative;
+  }
+
+  .register form {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .register {
+    min-width: 400px;
+  }
+}

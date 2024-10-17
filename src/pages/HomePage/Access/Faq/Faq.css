@@ -1,0 +1,54 @@
+.faq ul {
+  list-style: none;
+}
+
+.faq {
+  padding: 5em 2em;
+}
+
+@media screen and (max-width: 600px) {
+  .faq h1 {
+    font-size: 1.5em;
+  }
+}
+
+.faq-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.faq-top div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.faq-top div p:nth-child(1) {
+  margin-right: 1em;
+}
+
+.answer {
+  padding: 0 10px;
+  border-top: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.answer.open {
+  padding: 10px;
+  max-height: 1000px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
