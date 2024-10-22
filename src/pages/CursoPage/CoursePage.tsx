@@ -78,8 +78,8 @@ export default function CoursePage() {
                         </CardHeader>
                         <CardContent>
                             <div className="flex flex-col">
-                                <span>Documento: Bilhete de identidade</span>
-                                <span>Escolaridade: 10 classe</span>
+                                <span className="flex gap-2">Documento: {course && JSON.parse(course?.course.prerequisites.id_documentation.toString()).map((id) => <span className="bg-green-700 text-white p-1 rounded-md text-sm font-bold">{id}</span>)}</span>
+                                <span>Escolaridade: {course?.course.prerequisites.school}</span>
                             </div>
                         </CardContent>
                     </Card>
