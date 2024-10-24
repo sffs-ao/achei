@@ -16,19 +16,11 @@ import Register from "./Access/Register/Register";
 import Scroll from "./Access/Scroll/Scroll";
 import { GET_CLASSES_PUBLIC } from "../../lib/API";
 
-/* 
-interface ApiCourse {
-  course_name: string;
-  level: string;
-  status?: string;
-  image_link: string;
-} */
-
 interface Course {
   course: string;
   level: string;
   structor: string;
-  structor_about: string; 
+  structor_about: string;
   course_state: string;
   imageCourse: string;
 }
@@ -41,9 +33,8 @@ export default function Start() {
     const fetchCourses = async () => {
       try {
         const data = await GET_CLASSES_PUBLIC();
-        console.log("courses", data); // Adicione este log para ver a estrutura
+        console.log("courses", data);
 
-        // Verifique se 'data.courses' é realmente um array
         if (!Array.isArray(data.courses)) {
           throw new Error("A resposta da API não contém um array de cursos");
         }
@@ -51,8 +42,8 @@ export default function Start() {
         const mappedCourses: Course[] = data.courses.map((course) => ({
           course: course.course_name,
           level: course.level,
-          structor: "Nome do Instrutor",
-          structor_about: "Sobre o Instrutor",
+          structor: "Se inscreva agora",
+          structor_about: course.description,
           course_state: course.status || "Disponível",
           imageCourse: course.image_link,
         }));
