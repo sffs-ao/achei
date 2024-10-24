@@ -71,6 +71,40 @@ export const removeLocalStorageToken = () => {
   window.localStorage.removeItem(`${APP_NAME}_`);
 };
 
+/* export const SUBMIT_DATA_STUDENT = async (data: {
+  full_name: string;
+  birth_date: string;
+  id_type: string;
+  id_number: string;
+  phone_number: string;
+  address: string;
+  observations: string;
+}) => {
+  const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
+  const response = await fetch(`${BASE_URL}/students/store-data`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${AUTH_TOKEN}`,
+    },
+    body: JSON.stringify(data),
+  });
+  return await response.json();
+}; */
+
+/* export const REGISTER_CLASS = async (data: { class_id: string }) => {
+  const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
+  const response = await fetch(`${BASE_URL}/registrations`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${AUTH_TOKEN}`,
+    },
+    body: JSON.stringify(data),
+  });
+  return await response.json();
+}; */
+
 export const SUBMIT_DATA_STUDENT = async (data: {
   full_name: string;
   birth_date: string;
@@ -105,66 +139,20 @@ export const REGISTER_CLASS = async (data: { class_id: string }) => {
   return await response.json();
 };
 
-  export const SUBMIT_DATA_STUDENT = async (data: {
-    full_name: string;
-    birth_date: string;
-    id_type: string;
-    id_number: string;
-    phone_number: string;
-    address: string;
-    observations: string;
-  }) => {
-    const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
-    const response = await fetch(`${BASE_URL}/students/store-data`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${AUTH_TOKEN}`,
-      },
-      body: JSON.stringify(data),
-    });
-    return await response.json();
-  };
-
-  export const REGISTER_CLASS = async (data: {
-    class_id: string;
-  }) => {
-    const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
-    const response = await fetch(`${BASE_URL}/registrations`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${AUTH_TOKEN}`,
-      },
-      body: JSON.stringify(data),
-    });
-    return await response.json();
-  };
-
-  export const GET_CLASSES_PUBLIC = async (): Promise<CourseDescriptionList> => {
-    const response = await fetch(`https://www.enanza.ao/api/courses-all`, {
-     method: "GET",
-     headers: {
-       "Content-Type": "application/json",
-     },
-   });
-   return await response.json() as CourseDescriptionList;
- };
-
- export const GET_COURSE_ONE = async (id:string): Promise<CourseDescription> => {
-  const response = await fetch(`https://www.enanza.ao/api/courses-one/${id}`, {
-   method: "GET",
-   headers: {
-     "Content-Type": "application/json",
-   },
- });
- return await response.json();
+export const GET_CLASSES_PUBLIC = async (): Promise<CourseDescriptionList> => {
+  const response = await fetch(`https://www.enanza.ao/api/courses-all`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return (await response.json()) as CourseDescriptionList;
 };
 
- export const GET_CONTENT_COURSE = async (id:string): Promise<Course[]> => {
-  //const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
-  const AUTH_TOKEN = "22|QTVhnwrPg3nFuakW3lCCEru1LjBWjGbk2hGfDWCj41b6f0ab" 
-  const response = await fetch(`https://www.enanza.ao/api/course-contents/${id}`, {
+export const GET_COURSE_ONE = async (
+  id: string
+): Promise<CourseDescription> => {
+  const response = await fetch(`https://www.enanza.ao/api/courses-one/${id}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -174,6 +162,21 @@ export const REGISTER_CLASS = async (data: { class_id: string }) => {
 };
 
 export const GET_CONTENT_COURSE = async (id: string): Promise<Course[]> => {
+  //const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
+  const AUTH_TOKEN = "22|QTVhnwrPg3nFuakW3lCCEru1LjBWjGbk2hGfDWCj41b6f0ab";
+  const response = await fetch(
+    `https://www.enanza.ao/api/course-contents/${id}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return await response.json();
+};
+
+/* export const GET_CONTENT_COURSE = async (id: string): Promise<Course[]> => {
   const AUTH_TOKEN = "22|QTVhnwrPg3nFuakW3lCCEru1LjBWjGbk2hGfDWCj41b6f0ab";
   const response = await fetch(
     `https://www.enanza.ao/api/course-contents/${id}`,
@@ -186,30 +189,27 @@ export const GET_CONTENT_COURSE = async (id: string): Promise<Course[]> => {
     }
   );
   return await response.json();
+}; */
+
+export const GET_CLASSES_AVAL = async () => {
+  const response = await fetch(`https://enanza.ao/api/classes-available`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return await response.json();
 };
 
-  export const GET_CLASSES_AVAL = async () => {
-    const response = await fetch(`https://enanza.ao/api/classes-available`, {
-     method: "GET",
-     headers: {
-       "Content-Type": "application/json",
-     },
-   });
-   return await response.json();
- };
- 
- 
+export const GET_MY_CLASSES = async () => {
+  const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
+  const response = await fetch(`${BASE_URL}/registrations`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${AUTH_TOKEN}`,
+    },
+  });
 
-  export const GET_MY_CLASSES = async () => {
-    const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
-    const response = await fetch(`${BASE_URL}/registrations`, {
-     method: "GET",
-     headers: {
-       "Content-Type": "application/json",
-       Authorization: `Bearer ${AUTH_TOKEN}`,
-     },
-   });
-
-   return await response.json();
- };
- 
+  return await response.json();
+};
