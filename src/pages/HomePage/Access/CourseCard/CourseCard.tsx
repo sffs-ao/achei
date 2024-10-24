@@ -31,7 +31,7 @@ export default function CourseCard({
         </div>
         <div className="course-name">{course}</div>
         <div className="structor-details">
-          <img src={imageUser} alt="" />
+          <img src="https://i.ibb.co/DwQF2dL/information-2866135-1280-1.png" alt="" />
           <div>
             <div className="course-structor">{structor}</div>
             <div className="structor-about">{structor_about}</div>

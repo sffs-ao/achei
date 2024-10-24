@@ -17,7 +17,7 @@ export default function SolutionCard({
       <div className="solution-left">
         <h2>{title}</h2>
         <p className="solution-text">{text}</p>
-        <button>
+        <button className="btn-solution">
           <Link to="">
             <span
               onClick={() => {
