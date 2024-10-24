@@ -39,11 +39,11 @@ export const MENU: MenuItem[] = [
     icon: <MessageCircle className="text-blue-900" />,
     link: "/portal/forum",
   },
-  {
+/*   {
     name: "Suporte",
     icon: <CircleHelp className="text-blue-900" />,
     link: "#",
-  },
+  }, */
 ];
 
 export const CursoMap = [

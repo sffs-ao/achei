@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@/components/ui/dialog";
 import { useUserContext } from "@/hooks/UserContext";
+import { QuestionPayload } from "@/lib/utils";
+import { PencilRuler } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -20,25 +23,36 @@ function numeroParaMes(numero: string) {
     "dezembro",
   ];
 
-  return meses[numero - 1]; // Subtraímos 1 porque o array começa do índice 0
+  return meses[Number(numero) - 1];  // Subtraímos 1 porque o array começa do índice 0
 }
 
 export default function Home() {
+  const[config, setConfig] = useState(false)
   const { user } = useUserContext();
-  const [dataStudy, setDataStudy] = useState<string>("");
-  useEffect(() => {
-    (async () => {
-      const dataLocalStorage = window.localStorage.getItem("data-study");
-      if (!dataLocalStorage) {
-        return;
-      }
-      const data_study = await JSON.parse(dataLocalStorage);
-      setDataStudy(data_study ?? "");
-      console.log("Data study ", data_study);
-    })();
-  }, []);
+  
+  const [dataStudy, setDataStudy] = useState<QuestionPayload>();
+useEffect(() => {
+  
+  (async ()=>{
+          const dataLocalStorage = window.localStorage.getItem("data-study")
+          const dataConfig = window.localStorage.getItem("data-aready")
+          
+          if  (dataConfig) {
+            setConfig(true)
+          }
+          if (!dataLocalStorage) {
+            return; 
+          }
+          const data_study = await JSON.parse(dataLocalStorage) as QuestionPayload
+          setDataStudy(data_study ?? null)
+          console.log("Data study ", data_study)  
+  })()
+
+}, []);
+
   return (
     <div>
+      <ConfigProfile openModal={config} setOpenModal={()=>{}}/>
       <h1 className="mb-8">Olá, {user?.name?.split(" ")[0]}! </h1>
       <div className="grid items-start gap-4">
         <Card>
@@ -94,4 +108,25 @@ export default function Home() {
       </div>
     </div>
   );
+}
+
+
+
+export function ConfigProfile({openModal, setOpenModal}: {openModal: boolean, setOpenModal: (value: boolean) =>void}) {
+  return (
+      <Dialog open={openModal} onOpenChange={setOpenModal} >
+          <DialogContent>
+          <DialogHeader className="flex flex-col items-center justify-center">
+              <PencilRuler width={24} className="text-red-600"/>
+              <h1 className="font-bold text-md text-center">Complete o seu perfil pra ter acesso total ao achei</h1>
+          </DialogHeader>
+              <DialogFooter>
+                  <div className="flex gap-2 items-end justify-center w-full">
+                      <Link to="/portal/me"> <Button className="bg-blue-800">Completar</Button></Link>
+                  </div>
+               </DialogFooter>
+          </DialogContent>
+         
+      </Dialog>
+  )
 }

@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { Loader2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
-import { GET_CLASSES_PUBLIC, GET_CONTENT_COURSE } from "@/lib/API";
+import {  GET_COURSE_ONE } from "@/lib/API";
 import { CourseContent } from "@/lib/utils";
 
 export type FormData = {
@@ -20,7 +20,7 @@ export type FormData = {
 };
 
 async function POST_MESSAGE(data: string) {
-  const response = await fetch("https://faceapi-api2.onrender.com", {
+  const response = await fetch("https://chatbot.mtapp.ao/message", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -53,132 +53,118 @@ export default function MyCourseView() {
 
   const { data, isPending } = useQuery({
     queryKey: ["get-view-course", id],
-    queryFn: () => GET_CONTENT_COURSE(2),
-  });
-  if (data) console.log("Data ", data);
-  const urlCompleta = window.location.href;
+    queryFn: ()=>GET_COURSE_ONE(id!),
+})
+if(data)
+    console.log("Data ",data )
+    
+const urlCompleta = window.location.href;
 
-  useEffect(() => {
-    console.log("Question ", question);
-    window.localStorage.setItem(
-      "data-study",
-      JSON.stringify({
-        question: question ?? "",
-        linkUrl: urlCompleta,
-        date: new Date().toLocaleDateString() + "|" + new Date().toLocaleTimeString(),
-      })
-    );
-    async function firstMessage() {
-      setIsLoading(true);
-      const message = await POST_MESSAGE("O que é o verbo to be");
-      setMessagesList([...messageList, message]);
-      console.log(message);
-      setIsLoading(false);
-    }
-    if (!update) {
-      firstMessage();
-      setUpdate(true); // Corrigido: setUpdate
-    }
-  }, [id, question]);
-
-  async function handleSubmit(data: FormData) {
-    setIsLoading(true);
-    setMessagesList((state) => [
-      ...state,
-      { message: data.message, sender: "me" },
-    ]);
-    await POST_MESSAGE(data.message).then((response) => {
-      setMessagesList((state) => [
-        ...state,
-        { message: response.message, sender: response.sender },
-      ]);
-    });
-    form.reset();
-    setIsLoading(false);
-  }
-
-  return (
-    <div className="flex flex-col items-start gap-2 md:flex-row md:gap-4">
-      <div className="w-full border shadow-sm rounded-sm md:flex-1 p-4 flex flex-col gap-4 min-h-[calc(100vh-150px)] overflow-y-auto ">
-        <h1>{data?.course_name}</h1>
-        <div
-          className="h-[calc(100vh-200px)] overflow-y-auto"
-          ref={divMessage}
-        >
-          <h1 className="text-lg font-bold">
-            {question?.replace(/-/g, " ")}
-          </h1>
-          <div className="flex flex-col gap-4">
-            {messageList.map((message, index) => (
-              <div
-                key={index}
-                className={`${
-                  message.sender === "me"
-                    ? "bg-green-900 text-zinc-100 "
-                    : "bg-zinc-100 text-zinc-800"
-                } p-2 text-sm leading-loose flex flex-col w-fit rounded-md max-w-[800px]`}
-              >
-                {message.message.split("\n").map((line, index) => (
-                  <p key={index}>{line}</p>
-                ))}
-              </div>
-            ))}
-            {isLoading && (
-              <span className="flex items-center gap-2 text-sm font-bold text-zinc-700">
-                Espere um pouco <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              </span>
-            )}
-          </div>
-        </div>
-        <div className="h-10">
-          <form onSubmit={form.handleSubmit(handleSubmit)} className="flex">
-            <Input
-              required
-              disabled={isLoading}
-              {...form.register("message")}
-              className="rounded-r-none focus-visible:ring-0"
-              type="text"
-              placeholder="Pergunte algo"
-            />
-            <Button disabled={isLoading} className="rounded-l-none">
-              <Send />
-            </Button>
-          </form>
-        </div>
-      </div>
-
-      <div className="flex flex-col w-full gap-2 md:w-96">
-        <h1 className="text-lg font-bold">Conteúdo</h1>
-        <Card>
-          <CardHeader>
-            <Accordion type="single" collapsible className="w-full">
-              {data?.contents.map((content: CourseContent, index: number) => (
-                <AccordionItem key={index} value={`item-${index}`}>
-                  <AccordionTrigger className="text-nowrap text-ellipsis">
-                    {content.title}
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <ul className="flex flex-col gap-0">
-                      {content.contents.map((item, idx) => (
-                        <Link
-                          to={`/portal/classroom/${id}/${item.replace(
-                            / /g,
-                            "-"
-                          )}`}
-                          key={idx}
-                          className="p-2 rounded-sm hover:bg-zinc-100"
-                        >
-                          <li>{item}</li>
-                        </Link>
-                      ))}
-                    </ul>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </CardHeader>
-        </Card>
-      </div>
-    </div>
-  );
+    useEffect(() => {
+        setMessagesList([])
+        console.log("Question ", question)
+        if (question)
+            window.localStorage.setItem("data-study",JSON.stringify({ question:question??"",linkUrl: urlCompleta, date: new Date().toLocaleDateString()+"|"+ new Date().toLocaleTimeString()}))
+       async function firstMessage() {
+            setIsLoading(true)
+            const message = await POST_MESSAGE(question!)
+            setMessagesList([message])
+            console.log(message)
+            setIsLoading(false)
+       }
+    firstMessage()
+        
+    },[id, question])
+async function handleSubmit(data:FormData) {
+    setIsLoading(true)
+    setMessagesList((state) => [...state, {message:data.message, sender: "me"}])
+    await POST_MESSAGE(data.message)
+        .then((response) => {
+            setMessagesList((state) => [...state, {message:response.message, sender: response.sender}])
+    })
+    form.reset()
+    setIsLoading(false)
 }
+
+    return (
+        <div className="flex flex-col md:flex-row gap-2 md:gap-4 items-start">
+           
+            <div className="w-full border shadow-sm rounded-sm md:flex-1 p-4 flex flex-col gap-4 min-h-[calc(100vh-150px)] overflow-y-auto ">
+            <h1>{data?.course.course_name}</h1>
+                 <div className="  h-[calc(100vh-200px)] overflow-y-auto" ref={divMessage}>
+                        <h1 className="text-lg font-bold">{question?.replace(/-/g, " ")}</h1>
+                        <div className="flex flex-col gap-4" >
+                            
+                            {
+                                messageList.map((message, index)=> (
+                                    <div key={index} className={`${message.sender === "me" ? "bg-green-900 text-zinc-100 " : "bg-zinc-100 text-zinc-800"} p-2 text-sm leading-loose flex flex-col w-fit rounded-md max-w-[800px]  `}>
+                                           {message?.message?.split("\n").map((line, index) => (
+                                            <p key={index}>{line}</p>
+                                        ))}
+                                    </div>
+                                ))
+                            }
+                            {isLoading && <span className="text-sm font-bold text-zinc-700 flex gap-2 items-center">Espere um pouco <Loader2 className="mr-2 h-4 w-4 animate-spin" /></span>}
+                         </div>
+                    </div>
+                    <div className="h-10 ">
+                        <form onSubmit={form.handleSubmit(handleSubmit)} className="flex">
+                            <Input required disabled={isLoading} {...form.register("message")} className="focus-visible:ring-0 rounded-r-none" type="text" placeholder="Pergunte algo" />
+                            <Button disabled={isLoading} className="rounded-l-none"><Send/></Button>
+                        </form>
+                    </div>            
+            </div>
+           <div className="flex flex-col w-full md:w-96 gap-2">
+                <h1 className="font-bold text-lg">Conteúdo</h1>
+                <Card>
+                    <CardHeader>
+                    <Accordion type="single" collapsible className="w-full">
+                    {data?.course.contents?.map((content: CourseContent, index: number) => (
+                        <AccordionItem key={index} value={`item-${index}`}>
+                            <AccordionTrigger className="text-nowrap text-ellipsis">{content.title}</AccordionTrigger>
+                            <AccordionContent>
+                                <ul className="flex flex-col gap-0">
+                                    {content.contents.map((item, idx) => (
+                                        <Link to={`/portal/classroom/${id}/${item.replace(/ /g, "-")}`} key={idx} className="hover:bg-zinc-100 p-2 rounded-sm">
+                                            <li>{item}</li>
+                                        </Link>
+                                    ))}
+                                </ul>
+                            </AccordionContent>
+                        </AccordionItem>
+                    ))}
+                    
+                
+                    </Accordion>
+                 </CardHeader>
+                </Card>
+                <div>
+                    <h1 className="font-bold text-lg">Testes</h1>
+                     <div className="flex flex-col gap-1">
+                      <Link to={`/portal/quiz/${id}`} className="hover:bg-zinc-100 rounded-sm">
+                  
+                          <Card>
+                                <CardHeader>
+                                    <span>Quiz 01</span>
+                                </CardHeader>
+                            </Card>
+                          </Link>
+                          <Link to={`/portal/quiz/${id}`} className="hover:bg-zinc-100 placeholder:rounded-sm">
+                            <Card>
+                                <CardHeader>
+                                    <span>Quiz 02</span>
+                                </CardHeader>
+                            </Card>
+                          </Link>
+                          <Link to={`/portal/quiz/${id}`} className="hover:bg-zinc-100 rounded-sm">
+                            <Card>
+                                <CardHeader>
+                                    <span>Quiz 03</span>
+                                </CardHeader>
+                            </Card>
+                          </Link>
+                    </div>
+                </div>
+          </div>
+      </div>
+            )}

@@ -1,4 +1,4 @@
-import { MessageCircleMore, PencilRuler, Users2 } from "lucide-react";
+import { Lock, MessageCircleMore, PencilRuler, Users2 } from "lucide-react";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { Dialog, DialogHeader , DialogContent, DialogFooter} from "./ui/dialog";
 
@@ -20,7 +20,9 @@ export default function CardForum({title}: {title:string}) {
         <>
         <Card onClick={handleClick} className="hover:ring-1 ring-blue-600 transition-all cursor-pointer">
             <span className="text-xs font-mono text-zinc-600 p-6">Comunidade</span>
-            <CardHeader><h1 className="font-semibold">{title}</h1></CardHeader>
+            <CardHeader className="overflow-hidden">
+                <h1 className="font-semibold ">{title}</h1>
+            </CardHeader>
             <CardContent className="flex text-zinc-800 gap-2">
                 <div className="flex text-xs items-center"><MessageCircleMore width={18}/> <span>25</span></div>
                 <div className="flex text-xs items-center"><Users2 width={18}/> <span>06</span></div>
@@ -43,7 +45,7 @@ export function ModalForumSign({openModal, setOpenModal}: ModalForumSign) {
                 <DialogFooter>
                     <div className="flex gap-2 items-end justify-center w-full">
                         <Button onClick={()=>setOpenModal(false)} variant={"outline"}>Fechar</Button>
-                        <Button className="bg-blue-800">Matricular-se</Button>
+                        <Button className="bg-blue-800">Brevemente &nbsp; <Lock size={18}/></Button>
                     </div>
                  </DialogFooter>
             </DialogContent>

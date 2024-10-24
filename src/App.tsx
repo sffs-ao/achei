@@ -44,10 +44,10 @@ function App() {
                 <Route path="me" element={<ProfilePage />} />
               </Route>
               
-              <Route path="quiz" element={<ProtectedRoutes />} >
+              <Route path="quiz/:id" element={<ProtectedRoutes />} >
                   <Route path="" element={<QuizPage />} />
               </Route>
-              <Route path="quiz" element={<QuizPage />} />
+          
           </Route>
           <Route path="/entrar" element={<LoginPage />} />
           <Route path="/logout" element={<Logout />} />

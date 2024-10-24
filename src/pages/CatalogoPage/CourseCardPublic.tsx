@@ -21,7 +21,7 @@ export default function CourseCardPublic({
     <div className="relative border  shadow-sm rounded-md overflow-auto flex flex-col bg-white hover:bg-zinc-100">
       {is_my && <span className="course-state absolute top-2 right-2 bg-yellow-400 text-black rounded-sm p-2 text-[10px]">Estudando</span>}
        <div className="flex flex-col p-2 gap-2">
-        <div className=" text-sm font-bold">{course}</div>
+        <div className=" text-sm font-bold truncate ">{course}</div>
        
        <div className="flex flex-col">
          <span className="text-xs text-zinc-600"> Preco: <span className="text-green-700 font-bold">{price}</span>.00 kz</span>
