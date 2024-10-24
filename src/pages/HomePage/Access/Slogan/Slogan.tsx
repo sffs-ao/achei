@@ -21,7 +21,7 @@ export default function Slogan() {
             src="https://i.ibb.co/pyj1cFd/1725810446013.jpg"
             alt="Aluno do SFFS"
           />
-          <img src="https://i.ibb.co/XZmYGhj/Josemar.jpg" alt="Aluno do SFFS" />
+          <img src="https://i.ibb.co/gdybycB/Josemar.jpg" alt="Aluno do SFFS" />
         </figure>
         <div className="banner-text">
           Se junte aos alunos que aprendem todos os dias com Achei

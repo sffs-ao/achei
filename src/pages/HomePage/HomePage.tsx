@@ -1,16 +1,9 @@
-import { useEffect, useRef } from "react";
-
+import { useState, useEffect, useRef } from "react";
 import "./HomePage.css";
-/* import imagePrevilegies from "../../assets/image/pacotes.png"; */
 import { Link } from "react-router-dom";
-
-import cursoIngles from "../../assets/cursos-ingles.jpg";
-import cursoGestao from "../../assets/image/curso-gestao.jpeg";
-import cursoPrevisoes from "../../assets/image/curso-previsoes.jpeg";
 
 import HeaderHomePage from "./Layout/Header/Header";
 import ContactCard from "./Access/ContactCard/ContactCard";
-/* import Previlegies from "./Access/Previlegies/Previlegies"; */
 import FunctionCard from "./Access/FunctionCard/FunctionCard";
 import CourseCard from "./Access/CourseCard/CourseCard";
 import About from "./Access/About/About";
@@ -21,9 +14,57 @@ import Slogan from "./Access/Slogan/Slogan";
 import Faq from "./Access/Faq/Faq";
 import Register from "./Access/Register/Register";
 import Scroll from "./Access/Scroll/Scroll";
+import { GET_CLASSES_PUBLIC } from "../../lib/API";
+
+/* 
+interface ApiCourse {
+  course_name: string;
+  level: string;
+  status?: string;
+  image_link: string;
+} */
+
+interface Course {
+  course: string;
+  level: string;
+  structor: string;
+  structor_about: string; 
+  course_state: string;
+  imageCourse: string;
+}
 
 export default function Start() {
+  const [cursos, setCursos] = useState<Course[]>([]);
   const sectionsRef = useRef<(HTMLDivElement | HTMLUListElement | null)[]>([]);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const data = await GET_CLASSES_PUBLIC();
+        console.log("courses", data); // Adicione este log para ver a estrutura
+
+        // Verifique se 'data.courses' é realmente um array
+        if (!Array.isArray(data.courses)) {
+          throw new Error("A resposta da API não contém um array de cursos");
+        }
+
+        const mappedCourses: Course[] = data.courses.map((course) => ({
+          course: course.course_name,
+          level: course.level,
+          structor: "Nome do Instrutor",
+          structor_about: "Sobre o Instrutor",
+          course_state: course.status || "Disponível",
+          imageCourse: course.image_link,
+        }));
+
+        setCursos(mappedCourses);
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+      }
+    };
+
+    fetchCourses();
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -44,59 +85,27 @@ export default function Start() {
     });
 
     return () => {
-      if (sectionsRef.current) {
-        sectionsRef.current.forEach((section) => {
-          if (section) observer.unobserve(section);
-        });
-      }
+      sectionsRef.current.forEach((section) => {
+        if (section) observer.unobserve(section);
+      });
     };
   }, []);
+
   const faqs = [
     {
       number: "01",
       question: "Quem somos?",
-      answer:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim aut, tempore incidunt reprehenderit autem eaque blanditiis!",
+      answer: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
       number: "02",
       question: "O que fazemos?",
-      answer:
-        "A aliquam ab error non aspernatur. Similique molestiae at error nisi magnam laboriosam culpa.",
+      answer: "A aliquam ab error non aspernatur.",
     },
     {
       number: "03",
       question: "Como nos contatar?",
-      answer:
-        "Non aspernatur. Similique molestiae at error nisi magnam laboriosam culpa.",
-    },
-  ];
-
-  // Objeto com informações dos cursos
-  const cursos = [
-    {
-      course: "Inglês",
-      level: "Avançado",
-      structor: "Fernandinho",
-      structor_about: "Programador Frontend",
-      course_state: "Em Andamento",
-      imageCourse: cursoIngles,
-    },
-    {
-      course: "Gestão de Empresas",
-      level: "Intermediário",
-      structor: "Ana Sousa",
-      structor_about: "Especialista em Gestão",
-      course_state: "Disponível",
-      imageCourse: cursoGestao,
-    },
-    {
-      course: "Previsões Econômicas",
-      level: "Avançado",
-      structor: "Carlos Silva",
-      structor_about: "Economista",
-      course_state: "Em Andamento",
-      imageCourse: cursoPrevisoes,
+      answer: "Contate nosso suporte 24/7.",
     },
   ];
 
@@ -176,21 +185,27 @@ export default function Start() {
             className="course-content hide"
             ref={(el) => sectionsRef.current.push(el)}
           >
-            {cursos.map((curso, index) => (
-              <CourseCard
-                address=""
-                key={index}
-                course={curso.course}
-                level={curso.level}
-                structor={curso.structor}
-                structor_about={curso.structor_about}
-                course_state={curso.course_state}
-                imageCourse={curso.imageCourse}
-              />
-            ))}
+            {cursos.slice(0, 6).map(
+              (
+                curso,
+                index // Limita a exibição para 6 cursos
+              ) => (
+                <CourseCard
+                  address=""
+                  key={index}
+                  course={curso.course}
+                  level={curso.level}
+                  structor={curso.structor}
+                  structor_about={curso.structor_about}
+                  course_state={curso.course_state}
+                  imageCourse={curso.imageCourse}
+                />
+              )
+            )}
           </div>
         </div>
       </div>
+
       {/*
       <div className="promotions">
         <div className="center-text">
