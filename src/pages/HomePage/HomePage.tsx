@@ -29,6 +29,14 @@ export default function Start() {
   const [cursos, setCursos] = useState<Course[]>([]);
   const sectionsRef = useRef<(HTMLDivElement | HTMLUListElement | null)[]>([]);
 
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    e.preventDefault();
+    window.open(
+      "https://wa.me/SEU_NUMERO_DE_TELEFONE?text=Olá! Tenho uma dúvida.",
+      "_blank"
+    );
+  };
+
   useEffect(() => {
     const fetchCourses = async () => {
       try {
@@ -145,12 +153,13 @@ export default function Start() {
         ref={(el) => sectionsRef.current.push(el)}
       >
         <ContactCard
-          contentTitle="Possui alguma dúvida?"
+          contentTitle="Ficou com alguma dúvida?"
+          text="Envie uma mensagem e converse com uma pessoa real."
           btnMsg="Chamar no WhatsApp"
-          text="Envie uma mensagem e converse com uma pessoa real"
-          borderColor="rgb(41, 224, 168)"
-          textColor="rgb(41, 224, 168)"
-          idButton="card-contact-whatsapp"
+          borderColor="#25D366"
+          textColor="#25D366"
+          idButton="whatsapp-button"
+          onClick={handleClick}
         />
         <div className="space-card"></div>
         <ContactCard
@@ -160,6 +169,7 @@ export default function Start() {
           borderColor="var(--primary-color)"
           textColor="black"
           idButton="card-contant-normal"
+          onClick={handleClick}
         />
       </div>
       <div className="funcionamento center-text">

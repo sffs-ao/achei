@@ -24,7 +24,16 @@ export default function ContactCard({
         <p className="text-card">{text}</p>
       </div>
       <div className="btn-card-container">
-        <Link to="">
+        <Link
+          to="#"
+          onClick={(e) => {
+            e.preventDefault();
+            window.open(
+              "https://wa.me/SEU_NUMERO_DE_TELEFONE?text=Olá! Tenho uma dúvida.",
+              "_blank"
+            );
+          }}
+        >
           <button
             id={idButton}
             className="btn-card"
