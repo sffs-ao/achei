@@ -57,6 +57,28 @@ export default function Start() {
     fetchCourses();
   }, []);
 
+  const depoimentsData = [
+    {
+      text_dep: "Aprendi muito e me senti muito acolhido.",
+      image_dep: "https://i.ibb.co/w6N36Qv/doc-03.jpg",
+      name_dep: "Carlos Souza",
+      position_dep: "Aluno",
+    },
+    {
+      text_dep: "A experiência foi incrível e superou minhas expectativas!",
+      image_dep:
+        "https://images.pexels.com/photos/936120/pexels-photo-936120.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=200",
+      name_dep: "Ana Silva",
+      position_dep: "Aluna",
+    },
+    {
+      text_dep: "Ótima didática e conteúdo atualizado!",
+      image_dep: "https://i.ibb.co/Y75BJKw/doc-01.jpg",
+      name_dep: "Maria Oliveira",
+      position_dep: "Ex-Aluna",
+    },
+  ];
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -258,9 +280,15 @@ export default function Start() {
             className="depoiments-downn hide"
             ref={(el) => sectionsRef.current.push(el)}
           >
-            <DepoimentsCard />
-            <DepoimentsCard />
-            <DepoimentsCard />
+            {depoimentsData.map((depoiment, index) => (
+              <DepoimentsCard
+                key={index}
+                text_dep={depoiment.text_dep}
+                image_dep={depoiment.image_dep}
+                name_dep={depoiment.name_dep}
+                position_dep={depoiment.position_dep}
+              />
+            ))}
           </div>
         </div>
       </div>
@@ -286,11 +314,22 @@ export default function Start() {
                 </div>
                 <h1 className="call-w-title">Ficou com alguma dúvida?</h1>
                 <p className="call-text">
-                  Envie uma mensagem e converse com uma pessoal real.
+                  Envie uma mensagem e converse com uma pessoa real.
                 </p>
               </div>
               <button>
-                <Link to="">Chamar no WhatsApp</Link>
+                <Link
+                  to="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.open(
+                      "https://wa.me/SEU_NUMERO_DE_TELEFONE?text=Olá! Tenho uma dúvida.",
+                      "_blank"
+                    );
+                  }}
+                >
+                  Chamar no WhatsApp
+                </Link>
               </button>
             </div>
           </div>
