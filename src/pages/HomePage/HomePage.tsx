@@ -153,12 +153,12 @@ export default function Start() {
         ref={(el) => sectionsRef.current.push(el)}
       >
         <ContactCard
-          contentTitle="Ficou com alguma dúvida?"
-          text="Envie uma mensagem e converse com uma pessoa real."
+          contentTitle="Possui alguma dúvida?"
           btnMsg="Chamar no WhatsApp"
-          borderColor="#25D366"
-          textColor="#25D366"
-          idButton="whatsapp-button"
+          text="Envie uma mensagem e converse com uma pessoa real"
+          borderColor="rgb(41, 224, 168)"
+          textColor="rgb(41, 224, 168)"
+          idButton="card-contact-whatsapp"
           onClick={handleClick}
         />
         <div className="space-card"></div>
