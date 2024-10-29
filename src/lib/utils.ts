@@ -73,6 +73,7 @@ export interface CourseDescriptionList {
     contents: CourseContent[];
     obs: string | null;
     status: string | null;
+    image_link: string | null;
   }]
 }
 
