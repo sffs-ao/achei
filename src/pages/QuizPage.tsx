@@ -1,6 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { GET_ONE_QUIZ } from "@/lib/API";
+import { useQuery } from "@tanstack/react-query";
 import { CheckCircle2 } from "lucide-react";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 /*
 export default function QuizPage() {
     return (
@@ -22,11 +26,22 @@ export default function QuizPage() {
 }
 */
 
+
+
 export default function QuizPage() {
+
+    const {id} = useParams<{id: string}>();
+    const { data: getQuiz, isPending: isPedingQuiz } = useQuery({
+        queryKey: ["get-one-quiz-id", id],
+        queryFn: () => GET_ONE_QUIZ(id!),
+    })
+
+    useEffect(() => { if(getQuiz)
+    console.log("Data ",getQuiz ) }, [ getQuiz]);
     return (
         <div className="flex justify-center items-center w-[600px] mx-auto">
         <Card className="w-full mx-auto mt-40 ">
-            <CardHeader className="grid grid-cols-2 gap-2 items-center items-center">
+            <CardHeader className="grid grid-cols-2 gap-2 items-center i">
               <div className="text-left"><span className="font-bold">Questão 1</span></div> <div className="text-right">Tempo restante 00:10</div>
             </CardHeader>
             <CardContent className="flex justify-start   items-start flex-col text-center gap-2 w-full">

@@ -44,7 +44,6 @@ export default function LoginPage() {
             console.log(data);
             if(data.token){
                 saveLocalStorageToken(data.token);
-              
                 setUser({name:data.user_name,email: data.user_email});
                 toast.success("Sessão iniciada com sucesso")
                 navigate("/portal");
