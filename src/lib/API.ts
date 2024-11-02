@@ -187,6 +187,35 @@ export const GET_ONE_QUIZ = async (
   return await response.json();
   
 };
+
+export const POST_QUESTION = async (
+  data
+)=> {
+  console.log(data)
+  const response = await fetch(`http://server-app.mtapp.ao/api/response?api_key=123456789`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  }); 
+  return await response.json();
+  
+};
+
+export const GET_ = async (
+  id: string
+)=> {
+  console.log(id)
+  const response = await fetch(`http://server-app.mtapp.ao/api/quiz/${id}?api_key=123456789`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }); 
+  return await response.json();
+  
+};
 export const GET_CONTENT_COURSE = async (id: string): Promise<Course[]> => {
   //const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
   const AUTH_TOKEN = "22|QTVhnwrPg3nFuakW3lCCEru1LjBWjGbk2hGfDWCj41b6f0ab";
