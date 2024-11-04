@@ -50,15 +50,15 @@ export default function QuizPage() {
     setItems(getQuiz?.data.question);
     setActualItem(getQuiz?.data.question[0]);
 }, [ getQuiz]);
-
-    
+ 
+    const[selectedOption, setSelectedOption] = useState(null);
     const[progress,setProgress] = useState(0);
     useEffect(() => {
     // Calcular a porcentagem de progresso
     const totalTime = Number(getQuiz?.data.time) * 60; // total em segundos
     const timeElapsed = totalTime - (hours * 3600 + minutes * 60 + seconds); // tempo restante
     const progressPercent = (timeElapsed / totalTime) * 100;
- 
+        
     setProgress(progressPercent);
 }, [seconds, minutes, hours, getQuiz]);
 const[position, setPosition] = useState(0);
@@ -77,7 +77,7 @@ async function handleAnswer() {
 await postQuestion({classroom_id:1, course_id:2, user_id: 3,question_id:2, response_id: 4});
 
 
-    if(position === items.length - 1) {
+    if(position === items?.length - 1) {
         alert("Fim do Quiz");
         return;
     }
@@ -90,6 +90,8 @@ await postQuestion({classroom_id:1, course_id:2, user_id: 3,question_id:2, respo
         return newPosition;
     }); */
 }
+
+console.log(selectedOption)
 
     return (
         <div className="flex flex-col justify-center items-center w-[600px] max-w-full mx-auto">
@@ -106,31 +108,19 @@ await postQuestion({classroom_id:1, course_id:2, user_id: 3,question_id:2, respo
             </CardHeader>
             <CardContent className="flex justify-start   items-start flex-col text-center gap-2 w-full">
                 <p>Qual a sintaxe correcta</p>
-                <div className="w-full">
-                    <label className="border-green-700 h-10 rounded-md flex items-center px-2 text-black hover:bg-black/5 cursor-pointer shadow-sm border justify-between">
-                        <input type="radio" name="quiz-option" className="mr-2" />
-                        <span>{"{array.map((item)=> />}"}</span>
-                        <CheckCircle2 className="text-green-700" />
-                    </label>
-                </div>
-                <div className="w-full">
-                    <label className="h-10 rounded-md flex items-center pl-2 text-black hover:bg-black/5 cursor-pointer shadow-sm border justify-between">
-                        <input type="radio" name="quiz-option" className="mr-2" />
-                        <span>{"{array.find((item)=> />}"}</span>
-                    </label>
-                </div>
-                <div className="w-full">
-                    <label className="h-10 rounded-md flex items-center justify-start pl-2 text-black hover:bg-black/5 cursor-pointer shadow-sm border">
-                        <input type="radio" name="quiz-option" className="mr-2" />
-                        <span>{"{array.filter((item)=> />}"}</span>
-                    </label>
-                </div>
-                <div className="w-full">
-                    <label className="h-10 rounded-md flex items-center justify-start pl-2 text-black hover:bg-black/5 cursor-pointer shadow-sm border">
-                        <input type="radio" name="quiz-option" className="mr-2" />
-                        <span>{"{array.forEach((item)=> />}"}</span>
-                    </label>
-                </div>
+                {
+                    actualItem?.item.map((item, index) => (
+                        <div className="w-full">
+                            <label className="border-green-700 h-10 rounded-md flex items-center px-2 text-black hover:bg-black/5 cursor-pointer shadow-sm border justify-between">
+                               <div>
+                                    <input   onChange={(e) => setSelectedOption(item) }  type="radio"  name="quiz-option" className="mr-2 invisible" />
+                                    <span>{item.response}</span>
+                               </div>
+                                {selectedOption.id === item.id && <CheckCircle2 className="text-green-700" />}
+                            </label>
+                        </div>  
+                    ))
+                }
                 <div className="flex gap-2 w-full items-center justify-center ">
                     <Button variant={"outline"}>Desistir</Button>
                     <Button onClick={handleAnswer}>Confirmar</Button>
