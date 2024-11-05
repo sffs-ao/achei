@@ -242,9 +242,7 @@ export default function Start() {
             <Previlegies image={imagePrevilegies} type="Bronze" clr="#eef08e" />
           </div>
         </div>
-      </div>
-
-*/}
+      </div>*/}
       <div className="center-text">
         <div
           className="about-container hide"
