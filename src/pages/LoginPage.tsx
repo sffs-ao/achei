@@ -41,7 +41,6 @@ export default function LoginPage() {
       console.error("Erro ao obter o endereço IP:", error);
     }
   };
-
   const {
     register,
     handleSubmit,
@@ -49,6 +48,37 @@ export default function LoginPage() {
   } = useForm<schemaType>({
     resolver: zodResolver(schema),
   });
+
+  /*   const { mutateAsync: sign, isPending: isPendingCreate } = useMutation({
+    mutationFn: login,
+    onSuccess(data) {
+      console.log(data);
+      if (data.token) {
+        saveLocalStorageToken(data.token);
+        setUser({ name: data.user_name, email: data.user_email });
+        toast.success("Sessão iniciada com sucesso");
+        navigate("/portal");
+      } else {
+        toast.error("Nao foi possivel iniciar sessão");
+      }
+    },
+    onError(error) {
+      toast.error("Nao foi possivel iniciar sessão");
+      console.log(error);
+    },
+  });
+  const onSubmit = (data: schemaType) => {
+    console.log(data);
+    sign(data);
+  }; */
+
+  /*   const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<schemaType>({
+    resolver: zodResolver(schema),
+  }); */
 
   const { mutateAsync: sign, isPending: isPendingCreate } = useMutation({
     mutationFn: login,
@@ -71,10 +101,10 @@ export default function LoginPage() {
       console.log(error);
     },
   });
+
   const onSubmit = (data: schemaType) => {
     console.log(data);
     sign(data);
-    //navigate("/portal");
   };
 
   return (

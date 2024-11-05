@@ -29,28 +29,26 @@ function App() {
       <ToastContainer />
       <QueryClientProvider client={client}>
         <Routes>
-          <Route path="/" element={<Start />} />
-          <Route path="/portal" element={<ProtectedRoutes />}>
-            <Route path="" element={<Layout />}>
-              <Route path="" element={<Home />} />
-              <Route path="forum" element={<ForumPage />} />
-              <Route path="forum/:id" element={<PostsForum />} />
-              <Route path="add-curso/:id" element={<PostsForum />} />
-              <Route path="cursos" element={<CatalogoPage />} />
-              <Route path="cursos/:id" element={<CoursePage />} />
-              <Route path="cursos/my" element={<MyCourseView />} />
-              <Route path="notificacoes" element={<NotifyPage />} />
-              <Route
-                path="classroom/:id/:question?"
-                element={<MyCourseView />}
-              />
-              <Route path="meus-cursos/" element={<MyCourses />} />
-              <Route path="me" element={<ProfilePage />} />
-              <Route path="ip-address" element={<Getip />} />
-            </Route>
-            <Route path="quiz/:id" element={<ProtectedRoutes />}>
-              <Route path="" element={<QuizPage />} />
-            </Route>
+            <Route path="/" element={<Start />} />
+            <Route path="/portal" element={<ProtectedRoutes />}>
+                <Route path="" element={<Layout />}>
+                <Route path="" element={<Home />} />
+                <Route path="forum" element={<ForumPage />} />
+                <Route path="forum/:id" element={<PostsForum />} />
+                <Route path="add-curso/:id" element={<PostsForum />} />
+                <Route path="cursos" element={<CatalogoPage />} />
+                <Route path="cursos/:id" element={<CoursePage />} />
+                <Route path="cursos/my" element={<MyCourseView />} />
+                <Route path="notificacoes" element={<NotifyPage />} />
+                <Route path="classroom/:id/:question?" element={<MyCourseView />} />
+                <Route path="meus-cursos/" element={<MyCourses />} />
+                <Route path="me" element={<ProfilePage />} />
+              </Route>
+              
+              <Route path="quiz/:id/:class_id" element={<ProtectedRoutes />} >
+                  <Route path="" element={<QuizPage />} />
+              </Route>
+          
           </Route>
           <Route path="/entrar" element={<LoginPage />} />
           <Route path="/logout" element={<Logout />} />
