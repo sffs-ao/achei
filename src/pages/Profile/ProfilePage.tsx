@@ -24,7 +24,7 @@ import { toast } from "react-toastify";
 import { SUBMIT_DATA_STUDENT } from "@/lib/API";
 import { useUserContext } from "@/hooks/UserContext";
 export default function ProfilePage() {
-   const {user} = useUserContext()
+  const { user } = useUserContext();
   return (
     <div className="flex flex-col items-start gap-6 md:flex-row">
       <Card className="w-full md:w-96">
@@ -34,7 +34,7 @@ export default function ProfilePage() {
           </div>
         </CardHeader>
 
-        <CardContent className="min-w flex flex-col items-center justify-center pt-16 bg-zinc-100">
+        <CardContent className="flex flex-col items-center justify-center pt-16 min-w bg-zinc-100">
           <h1 className="text-lg font-bold text-center">{user?.name}</h1>
           <span className="font-normal text-center text-zinc-600">
             {user?.email}
@@ -72,13 +72,14 @@ export default function ProfilePage() {
   );
 }
 
-
 const schema = z.object({
   full_name: z.string().min(1, "Nome é obrigatório"),
   phone_number: z.string().min(9, "Telefone deve ter no mínimo 9 dígitos"),
   birth_date: z.string(),
   address: z.string().min(1, "Endereço é obrigatório"),
-  id_type: z.enum(["1", "2", "3"], {required_error: "Tipo de documento é obrigatório", }),
+  id_type: z.enum(["1", "2", "3"], {
+    required_error: "Tipo de documento é obrigatório",
+  }),
   id_number: z.string().min(1, "Número de identificação é obrigatório"),
   observations: z.string().default(""),
 });
@@ -90,49 +91,59 @@ export function MyAccount() {
     handleSubmit,
     formState: { errors },
     setValue,
-    getValues
+    getValues,
   } = useForm({
-    resolver: zodResolver(schema, {
-     
-    }),
+    resolver: zodResolver(schema, {}),
   });
 
-  const {user} = useUserContext()
- 
-  const {mutateAsync: submitData, isPending} = useMutation(
-    {
-      mutationFn: SUBMIT_DATA_STUDENT,
-      onSuccess(data) {
-        console.log(data);
-        toast.success("Dados salvos com sucesso");
-        window.localStorage.removeItem("data-aready")
+  const { user } = useUserContext();
+
+  const { mutateAsync: submitData, isPending } = useMutation({
+    mutationFn: SUBMIT_DATA_STUDENT,
+    onSuccess(data) {
+      console.log(data);
+      toast.success("Dados salvos com sucesso");
+      window.localStorage.removeItem("data-aready");
     },
     onError(error) {
       console.log(error);
       toast.error("Erro ao salvar dados");
-    }
-  })
+    },
+  });
 
   const onSubmit = (data: any) => {
-  console.log(data)
-     submitData(data);
+    console.log(data);
+    submitData(data);
   };
 
-  useEffect(() => { setValue("birth_date", date?.toISOString().split("T")[0]) },[date])
+  useEffect(() => {
+    setValue("birth_date", date?.toISOString().split("T")[0]);
+  }, [date]);
 
-console.log("getValues ",getValues())
+  console.log("getValues ", getValues());
   return (
-    <form className="flex flex-col w-full gap-4" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="flex flex-col w-full gap-4"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <h1>Dados pessoais</h1>
       <div className="flex flex-col items-center w-full gap-4 md:flex-row md:flex-1">
         <fieldset className="flex flex-col w-full gap-2 md:flex-1 ">
           <Label>Nome</Label>
-          <Input placeholder="Seu nome" type="text" {...register("full_name")} />
+          <Input
+            placeholder="Seu nome"
+            type="text"
+            {...register("full_name")}
+          />
           {errors.name && <span>{String(errors.name.message)}</span>}
         </fieldset>
         <fieldset className="flex flex-col w-full gap-2 md:w-72">
           <Label>Telefone</Label>
-          <Input placeholder="Seu Telefone" type="text" {...register("phone_number")} />
+          <Input
+            placeholder="Seu Telefone"
+            type="text"
+            {...register("phone_number")}
+          />
           {errors.phone && <span>{String(errors.phone.message)}</span>}
         </fieldset>
       </div>
@@ -142,24 +153,24 @@ console.log("getValues ",getValues())
       </fieldset>
       <fieldset className="flex flex-col w-full gap-2">
         <Label>Endereço</Label>
-        <Input placeholder="Seu Endereço" type="text" {...register("address")} />
+        <Input
+          placeholder="Seu Endereço"
+          type="text"
+          {...register("address")}
+        />
         {errors.address && <span>{String(errors.address.message)}</span>}
       </fieldset>
       <fieldset className="flex flex-col w-full gap-2">
         <Label>Email</Label>
-        <Input
-          placeholder=""
-          value={user?.email}
-          disabled
-          type="email"
-        />
-     
+        <Input placeholder="" value={user?.email} disabled type="email" />
       </fieldset>
       <div className="flex flex-col items-center w-full gap-4 md:flex-row md:flex-1">
         <fieldset className="flex flex-col w-full gap-2 md:flex-1">
           <Label>Selecione tipo de documento</Label>
-          <Select {...register("id_type")}  
-          onValueChange={(value) => setValue("id_type", value)}>
+          <Select
+            {...register("id_type")}
+            onValueChange={(value) => setValue("id_type", value)}
+          >
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Tipo de documento" />
             </SelectTrigger>
@@ -173,16 +184,26 @@ console.log("getValues ",getValues())
               </SelectGroup>
             </SelectContent>
           </Select>
-          {errors.documentType && <span>{String(errors.documentType.message)}</span>}
+          {errors.documentType && (
+            <span>{String(errors.documentType.message)}</span>
+          )}
         </fieldset>
         <fieldset className="flex flex-col w-full gap-2 md:flex-1">
           <Label>Nº de identificação</Label>
-          <Input placeholder="Número de identificação" type="text" {...register("id_number")} />
-          {errors.documentNumber && <span>{String(errors.documentNumber.message)}</span>}
+          <Input
+            placeholder="Número de identificação"
+            type="text"
+            {...register("id_number")}
+          />
+          {errors.documentNumber && (
+            <span>{String(errors.documentNumber.message)}</span>
+          )}
         </fieldset>
       </div>
       <div className="flex items-end justify-end">
-        <Button type="submit" className="flex items-center gap-2">Salvar {isPending && <Loader2 className="animate-spin w-4 "/>}</Button>
+        <Button type="submit" className="flex items-center gap-2">
+          Salvar {isPending && <Loader2 className="w-4 animate-spin " />}
+        </Button>
       </div>
     </form>
   );

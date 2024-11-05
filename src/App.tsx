@@ -20,6 +20,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoutes from "./ProtectedRoute";
 import Logout from "./pages/Logout/Logout";
+import Getip from "./pages/Getip/Getip";
 
 function App() {
   const client = new QueryClient();
