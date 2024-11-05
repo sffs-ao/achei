@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { Loader2 } from "lucide-react";
 import { useUserContext } from "@/hooks/UserContext";
 import React, { useState, useEffect } from "react";
+import { BASE_URL, APP_NAME, removeLocalStorageToken } from "../lib/API";
 
 const schema = z.object({
   email: z.string().email("Email invalido"),
@@ -41,6 +42,7 @@ export default function LoginPage() {
       console.error("Erro ao obter o endereço IP:", error);
     }
   };
+
   const {
     register,
     handleSubmit,
@@ -49,49 +51,75 @@ export default function LoginPage() {
     resolver: zodResolver(schema),
   });
 
-  /*   const { mutateAsync: sign, isPending: isPendingCreate } = useMutation({
-    mutationFn: login,
-    onSuccess(data) {
-      console.log(data);
-      if (data.token) {
-        saveLocalStorageToken(data.token);
-        setUser({ name: data.user_name, email: data.user_email });
-        toast.success("Sessão iniciada com sucesso");
-        navigate("/portal");
-      } else {
-        toast.error("Nao foi possivel iniciar sessão");
-      }
-    },
-    onError(error) {
-      toast.error("Nao foi possivel iniciar sessão");
-      console.log(error);
-    },
-  });
-  const onSubmit = (data: schemaType) => {
-    console.log(data);
-    sign(data);
-  }; */
+  /*   const raw = {
+    "student_id":2,
+    "classroom_id":1,
+    "user_id":1,
+    "ip": data.ip
+} */
 
-  /*   const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<schemaType>({
-    resolver: zodResolver(schema),
-  }); */
+  /*  fetch("http://server-app.mtapp.ao/api/auditSetting", 
+    body:raw
+  )
+    .then((response) => response.json())
+    .then((data) => {
+    console.log(data.ip));
+ */
 
   const { mutateAsync: sign, isPending: isPendingCreate } = useMutation({
     mutationFn: login,
-    onSuccess(data) {
-      console.log(data);
+    onSuccess: async (data) => {
+      console.log(data); // Exibe dados de login
       if (data.token) {
         saveLocalStorageToken(data.token);
 
         setUser({ name: data.user_name, email: data.user_email });
         toast.success("Sessão iniciada com sucesso");
         navigate("/portal");
+
         // Chama a função para obter o IP após login bem-sucedido
-        fetchIP();
+        await fetchIP();
+
+        // Pega os dados dos estudantes
+        const token = localStorage.getItem(`${APP_NAME}_`);
+        const response = await fetch(`${BASE_URL}/profiles`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const profilesData = await response.json();
+        console.log("Dados dos estudantes:", profilesData); // Exibe dados dos estudantes no console
+        const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
+        console.log("Token de autenticação:", AUTH_TOKEN);
+
+        // Obtém a data e a hora atuais
+      const currentDate = new Date();
+      const date = currentDate.toISOString().split("T")[0]; // Formato: YYYY-MM-DD
+      const time = currentDate.toTimeString().split(" ")[0]; // Formato: HH:MM:SS
+      
+        // Faz a requisição para `auditSetting` após o login bem-sucedido
+        fetch("http://server-app.mtapp.ao/api/auditSetting", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            student_id: profilesData.id,
+            classroom_id: "irrelevante",
+            user_id: "irrelevante",
+            ip: ip,
+            token: data.token,
+            date: date,
+            time: time,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Resposta da auditSetting:", data);
+          })
+          .catch((error) => console.error("Erro ao enviar audit:", error));
       } else {
         toast.error("Nao foi possivel iniciar sessão");
       }
