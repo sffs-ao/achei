@@ -173,7 +173,7 @@ export default function Start() {
         />
       </div>
       <div className="funcionamento center-text">
-        <h1>Como funciona a plataforma</h1>cursos
+        <h1>Como funciona a plataforma</h1>
         <div
           className="card-funcionamento-content hide"
           ref={(el) => sectionsRef.current.push(el)}
