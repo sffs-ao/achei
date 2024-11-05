@@ -7,9 +7,11 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { getDate, set } from "date-fns";
 import { CheckCircle2, Loader2, PencilRuler } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useTimer } from "react-timer-hook"
 import DonutChart from "./Donot";
+import { toast } from "react-toastify";
+import { any } from "zod";
 
 /*
 export default function QuizPage() {
@@ -47,7 +49,7 @@ export default function QuizPage() {
     const[items, setItems] = useState([]);
     const[openModalFinal, setOpenModalFinal] = useState(false);
     const initExpirationTimestamp = new Date();
-    const { seconds, minutes, hours ,restart} = useTimer({ expiryTimestamp: initExpirationTimestamp, onExpire: ()=> alert("final")  });
+    const { seconds, minutes, hours ,restart, pause} = useTimer({ expiryTimestamp: initExpirationTimestamp, onExpire: ()=> alert("final")  });
     useEffect(() => { if(getQuiz)
     console.log("Data ",getQuiz )
     initExpirationTimestamp.setSeconds(initExpirationTimestamp.getSeconds() + Number(1) * 60);
@@ -71,8 +73,11 @@ const {mutateAsync: postQuestion, isPending} = useMutation({
     onSuccess: (data)=> {
         console.log(data);
         setSubmitedQuestions([...submitedQuestions, data]);
+        setSelectedOption(null);
         if(position === items?.length - 1) {
+            console.log(submitedQuestions)
             setOpenModalFinal(true);
+            pause()
             return;
         }
     },
@@ -81,12 +86,11 @@ const {mutateAsync: postQuestion, isPending} = useMutation({
     },
 })
 async function handleAnswer() {
-
+if (!selectedOption) {
+    toast.error("Selecione uma opção para continuar");
+    return;
+}
 await postQuestion({classroom_id: class_id, course_id:getQuiz.data.course_id, user_id: user.id,question_id:actualItem.id, response_id: selectedOption.id});
-
-
-    
-
       setPosition(prevPosition => {
         const newPosition = prevPosition + 1;
         setActualItem(items[newPosition]);
@@ -94,14 +98,12 @@ await postQuestion({classroom_id: class_id, course_id:getQuiz.data.course_id, us
         return newPosition;
     }); 
 }
-console.log("Actual Item", selectedOption);
- 
     return (
         <div className="flex flex-col justify-center items-center w-[920px] max-w-full mx-auto">
-       <ModalFinalized openModal={openModalFinal} setOpenModal={setOpenModalFinal} />
+       <ModalFinalized items={submitedQuestions}  openModal={openModalFinal} setOpenModal={setOpenModalFinal} />
             <h1 className="mt-4">{getQuiz?.data.title}</h1>
         <Card className="w-full mx-auto mt-10 overflow-hidden">
-            <div className="bg-green-600 h-2 "  style={{ width: `${progress}%` }}></div>
+            <div className="bg-green-600 h-1 "  style={{ width: `${progress}%` }}></div>
             <CardHeader className="grid grid-cols-1 gap-2 items-center justify-center">
               <div className="text-left flex justify-between">
                 <span className="text-md">Questão {position + 1} de {items?.length}</span>
@@ -126,7 +128,7 @@ console.log("Actual Item", selectedOption);
                     ))
                 }
                 <div className="flex gap-2 w-full items-center justify-center ">
-                    <Button variant={"outline"}>Desistir</Button>
+                    <Link to={`portal/quiz/${id}/${class_id}`}><Button variant={"outline"}>Desistir</Button></Link>
                     <Button disabled={isPending}  className="flex items-center" onClick={handleAnswer}>Confirmar {isPending && <Loader2 className="animate-spin" /> }</Button>
                 </div>
             </CardContent>
@@ -138,18 +140,35 @@ console.log("Actual Item", selectedOption);
 
 function ModalFinalized({
    openModal,
-   setOpenModal 
-}: {openModal: boolean, setOpenModal: (value:boolean) => void}) {
+   setOpenModal,
+   items
+}: {openModal: boolean, setOpenModal: (value:boolean) => void, items: any[] }) {
+    console.log("Items", items);
+
+    const total_acertos = items.reduce((acc, item) => {
+        if(item.status === 1) {
+            return acc + 1;
+        }
+        return acc;
+    }, 0);
+    const total_erros = items.reduce((acc, item) => {
+        if(item.status === 0) {
+            return acc + 1;
+        }
+        return acc;
+    }, 0);
+     
+    console.log("Total de acertos", total_acertos);
     return (
-        <Dialog  open={openModal} onOpenChange={setOpenModal}>
-        <DialogContent>
+        <Dialog open={openModal} onOpenChange={setOpenModal}>
+        <DialogContent className="max-w-[1920px] w-[70%]">
         <DialogHeader className="flex flex-col items-center justify-center">
             <PencilRuler width={24} className="text-red-600"/>
-            <h1 className="font-bold text-md text-center text-2xl">Parabens!</h1>
+            <h1 className="font-bold text-md text-center text-6xl">Parabéns!</h1>
         </DialogHeader>
             <p className="text-center">Voce chegou ao fim do Quiz</p>
             <div className=" justify-center items-center w-full">
-                <DonutChart />
+                <DonutChart acertos={total_acertos} errados={total_erros}/>
             </div>
             <DialogFooter>
                 <div className="flex gap-2 items-end justify-center w-full">

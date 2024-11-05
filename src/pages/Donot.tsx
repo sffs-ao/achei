@@ -1,15 +1,14 @@
 import React from 'react';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 
-const DonutChart = () => {
-    const acertos = 70;
-    const erros = 30;
-    const total = acertos + erros;
-    const percentAcertos = ((acertos / total) * 100).toFixed(1);
+const DonutChart = ({acertos, errados}: {acertos: Number, errados: Number}) => {
+    
+    const total = Number(acertos) + Number(errados);
+    const percentAcertos = ((Number(acertos) / total) * 100).toFixed(1);
 
     const data = [
         { name: 'Acertos', value: acertos },
-        { name: 'Erros', value: erros }
+        { name: 'Errados', value: errados }
     ];
 
     const COLORS = ['#4CAF50', '#F44336'];
