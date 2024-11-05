@@ -5,7 +5,7 @@ import { UserContext, useUserContext } from "@/hooks/UserContext";
 import { GET_ONE_QUIZ, POST_QUESTION } from "@/lib/API";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getDate, set } from "date-fns";
-import { CheckCircle2, Loader2, PencilRuler } from "lucide-react";
+import { CheckCircle2, Loader2, PencilRuler, TimerOff } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTimer } from "react-timer-hook"
@@ -49,10 +49,10 @@ export default function QuizPage() {
     const[items, setItems] = useState([]);
     const[openModalFinal, setOpenModalFinal] = useState(false);
     const initExpirationTimestamp = new Date();
-    const { seconds, minutes, hours ,restart, pause} = useTimer({ expiryTimestamp: initExpirationTimestamp, onExpire: ()=> alert("final")  });
+    const { seconds, minutes, hours , isRunning,restart, pause} = useTimer({ expiryTimestamp: initExpirationTimestamp, onExpire: ()=>setModalTimeElapsed(true) });
     useEffect(() => { if(getQuiz)
     console.log("Data ",getQuiz )
-    initExpirationTimestamp.setSeconds(initExpirationTimestamp.getSeconds() + Number(1) * 60);
+    initExpirationTimestamp.setSeconds(initExpirationTimestamp.getSeconds() + Number(1) * 10);
     restart(initExpirationTimestamp);
     setItems(getQuiz?.data.question);
     setActualItem(getQuiz?.data.question[0]);
@@ -98,9 +98,11 @@ await postQuestion({classroom_id: class_id, course_id:getQuiz.data.course_id, us
         return newPosition;
     }); 
 }
+const[modalTimeElapsed, setModalTimeElapsed] = useState(false);
     return (
         <div className="flex flex-col justify-center items-center w-[920px] max-w-full mx-auto">
-       <ModalFinalized items={submitedQuestions}  openModal={openModalFinal} setOpenModal={setOpenModalFinal} />
+      <ModalTimeLapse  openModal={modalTimeElapsed} setOpenModal={setModalTimeElapsed} class_id={class_id} id={id} />
+       <ModalFinalized  items={submitedQuestions}  openModal={openModalFinal} setOpenModal={setOpenModalFinal} />
             <h1 className="mt-4">{getQuiz?.data.title}</h1>
         <Card className="w-full mx-auto mt-10 overflow-hidden">
             <div className="bg-green-600 h-1 "  style={{ width: `${progress}%` }}></div>
@@ -128,7 +130,7 @@ await postQuestion({classroom_id: class_id, course_id:getQuiz.data.course_id, us
                     ))
                 }
                 <div className="flex gap-2 w-full items-center justify-center ">
-                    <Link to={`portal/quiz/${id}/${class_id}`}><Button variant={"outline"}>Desistir</Button></Link>
+                    <Link to={`/portal/classroom/${class_id}`}><Button variant={"outline"}>Desistir</Button></Link>
                     <Button disabled={isPending}  className="flex items-center" onClick={handleAnswer}>Confirmar {isPending && <Loader2 className="animate-spin" /> }</Button>
                 </div>
             </CardContent>
@@ -180,3 +182,29 @@ function ModalFinalized({
     </Dialog>
     )
 }
+
+function ModalTimeLapse({
+    openModal,
+    setOpenModal,
+    id,
+    class_id,
+ }: {openModal: boolean, setOpenModal: (value:boolean) => void, id: string, class_id: string }) {
+    
+      return (
+         <Dialog open={openModal} onOpenChange={setOpenModal}>
+         <DialogContent className="max-w-[520px] w-[70%]">
+         <DialogHeader className="flex flex-col items-center justify-center">
+             <TimerOff width={44} className="text-red-600"/>
+             <h1 className="font-bold text-md text-center text-3xl">Tempo Esgostado</h1>
+         </DialogHeader>
+             <Button onClick={() => window.location.reload()}>Tentar novamente!</Button>
+             <DialogFooter>
+                 <div className="flex gap-2 items-end justify-center w-full">
+                     <Link to={`/portal/classroom/${class_id}`}className="w-full" ><Button className="w-full" onClick={()=>setOpenModal(false)} variant={"outline"}>Desistir</Button></Link>
+                 </div>
+              </DialogFooter>
+         </DialogContent>
+        
+     </Dialog>
+     )
+ }
