@@ -149,7 +149,7 @@ async function handleSubmit(data:FormData) {
                     
                   {
                     getQuiz?.data?.map((quiz) => 
-                        (<Link to={`/portal/quiz/${quiz.id}`} className="hover:bg-zinc-100 rounded-sm">
+                        (<Link to={`/portal/quiz/${quiz.id}/${id}`} className="hover:bg-zinc-100 rounded-sm">
                           <Card>
                                 <CardHeader>
                                     <span>{quiz.title}</span>

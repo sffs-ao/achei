@@ -44,7 +44,7 @@ function App() {
                 <Route path="me" element={<ProfilePage />} />
               </Route>
               
-              <Route path="quiz/:id" element={<ProtectedRoutes />} >
+              <Route path="quiz/:id/:class_id" element={<ProtectedRoutes />} >
                   <Route path="" element={<QuizPage />} />
               </Route>
           
