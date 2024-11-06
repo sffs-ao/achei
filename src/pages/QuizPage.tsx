@@ -52,7 +52,7 @@ export default function QuizPage() {
     const { seconds, minutes, hours , isRunning,restart, pause} = useTimer({ expiryTimestamp: initExpirationTimestamp, onExpire: ()=>setModalTimeElapsed(true) });
     useEffect(() => { if(getQuiz)
     console.log("Data ",getQuiz )
-    initExpirationTimestamp.setSeconds(initExpirationTimestamp.getSeconds() + Number(1) * 10);
+    initExpirationTimestamp.setSeconds(initExpirationTimestamp.getSeconds() + Number(getQuiz?.data.time) * 10);
     restart(initExpirationTimestamp);
     setItems(getQuiz?.data.question);
     setActualItem(getQuiz?.data.question[0]);
