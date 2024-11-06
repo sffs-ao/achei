@@ -14,7 +14,8 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
-
+    "noEmitOnError": false, // Impede que o TypeScript pare de emitir arquivos se houver erros
+   
     /* Linting */
   
     "noFallthroughCasesInSwitch": true
