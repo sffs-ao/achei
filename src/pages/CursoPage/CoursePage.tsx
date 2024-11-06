@@ -125,7 +125,13 @@ export function ModalRegisterCourse({ children, course }: { children: React.Reac
        }
         signCourse({class_id: classes!.class_id.toString()})
     }
- 
+
+
+    function handleChange(e) {
+        setHorario(e.target.value); 
+        setSelectedClasse(e.target.value) 
+    }
+   
     return (
         <>
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -137,23 +143,23 @@ export function ModalRegisterCourse({ children, course }: { children: React.Reac
                             <form action="" className="my-4">
                                 <div className="flex items-center flex-col gap-1">
                                     <fieldset className="flex flex-col w-full gap-2 md:flex-1">
-                                        <Select
-                                            value={horario.toString()}
-                                            onValueChange={(e) => { setHorario(e); setSelectedClasse(e) }}
+                                        <select
+                                        className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1"
+                                            value={horario}
+                                            onChange={handleChange}
                                         >
-
-                                            <SelectTrigger className="w-full">
-                                                <SelectValue placeholder="Selecione o Horario" />
-                                            </SelectTrigger>
-                                            <SelectContent className="text-black">
-                                                <SelectGroup>
-                                                    <SelectItem value={"0"}>Selecione o Horário</SelectItem>
-                                                    {course?.course.open_classes?.map((turma, index) => (
-                                                        <SelectItem key={index} value={turma.class_id.toString()}>Inicio: {turma.shift?.start_time.substring(0,5)} | Término: {turma.shift?.end_time.substring(0,5)}</SelectItem>
-                                                    ))}
-                                                </SelectGroup>
-                                            </SelectContent>
-                                        </Select>
+                                          <option value={0} >Selecione o Horario</option>
+                                            {course?.course.open_classes?.length > 0 ? (
+                                                course.course.open_classes.map((turma, index) => (
+                                                    <option className="p-4" key={index} value={turma.class_id.toString()}>
+                                                        Início: {turma.shift?.start_time?.substring(0, 5)} | Término: {turma.shift?.end_time?.substring(0, 5)}
+                                                    </option>
+                                                ))
+                                            ) : (
+                                                <option  value="-1">Nenhum horário disponível</option>
+                                            )}
+                     
+                                        </select>
                                         <Input readOnly value={`Turma: ${classes?.class_name}`} />
                                         <Input readOnly value={`Curso: ${course?.course?.course_name}`} />
                                         <Input readOnly value={`Data de Inicio da turma: ${classes?.start_date}`} />

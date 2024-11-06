@@ -52,7 +52,7 @@ export default function QuizPage() {
     const { seconds, minutes, hours , isRunning,restart, pause} = useTimer({ expiryTimestamp: initExpirationTimestamp, onExpire: ()=>setModalTimeElapsed(true) });
     useEffect(() => { if(getQuiz)
     console.log("Data ",getQuiz )
-    initExpirationTimestamp.setSeconds(initExpirationTimestamp.getSeconds() + Number(1) * 10);
+    initExpirationTimestamp.setSeconds(initExpirationTimestamp.getSeconds() + Number(3) * 60);
     restart(initExpirationTimestamp);
     setItems(getQuiz?.data.question);
     setActualItem(getQuiz?.data.question[0]);
@@ -98,6 +98,8 @@ await postQuestion({classroom_id: class_id, course_id:getQuiz.data.course_id, us
         return newPosition;
     }); 
 }
+
+console.log(minutes,seconds)
 const[modalTimeElapsed, setModalTimeElapsed] = useState(false);
     return (
         <div className="flex flex-col justify-center items-center w-[920px] max-w-full mx-auto">
@@ -119,7 +121,7 @@ const[modalTimeElapsed, setModalTimeElapsed] = useState(false);
                  {
                     actualItem?.item.map((item, index) => (
                         <div className="w-full" key={index}>
-                            <label className={`${selectedOption?.id === item.id ? "border-green-500 border-2 " : "border-zinc-400" } h-14 rounded-md flex items-center px-2 text-black hover:bg-black/5 cursor-pointer shadow-sm border justify-between`}>
+                            <label className={`${selectedOption?.id === item.id ? "border-green-500 border-2 " : "" } h-14 rounded-md flex items-center px-2 text-black hover:bg-black/5 cursor-pointer  border shadow justify-between`}>
                                <div>
                                     <input   onChange={(e) => setSelectedOption(item) }  type="radio"  name="quiz-option" className="mr-2 invisible" />
                                     <span>{item.response}</span>
@@ -145,8 +147,7 @@ function ModalFinalized({
    setOpenModal,
    items
 }: {openModal: boolean, setOpenModal: (value:boolean) => void, items: any[] }) {
-    console.log("Items", items);
-
+  
     const total_acertos = items.reduce((acc, item) => {
         if(item.status === 1) {
             return acc + 1;
@@ -159,8 +160,7 @@ function ModalFinalized({
         }
         return acc;
     }, 0);
-     
-    console.log("Total de acertos", total_acertos);
+
     return (
         <Dialog open={openModal} onOpenChange={setOpenModal}>
         <DialogContent className="max-w-[1920px] w-[70%]">
