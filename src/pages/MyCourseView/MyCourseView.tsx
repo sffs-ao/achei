@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { Loader2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
-import {  GET_COURSE_ONE } from "@/lib/API";
+import {  GET_COURSE_ONE, GET_QUIZ } from "@/lib/API";
 import { CourseContent } from "@/lib/utils";
 
 export type FormData = {
@@ -54,10 +54,15 @@ export default function MyCourseView() {
   const { data, isPending } = useQuery({
     queryKey: ["get-view-course", id],
     queryFn: ()=>GET_COURSE_ONE(id!),
-})
-if(data)
-    console.log("Data ",data )
-    
+    })
+
+    const { data: getQuiz, isPending: isPedingQuiz } = useQuery({
+        queryKey: ["get-quiz-course", id],
+        queryFn: ()=>GET_QUIZ(id!),
+        })
+
+    useEffect(() => { if(getQuiz)
+    console.log("Data ",getQuiz ) }, [ getQuiz]);
 const urlCompleta = window.location.href;
 
     useEffect(() => {
@@ -141,28 +146,17 @@ async function handleSubmit(data:FormData) {
                 <div>
                     <h1 className="font-bold text-lg">Testes</h1>
                      <div className="flex flex-col gap-1">
-                      <Link to={`/portal/quiz/${id}`} className="hover:bg-zinc-100 rounded-sm">
-                  
+                    
+                  {
+                    getQuiz?.data?.map((quiz) => 
+                        (<Link to={`/portal/quiz/${quiz.id}/${id}`} className="hover:bg-zinc-100 rounded-sm">
                           <Card>
                                 <CardHeader>
-                                    <span>Quiz 01</span>
+                                    <span>{quiz.title}</span>
                                 </CardHeader>
                             </Card>
-                          </Link>
-                          <Link to={`/portal/quiz/${id}`} className="hover:bg-zinc-100 placeholder:rounded-sm">
-                            <Card>
-                                <CardHeader>
-                                    <span>Quiz 02</span>
-                                </CardHeader>
-                            </Card>
-                          </Link>
-                          <Link to={`/portal/quiz/${id}`} className="hover:bg-zinc-100 rounded-sm">
-                            <Card>
-                                <CardHeader>
-                                    <span>Quiz 03</span>
-                                </CardHeader>
-                            </Card>
-                          </Link>
+                          </Link>))
+                  }
                     </div>
                 </div>
           </div>
