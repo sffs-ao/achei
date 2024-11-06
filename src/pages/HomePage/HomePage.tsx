@@ -163,6 +163,7 @@ export default function Start() {
         />
         <div className="space-card"></div>
         <ContactCard
+        
           contentTitle="Conheça as promoções"
           btnMsg="Ver promoções"
           text="Veja todas as ofertas existentes no momento"

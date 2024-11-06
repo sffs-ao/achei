@@ -8,6 +8,7 @@ interface ContactCardProps {
   borderColor: string;
   textColor: string;
   idButton: string;
+  onClick: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void
 }
 export default function ContactCard({
   contentTitle,
@@ -16,6 +17,7 @@ export default function ContactCard({
   borderColor,
   textColor,
   idButton,
+  onClick
 }: ContactCardProps) {
   return (
     <div className="contact-card-content">
