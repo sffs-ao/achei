@@ -44,29 +44,35 @@ export default function QuizPage() {
         queryKey: ["get-one-quiz-id", id],
         queryFn: () => GET_ONE_QUIZ(id!),
     })
-    console.log("user, user", user);
+    const[initExpirationTimestamp,setInitExpirationTimestamp] = useState(new Date());
     const[actualItem, setActualItem] = useState(null);
     const[submitedQuestions, setSubmitedQuestions] = useState([])
     const[items, setItems] = useState([]);
     const[openModalFinal, setOpenModalFinal] = useState(false);
-    const initExpirationTimestamp = new Date();
-    const { seconds, minutes, hours , isRunning,restart, pause} = useTimer({ expiryTimestamp: initExpirationTimestamp, onExpire: ()=>{ setPosition(0) ; setModalTimeElapsed(true) }});
-    useEffect(() => { if(getQuiz)
+      const { seconds, minutes, hours , isRunning,restart, pause} = useTimer({ expiryTimestamp: initExpirationTimestamp, onExpire: ()=>{ setPosition(0) ; setModalTimeElapsed(true) }});
+    useEffect(() => { 
+        if(getQuiz){
+          console.log("entrou")
+          const updatedTimestamp = new Date();
+          updatedTimestamp.setSeconds(updatedTimestamp.getSeconds() + 10);
+          restart(updatedTimestamp);
+        }
     console.log("Data ",getQuiz )
-    initExpirationTimestamp.setSeconds(initExpirationTimestamp.getSeconds() + 1 * 10);
-    restart(initExpirationTimestamp);
     setItems(getQuiz?.data.question);
     setActualItem(getQuiz?.data.question[0]);
-}, [ getQuiz]);
+}, [getQuiz]);
  
     const[selectedOption, setSelectedOption] = useState(null);
     const[progress,setProgress] = useState(0);
     useEffect(() => {
+        let progressPercent 
         const totalTime = 1 * 10; // total em segundos
-        const timeElapsed = totalTime - (hours * 3600 + minutes * 60 + seconds); // tempo restante
-        const progressPercent = (timeElapsed / totalTime) * 100;
-        setProgress(progressPercent);
-        console.log("Progress", progressPercent);
+        if (hours !== undefined && minutes !== undefined && seconds !== undefined) {
+            const timeElapsed = totalTime - (hours * 3600 + minutes * 60 + seconds); // Tempo restante
+             progressPercent = Math.max(0, Math.min((timeElapsed / totalTime) * 100, 100)); // Mantém o progresso entre 0 e 100
+            setProgress(progressPercent); // Atualiza o progresso
+        }
+        
 }, [seconds, minutes, hours, getQuiz]);
 const[position, setPosition] = useState(0);
 
@@ -92,6 +98,7 @@ if (!selectedOption) {
     toast.error("Selecione uma opção para continuar");
     return;
 }
+
 await postQuestion({classroom_id: class_id, course_id:getQuiz.data.course_id, user_id: user.id,question_id:actualItem.id, response_id: selectedOption.id});
       setPosition(prevPosition => {
         const newPosition = prevPosition + 1;
@@ -100,6 +107,7 @@ await postQuestion({classroom_id: class_id, course_id:getQuiz.data.course_id, us
         return newPosition;
     }); 
 }
+ 
 const[modalTimeElapsed, setModalTimeElapsed] = useState(false);
     return (
         <div className="flex flex-col justify-center items-center w-[920px] max-w-full mx-auto">
@@ -107,7 +115,7 @@ const[modalTimeElapsed, setModalTimeElapsed] = useState(false);
        <ModalFinalized class_id={class_id} items={submitedQuestions}  openModal={openModalFinal} setOpenModal={setOpenModalFinal} />
             <h1 className="mt-4">{getQuiz?.data.title}</h1>
         <Card className="w-full mx-auto mt-10 overflow-hidden">
-            <div className={`${progress > 50 ? "bg-red-600": "bg-green-600 transition-all"} ${progress < 1 ? "invisible" :"visible" } h-1`}  style={{ width: `${progress}%` }}></div>
+            <div className={`w-0 ${progress > 50 ? "bg-red-600": "bg-green-600 transition-all"} ${progress < 5 ? "invisible" :"visible" } h-1`}  style={{ width: `${progress}%` }}></div>
             <CardHeader className="grid grid-cols-1 gap-2 items-center justify-center">
               <div className="text-left flex justify-between">
                 <span className="text-md">Questão {position + 1} de {items?.length}</span>
@@ -123,7 +131,7 @@ const[modalTimeElapsed, setModalTimeElapsed] = useState(false);
                         <div className="w-full" key={index}>
                             <label className={`${selectedOption?.id === item.id ? "border-green-500 border-2 " : "border-zinc-400" } h-14 rounded-md flex items-center px-2 text-black hover:bg-black/5 cursor-pointer shadow-sm border justify-between`}>
                                <div>
-                                    <input checked={selectedOption?.id === item.id} onChange={(e) => setSelectedOption(item) }  type="radio"  name="quiz-option" className="mr-2 " />
+                                    <input checked={selectedOption?.id === item.id} onChange={(e) => setSelectedOption(item) }  type="radio"  name="quiz-option" className="mr-2 opacity-0" />
                                     <span>{item.response}</span>
                                </div>
                                 {selectedOption?.id === item.id && <CheckCircle2 className="text-green-700" />}
@@ -167,7 +175,7 @@ function ModalFinalized({
         <DialogContent className="max-w-[1920px] w-[70%]">
         <DialogHeader className="flex flex-col items-center justify-center">
             <PencilRuler width={24} className="text-red-600"/>
-            <h1 className="font-bold text-md text-center text-6xl">Parabéns!</h1>
+            <h1 className="font-bold text-md text-center text-6xl max-md:text-2xl">Parabéns!</h1>
         </DialogHeader>
             <p className="text-center">Voce chegou ao fim do Quiz</p>
             <div className=" justify-center items-center w-full">

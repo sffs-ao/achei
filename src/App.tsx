@@ -21,6 +21,7 @@ import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoutes from "./ProtectedRoute";
 import Logout from "./pages/Logout/Logout";
 import Getip from "./pages/Getip/Getip";
+import WellcomeQuizPage from "./pages/WellcomeQuizPage";
 
 function App() {
   const client = new QueryClient();
@@ -47,6 +48,9 @@ function App() {
               
               <Route path="quiz/:id/:class_id" element={<ProtectedRoutes />} >
                   <Route path="" element={<QuizPage />} />
+              </Route>
+              <Route path="quiz/bem-vindo/:id/:class_id" element={<ProtectedRoutes />} >
+                  <Route path="" element={<WellcomeQuizPage />} />
               </Route>
           
           </Route>
