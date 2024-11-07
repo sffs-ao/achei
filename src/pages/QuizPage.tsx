@@ -44,15 +44,16 @@ export default function QuizPage() {
         queryKey: ["get-one-quiz-id", id],
         queryFn: () => GET_ONE_QUIZ(id!),
     })
+    console.log("user, user", user);
     const[actualItem, setActualItem] = useState(null);
     const[submitedQuestions, setSubmitedQuestions] = useState([])
     const[items, setItems] = useState([]);
     const[openModalFinal, setOpenModalFinal] = useState(false);
     const initExpirationTimestamp = new Date();
-    const { seconds, minutes, hours , isRunning,restart, pause} = useTimer({ expiryTimestamp: initExpirationTimestamp, onExpire: ()=>setModalTimeElapsed(true) });
+    const { seconds, minutes, hours , isRunning,restart, pause} = useTimer({ expiryTimestamp: initExpirationTimestamp, onExpire: ()=>{ setPosition(0) ; setModalTimeElapsed(true) }});
     useEffect(() => { if(getQuiz)
     console.log("Data ",getQuiz )
-    initExpirationTimestamp.setSeconds(initExpirationTimestamp.getSeconds() + Number(getQuiz?.data.time) * 10);
+    initExpirationTimestamp.setSeconds(initExpirationTimestamp.getSeconds() + 1 * 10);
     restart(initExpirationTimestamp);
     setItems(getQuiz?.data.question);
     setActualItem(getQuiz?.data.question[0]);
@@ -61,10 +62,11 @@ export default function QuizPage() {
     const[selectedOption, setSelectedOption] = useState(null);
     const[progress,setProgress] = useState(0);
     useEffect(() => {
-        const totalTime = Number(getQuiz?.data.time) * 60; // total em segundos
+        const totalTime = 1 * 10; // total em segundos
         const timeElapsed = totalTime - (hours * 3600 + minutes * 60 + seconds); // tempo restante
         const progressPercent = (timeElapsed / totalTime) * 100;
         setProgress(progressPercent);
+        console.log("Progress", progressPercent);
 }, [seconds, minutes, hours, getQuiz]);
 const[position, setPosition] = useState(0);
 
@@ -102,10 +104,10 @@ const[modalTimeElapsed, setModalTimeElapsed] = useState(false);
     return (
         <div className="flex flex-col justify-center items-center w-[920px] max-w-full mx-auto">
       <ModalTimeLapse  openModal={modalTimeElapsed} setOpenModal={setModalTimeElapsed} class_id={class_id} id={id} />
-       <ModalFinalized  items={submitedQuestions}  openModal={openModalFinal} setOpenModal={setOpenModalFinal} />
+       <ModalFinalized class_id={class_id} items={submitedQuestions}  openModal={openModalFinal} setOpenModal={setOpenModalFinal} />
             <h1 className="mt-4">{getQuiz?.data.title}</h1>
         <Card className="w-full mx-auto mt-10 overflow-hidden">
-            <div className="bg-green-600 h-1 "  style={{ width: `${progress}%` }}></div>
+            <div className={`${progress > 50 ? "bg-red-600": "bg-green-600 transition-all"} ${progress < 1 ? "invisible" :"visible" } h-1`}  style={{ width: `${progress}%` }}></div>
             <CardHeader className="grid grid-cols-1 gap-2 items-center justify-center">
               <div className="text-left flex justify-between">
                 <span className="text-md">Questão {position + 1} de {items?.length}</span>
@@ -121,7 +123,7 @@ const[modalTimeElapsed, setModalTimeElapsed] = useState(false);
                         <div className="w-full" key={index}>
                             <label className={`${selectedOption?.id === item.id ? "border-green-500 border-2 " : "border-zinc-400" } h-14 rounded-md flex items-center px-2 text-black hover:bg-black/5 cursor-pointer shadow-sm border justify-between`}>
                                <div>
-                                    <input   onChange={(e) => setSelectedOption(item) }  type="radio"  name="quiz-option" className="mr-2 invisible" />
+                                    <input checked={selectedOption?.id === item.id} onChange={(e) => setSelectedOption(item) }  type="radio"  name="quiz-option" className="mr-2 " />
                                     <span>{item.response}</span>
                                </div>
                                 {selectedOption?.id === item.id && <CheckCircle2 className="text-green-700" />}
@@ -130,7 +132,7 @@ const[modalTimeElapsed, setModalTimeElapsed] = useState(false);
                     ))
                 }
                 <div className="flex gap-2 w-full items-center justify-center ">
-                    <Link to={`/portal/classroom/${class_id}`}><Button variant={"outline"}>Desistir</Button></Link>
+                    <Link to={`/portal/classroom/${class_id}`}><Button variant={"outline"}>Voltar</Button></Link>
                     <Button disabled={isPending}  className="flex items-center" onClick={handleAnswer}>Confirmar {isPending && <Loader2 className="animate-spin" /> }</Button>
                 </div>
             </CardContent>
@@ -143,9 +145,9 @@ const[modalTimeElapsed, setModalTimeElapsed] = useState(false);
 function ModalFinalized({
    openModal,
    setOpenModal,
-   items
-}: {openModal: boolean, setOpenModal: (value:boolean) => void, items: any[] }) {
-    console.log("Items", items);
+   items,
+   class_id
+}: {openModal: boolean, setOpenModal: (value:boolean) => void, items: any[], class_id: string }) {
 
     const total_acertos = items.reduce((acc, item) => {
         if(item.status === 1) {
@@ -160,7 +162,6 @@ function ModalFinalized({
         return acc;
     }, 0);
      
-    console.log("Total de acertos", total_acertos);
     return (
         <Dialog open={openModal} onOpenChange={setOpenModal}>
         <DialogContent className="max-w-[1920px] w-[70%]">
@@ -174,7 +175,7 @@ function ModalFinalized({
             </div>
             <DialogFooter>
                 <div className="flex gap-2 items-end justify-center w-full">
-                    <Button onClick={()=>setOpenModal(false)} variant={"outline"}>Voltar</Button>
+                    <Link to={`/portal/classroom/${class_id}`}><Button variant={"outline"}>Desistir</Button></Link>
                 </div>
              </DialogFooter>
         </DialogContent>
@@ -191,12 +192,48 @@ function ModalTimeLapse({
  }: {openModal: boolean, setOpenModal: (value:boolean) => void, id: string, class_id: string }) {
     
       return (
-         <Dialog open={openModal} onOpenChange={setOpenModal}>
-         <DialogContent className="max-w-[520px] w-[70%]">
+         <Dialog open={openModal} onOpenChange={setOpenModal} modal={true}>
+         <DialogContent   onInteractOutside={(e) => {
+          e.preventDefault();
+        }}
+        onEscapeKeyDown={(e) => e.preventDefault()}
+ className="max-w-[520px] w-[70%]">
          <DialogHeader className="flex flex-col items-center justify-center">
              <TimerOff width={44} className="text-red-600"/>
              <h1 className="font-bold text-md text-center text-3xl">Tempo Esgostado</h1>
          </DialogHeader>
+             <Button onClick={() => window.location.reload()}>Tentar novamente!</Button>
+             <DialogFooter>
+                 <div className="flex gap-2 items-end justify-center w-full">
+                     <Link to={`/portal/classroom/${class_id}`}className="w-full" ><Button className="w-full" onClick={()=>setOpenModal(false)} variant={"outline"}>Desistir</Button></Link>
+                 </div>
+              </DialogFooter>
+         </DialogContent>
+        
+     </Dialog>
+     )
+ }
+
+
+ function ModalInitQuiz({
+    openModal,
+    setOpenModal,
+    id,
+    class_id,
+ }: {openModal: boolean, setOpenModal: (value:boolean) => void, id: string, class_id: string }) {
+    
+      return (
+         <Dialog open={openModal} onOpenChange={setOpenModal} modal={true}>
+         <DialogContent   onInteractOutside={(e) => {
+          e.preventDefault();
+        }}
+        onEscapeKeyDown={(e) => e.preventDefault()}
+ className="max-w-[520px] w-[70%]">
+         <DialogHeader className="flex flex-col items-center justify-center">
+             <TimerOff width={44} className="text-red-600"/>
+             <h1 className="font-bold text-md text-center text-3xl">BOA SORTE!</h1>
+         </DialogHeader>
+         <p className="text-2xl"></p>
              <Button onClick={() => window.location.reload()}>Tentar novamente!</Button>
              <DialogFooter>
                  <div className="flex gap-2 items-end justify-center w-full">

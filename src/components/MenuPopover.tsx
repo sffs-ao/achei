@@ -1,14 +1,20 @@
-import { ReactNode } from "react"
-import { Link } from "react-router-dom"
+import { ReactNode, useEffect, useState } from "react"
+import { Link, useLocation, useParams } from "react-router-dom"
 import { Popover, PopoverContent } from "./ui/popover"
 import { PopoverTrigger } from "@radix-ui/react-popover"
 
 import { MENU } from "../utils"
       
 export  const MenuPopover = ({children} : {children:ReactNode}) => {
+   const [openMenu, setOpenMenu] = useState(false)
+   const location = useLocation();
+   const {  } = useParams()
+   useEffect(() => {
+        setOpenMenu(false)
+    },[location])
 
    return (
-          <Popover>
+          <Popover open={openMenu} onOpenChange={setOpenMenu}>
               <PopoverTrigger>{children}</PopoverTrigger>
               <PopoverContent className="ml-4 mt-5 p-0">
                 <ul className="flex flex-col gap-2" >
