@@ -165,7 +165,7 @@ export const GET_QUIZ = async (
   id: string
 )=> {
   console.log(id)
-  const response = await fetch(`http://server-app.mtapp.ao/api/response?course_id=${id}&api_key=123456789`, {
+  const response = await fetch(`https://server-app.mtapp.ao/api/response?course_id=${id}&api_key=123456789`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -178,7 +178,7 @@ export const GET_ONE_QUIZ = async (
   id: string
 )=> {
   console.log(id)
-  const response = await fetch(`http://server-app.mtapp.ao/api/quiz/${id}?api_key=123456789`, {
+  const response = await fetch(`https://server-app.mtapp.ao/api/quiz/${id}?api_key=123456789`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -192,7 +192,7 @@ export const POST_QUESTION = async (
   data
 )=> {
   console.log(data)
-  const response = await fetch(`http://server-app.mtapp.ao/api/response?api_key=123456789`, {
+  const response = await fetch(`https://server-app.mtapp.ao/api/response?api_key=123456789`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -207,7 +207,7 @@ export const GET_ = async (
   id: string
 )=> {
   console.log(id)
-  const response = await fetch(`http://server-app.mtapp.ao/api/quiz/${id}?api_key=123456789`, {
+  const response = await fetch(`https://server-app.mtapp.ao/api/quiz/${id}?api_key=123456789`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

@@ -101,7 +101,7 @@ export default function LoginPage() {
         const time = currentDate.toTimeString().split(" ")[0]; // Formato: HH:MM:SS
       
         // Faz a requisição para `auditSetting` após o login bem-sucedido
-        fetch("http://server-app.mtapp.ao/api/auditSetting", {
+        fetch("https://server-app.mtapp.ao/api/auditSetting", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
