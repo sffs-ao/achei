@@ -121,7 +121,7 @@ export function ModalRegisterCourse({ children, course }: { children: React.Reac
         setClasses(course.course.open_classes.find(turma => turma.class_id.toString() === id))
     }
     function handleClick() {
-       if (horario === "0") {
+       if (horario === "0" || horario === "-1") {
            toast.error("Selecione um horario")
            return;
        }

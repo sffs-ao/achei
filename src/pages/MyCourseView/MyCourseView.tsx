@@ -95,7 +95,7 @@ async function handleSubmit(data:FormData) {
         <div className="flex flex-col md:flex-row gap-2 md:gap-4 items-start">
            
             <div className="w-full border shadow-sm rounded-sm md:flex-1 p-4 flex flex-col gap-4 min-h-[calc(100vh-150px)] overflow-y-auto ">
-            <h1>{data?.course.course_name}</h1>
+            <h1>{data?.course?.course_name}</h1>
                  <div className="  h-[calc(100vh-200px)] overflow-y-auto" ref={divMessage}>
                         <h1 className="text-lg font-bold">{question?.replace(/-/g, " ")}</h1>
                         <div className="flex flex-col gap-4" >
