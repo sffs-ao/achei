@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import quizImage from "../assets/quiz.png";
-import { ArrowRight, ArrowRightIcon } from "lucide-react";
+import { ArrowRight, ArrowRightIcon, LoaderCircle } from "lucide-react";
  
 export default function WellcomeQuizPage() {
 
@@ -32,14 +32,19 @@ console.log("Data ",getQuiz )
 
 }, [ getQuiz]);
   
+   
     return (
     <div className="mt-20 flex flex-col justify-center items-center w-[920px] max-w-full mx-auto text-center">
-            <h1 className="mt-4 text-3xl font-bold">BOA SORTE!</h1>
-            <div><img src={quizImage} className="w-44" alt="" /></div>
-            <h2 className="text-lg font-medium">{getQuiz?.data.title}</h2>
-            <span className=" text-zinc-600 text-sm">{getQuiz?.data.time} minutos | {getQuiz?.data.question.length} Questões</span>
-            <p className="mt-4 max-w-lg text-zinc-800">{texto}</p>
-        <Link className="mt-4" to={`/portal/quiz/${id}/${class_id}`}><Button className="font-bold">Inciar Agora <ArrowRightIcon width={18} strokeWidth={3}/></Button></Link>
+           {!getQuiz ? <LoaderCircle className="absolute  animate-spin  w-14 h-14"/> :
+            <div className="flex flex-col items-center">
+                <h1 className="mt-4 text-3xl font-bold">BOA SORTE!</h1>
+                <div><img src={quizImage} className="w-44" alt="" /></div>
+                <h2 className="text-lg font-medium">{getQuiz?.data.title??"ola mundo"}</h2>
+                <span className=" text-zinc-600 text-sm">{getQuiz?.data.time} minutos | {getQuiz?.data.question.length} Questões</span>
+                <p className="mt-4 max-w-lg text-zinc-800">{texto}</p>
+                <Link className="mt-4" to={`/portal/quiz/${id}/${class_id}`}><Button className="font-bold">Inciar Agora <ArrowRightIcon width={18} strokeWidth={3}/></Button></Link>
+            </div>
+            }
     </div>
     )
 }

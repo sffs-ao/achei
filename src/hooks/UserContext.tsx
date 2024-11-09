@@ -13,6 +13,7 @@ export interface User {
   email?: string;
   created_at?: string;
   updated_at?: string;
+  student_id?: string;
 }
 
 interface contextProps {

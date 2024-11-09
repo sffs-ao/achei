@@ -49,7 +49,7 @@ export default function QuizPage() {
     const[submitedQuestions, setSubmitedQuestions] = useState([])
     const[items, setItems] = useState([]);
     const[openModalFinal, setOpenModalFinal] = useState(false);
-      const { seconds, minutes, hours , isRunning,restart, pause} = useTimer({ expiryTimestamp: initExpirationTimestamp, onExpire: ()=>{ setPosition(0) ; setModalTimeElapsed(true) }});
+      const { seconds, minutes, hours , isRunning,restart, pause} = useTimer({ expiryTimestamp: initExpirationTimestamp, onExpire: ()=>{ setPosition(0) ; setModalTimeElapsed(true) }}, );
     useEffect(() => { 
         if(getQuiz){
           console.log("entrou")
@@ -61,6 +61,7 @@ export default function QuizPage() {
     setItems(getQuiz?.data.question);
     setActualItem(getQuiz?.data.question[0]);
 }, [getQuiz]);
+ 
  
     const[selectedOption, setSelectedOption] = useState(null);
     const[progress,setProgress] = useState(0);
@@ -85,6 +86,8 @@ const {mutateAsync: postQuestion, isPending} = useMutation({
         if(position === items?.length - 1) {
             console.log(submitedQuestions)
             setOpenModalFinal(true);
+            setSelectedOption(null)
+            setPosition(0)
             pause()
             return;
         }

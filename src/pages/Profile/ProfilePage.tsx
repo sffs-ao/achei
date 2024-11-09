@@ -174,15 +174,16 @@ export function MyAccount() {
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Tipo de documento" />
             </SelectTrigger>
+            <SelectGroup>
             <SelectContent>
-              <SelectGroup>
                 <SelectLabel>Documentos</SelectLabel>
                 <SelectItem value="0">Selecione o tipo</SelectItem>
                 <SelectItem value="1">Bilhete de ID</SelectItem>
                 <SelectItem value="2">Passaporte</SelectItem>
                 <SelectItem value="3">Certidão</SelectItem>
-              </SelectGroup>
-            </SelectContent>
+            
+            </SelectContent>   
+             </SelectGroup>
           </Select>
           {errors.documentType && (
             <span>{String(errors.documentType.message)}</span>
