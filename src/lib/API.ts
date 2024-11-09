@@ -284,3 +284,16 @@ export const GET_MY_CLASSES = async () => {
 
   return await response.json();
 };
+
+
+export const GET_ME = async () => {
+  const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
+  const response = await fetch(`${BASE_URL}/students/get-data`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${AUTH_TOKEN}`,
+    },
+  });
+   return await response.json();
+};

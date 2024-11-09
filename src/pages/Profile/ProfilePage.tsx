@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/ui/input"
+
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DatePicker from "./DatePickerBirth";
@@ -19,12 +20,28 @@ import userProfile from "../../assets/user-profile.png";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { SUBMIT_DATA_STUDENT } from "@/lib/API";
-import { useUserContext } from "@/hooks/UserContext";
+import { GET_ME, GET_MY_CLASSES, GET_QUIZ, SUBMIT_DATA_STUDENT } from "@/lib/API";
+import { useUserContext } from "@/hooks/UserContext"; 
+const schema = z.object({
+    full_name: z.string().min(1, "Nome é obrigatório"),
+    phone_number: z.string().min(9, "Telefone deve ter no mínimo 9 dígitos"),
+    birth_date: z.string(),
+    address: z.string().min(1, "Endereço é obrigatório"),
+    id_type: z.enum(["1", "2", "3"], {
+      required_error: "Tipo de documento é obrigatório",
+    }),
+    id_number: z.string().min(1, "Número de identificação é obrigatório"),
+    observations: z.string().default(""),
+  });
 export default function ProfilePage() {
   const { user } = useUserContext();
+
+  const { data, isPending } = useQuery({
+    queryKey: ["get-me"],
+    queryFn: GET_ME
+  })
   return (
     <div className="flex flex-col items-start gap-6 md:flex-row">
       <Card className="w-full md:w-96">
@@ -52,13 +69,13 @@ export default function ProfilePage() {
             className="w-full p-4 bg-white border rounded-md shadow-sm"
             value="account"
           >
-            <MyAccount />
+            <MyAccount data={data} />
           </TabsContent>
           <TabsContent
             className="w-full p-4 bg-white border rounded-md shadow-sm"
             value="access"
           >
-            <Access />
+            <Access data={data} />
           </TabsContent>
           <TabsContent
             className="w-full p-4 bg-white border rounded-md shadow-sm"
@@ -72,19 +89,7 @@ export default function ProfilePage() {
   );
 }
 
-const schema = z.object({
-  full_name: z.string().min(1, "Nome é obrigatório"),
-  phone_number: z.string().min(9, "Telefone deve ter no mínimo 9 dígitos"),
-  birth_date: z.string(),
-  address: z.string().min(1, "Endereço é obrigatório"),
-  id_type: z.enum(["1", "2", "3"], {
-    required_error: "Tipo de documento é obrigatório",
-  }),
-  id_number: z.string().min(1, "Número de identificação é obrigatório"),
-  observations: z.string().default(""),
-});
-
-export function MyAccount() {
+export function MyAccount({ data }: { data: any }) {
   const [date, setDate] = useState<Date>();
   const {
     register,
@@ -95,6 +100,19 @@ export function MyAccount() {
   } = useForm({
     resolver: zodResolver(schema, {}),
   });
+  useEffect(() => {
+    if (data) {
+      console.log(data)
+      setValue("full_name", data[0]?.full_name);
+      setValue("phone_number", data[0]?.phone_number);
+      setValue("birth_date", data[0]?.birth_date);
+      setDate(new Date(data[0]?.birth_date))
+      setValue("address", data[0]?.address);
+      setValue("id_type", data[0]?.id_type);
+      setValue("id_number", data[0]?.id_number);
+      setValue("observations", data[0]?.observations || "");  // Observações, com valor padrão se não definido
+    }
+  }, [data])
 
   const { user } = useUserContext();
 
@@ -131,6 +149,7 @@ export function MyAccount() {
         <fieldset className="flex flex-col w-full gap-2 md:flex-1 ">
           <Label>Nome</Label>
           <Input
+            readOnly={data}
             placeholder="Seu nome"
             type="text"
             {...register("full_name")}
@@ -140,6 +159,7 @@ export function MyAccount() {
         <fieldset className="flex flex-col w-full gap-2 md:w-72">
           <Label>Telefone</Label>
           <Input
+            readOnly={data}
             placeholder="Seu Telefone"
             type="text"
             {...register("phone_number")}
@@ -154,6 +174,7 @@ export function MyAccount() {
       <fieldset className="flex flex-col w-full gap-2">
         <Label>Endereço</Label>
         <Input
+          readOnly={data}
           placeholder="Seu Endereço"
           type="text"
           {...register("address")}
@@ -162,28 +183,31 @@ export function MyAccount() {
       </fieldset>
       <fieldset className="flex flex-col w-full gap-2">
         <Label>Email</Label>
-        <Input placeholder="" value={user?.email} disabled type="email" />
+        <Input
+          readOnly={data} placeholder="" value={user?.email} disabled type="email" />
       </fieldset>
       <div className="flex flex-col items-center w-full gap-4 md:flex-row md:flex-1">
         <fieldset className="flex flex-col w-full gap-2 md:flex-1">
           <Label>Selecione tipo de documento</Label>
           <Select
+            disabled={data}
             {...register("id_type")}
             onValueChange={(value) => setValue("id_type", value)}
+  
           >
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Tipo de documento" />
             </SelectTrigger>
             <SelectGroup>
-            <SelectContent>
+              <SelectContent>
                 <SelectLabel>Documentos</SelectLabel>
                 <SelectItem value="0">Selecione o tipo</SelectItem>
                 <SelectItem value="1">Bilhete de ID</SelectItem>
                 <SelectItem value="2">Passaporte</SelectItem>
                 <SelectItem value="3">Certidão</SelectItem>
-            
-            </SelectContent>   
-             </SelectGroup>
+
+              </SelectContent>
+            </SelectGroup>
           </Select>
           {errors.documentType && (
             <span>{String(errors.documentType.message)}</span>
@@ -192,6 +216,8 @@ export function MyAccount() {
         <fieldset className="flex flex-col w-full gap-2 md:flex-1">
           <Label>Nº de identificação</Label>
           <Input
+
+            readOnly={data}
             placeholder="Número de identificação"
             type="text"
             {...register("id_number")}
@@ -210,18 +236,21 @@ export function MyAccount() {
   );
 }
 
-export function Access() {
+export function Access({ data }: { data: any }){
+  const {user} = useUserContext()
   return (
     <div className="flex flex-col w-full gap-4">
       <h1>Informações de acesso</h1>
       <fieldset>
         <Label>Email</Label>
-        <Input disabled value={"fernandowonder123@gmail.com"} />
+        <Input
+          disabled value={user.email} />
       </fieldset>
       <fieldset>
         <Label>Senha</Label>
         <div className="flex items-center">
           <Input
+
             className="rounded-r-none"
             value={"************"}
             disabled

@@ -58,8 +58,22 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         }
         const data = await response.json();
         console.log(data)
-        if (data.id) setUser(data);
-        else throw new Error("Token inválido");
+        if (data.id) {
+           const responseDataStudent = await fetch(`${BASE_URL}/students/get-data`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          if (!responseDataStudent.ok) {
+            setMessage("Sessao espirada, faça login novamente");
+            throw new Error("Estudante Invalido");
+          }
+          const dataStudent = await responseDataStudent.json();
+          console.log("student hook", dataStudent)
+          setUser({ id: data.id, name: data.name, email: data.email, student_id: dataStudent[0]?.id });
+        }else throw new Error("Token inválido");
       } catch (error) {
         setUser(null);
         setMessage("Deve iniciar sessão");

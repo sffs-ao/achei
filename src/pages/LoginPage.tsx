@@ -74,7 +74,7 @@ export default function LoginPage() {
         console.log(data)
         saveLocalStorageToken(data.token);
 
-        setUser({ id: data.user_id, name: data.user_name, email: data.user_email });
+       
         toast.success("Sessão iniciada com sucesso");
         navigate("/portal");
 
@@ -83,7 +83,7 @@ export default function LoginPage() {
 
         // Pega os dados dos estudantes
         const token = localStorage.getItem(`${APP_NAME}_`);
-        const response = await fetch(`${BASE_URL}/profiles`, {
+        const response = await fetch(`${BASE_URL}/students/get-data`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -91,6 +91,7 @@ export default function LoginPage() {
           },
         });
         const profilesData = await response.json();
+        setUser({ id: data.user_id, name: data.user_name, email: data.user_email, student_id: profilesData.id });
         console.log("Dados dos estudantes:", profilesData); // Exibe dados dos estudantes no console
         const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
         console.log("Token de autenticação:", AUTH_TOKEN);
@@ -112,8 +113,8 @@ export default function LoginPage() {
             user_id: "irrelevante",
             ip: ip,
             token: data.token,
-            date: date,
-            time: time,
+            date: date, //have be removed
+            time: time, //have be removed
           }),
         })
           .then((response) => response.json())
