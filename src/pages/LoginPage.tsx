@@ -74,7 +74,7 @@ export default function LoginPage() {
         console.log(data)
         saveLocalStorageToken(data.token);
 
-        setUser({id: 1, name: data.user_name, email: data.user_email });
+        setUser({ id: data.user_id, name: data.user_name, email: data.user_email });
         toast.success("Sessão iniciada com sucesso");
         navigate("/portal");
 
@@ -99,9 +99,9 @@ export default function LoginPage() {
         const currentDate = new Date();
         const date = currentDate.toISOString().split("T")[0]; // Formato: YYYY-MM-DD
         const time = currentDate.toTimeString().split(" ")[0]; // Formato: HH:MM:SS
-      
+
         // Faz a requisição para `auditSetting` após o login bem-sucedido
-        fetch("http://server-app.mtapp.ao/api/auditSetting", {
+        fetch("https://server-app.mtapp.ao/api/auditSetting", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
