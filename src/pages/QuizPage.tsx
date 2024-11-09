@@ -107,7 +107,7 @@ await postQuestion({classroom_id: class_id, course_id:getQuiz.data.course_id, us
         return newPosition;
     }); 
 }
- 
+ console.log(seconds, minutes, hours)
 const[modalTimeElapsed, setModalTimeElapsed] = useState(false);
     return (
         <div className="flex flex-col justify-center items-center w-[920px] max-w-full mx-auto">
@@ -177,13 +177,13 @@ function ModalFinalized({
             <PencilRuler width={24} className="text-red-600"/>
             <h1 className="font-bold text-md text-center text-6xl max-md:text-2xl">Parabéns!</h1>
         </DialogHeader>
-            <p className="text-center">Voce chegou ao fim do Quiz</p>
+            <p className="text-center font-bold">Voce chegou ao fim do Quiz</p>
             <div className=" justify-center items-center w-full">
                 <DonutChart acertos={total_acertos} errados={total_erros}/>
             </div>
             <DialogFooter>
                 <div className="flex gap-2 items-end justify-center w-full">
-                    <Link to={`/portal/classroom/${class_id}`}><Button variant={"outline"}>Desistir</Button></Link>
+                    <Link to={`/portal/classroom/${class_id}`}><Button variant={"outline"}>Voltar</Button></Link>
                 </div>
              </DialogFooter>
         </DialogContent>
