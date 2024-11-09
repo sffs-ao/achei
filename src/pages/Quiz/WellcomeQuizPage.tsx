@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import quizImage from "../assets/quiz.png";
+import quizImage from "../../assets/quiz.png";
 import { ArrowRight, ArrowRightIcon, LoaderCircle } from "lucide-react";
  
 export default function WellcomeQuizPage() {

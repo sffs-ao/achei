@@ -10,7 +10,7 @@ import CoursePage from "./pages/CursoPage/CoursePage";
 import MyCourseView from "./pages/MyCourseView/MyCourseView";
 import ProfilePage from "./pages/Profile/ProfilePage";
 import MyCourses from "./pages/MyCourse/MyCourse";
-import QuizPage from "./pages/QuizPage";
+import QuizPage from "./pages/Quiz/QuizPage";
 import PostsForum from "./pages/PostsForum/PostsForum";
 import Start from "./pages/HomePage/HomePage";
 import { UserProvider } from "./hooks/UserContext";
@@ -21,7 +21,7 @@ import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoutes from "./ProtectedRoute";
 import Logout from "./pages/Logout/Logout";
 import Getip from "./pages/Getip/Getip";
-import WellcomeQuizPage from "./pages/WellcomeQuizPage";
+import WellcomeQuizPage from "./pages/Quiz/WellcomeQuizPage";
 
 function App() {
   const client = new QueryClient();
@@ -30,29 +30,29 @@ function App() {
       <ToastContainer />
       <QueryClientProvider client={client}>
         <Routes>
-            <Route path="/" element={<Start />} />
-            <Route path="/portal" element={<ProtectedRoutes />}>
-                <Route path="" element={<Layout />}>
-                <Route path="" element={<Home />} />
-                <Route path="forum" element={<ForumPage />} />
-                <Route path="forum/:id" element={<PostsForum />} />
-                <Route path="add-curso/:id" element={<PostsForum />} />
-                <Route path="cursos" element={<CatalogoPage />} />
-                <Route path="cursos/:id" element={<CoursePage />} />
-                <Route path="cursos/my" element={<MyCourseView />} />
-                <Route path="notificacoes" element={<NotifyPage />} />
-                <Route path="classroom/:id/:question?" element={<MyCourseView />} />
-                <Route path="meus-cursos/" element={<MyCourses />} />
-                <Route path="me" element={<ProfilePage />} />
-              </Route>
-              
-              <Route path="quiz/:id/:class_id" element={<ProtectedRoutes />} >
-                  <Route path="" element={<QuizPage />} />
-              </Route>
-              <Route path="quiz/bem-vindo/:id/:class_id" element={<ProtectedRoutes />} >
-                  <Route path="" element={<WellcomeQuizPage />} />
-              </Route>
-          
+          <Route path="/" element={<Start />} />
+          <Route path="/portal" element={<ProtectedRoutes />}>
+            <Route path="" element={<Layout />}>
+              <Route path="" element={<Home />} />
+              <Route path="forum" element={<ForumPage />} />
+              <Route path="forum/:id" element={<PostsForum />} />
+              <Route path="add-curso/:id" element={<PostsForum />} />
+              <Route path="cursos" element={<CatalogoPage />} />
+              <Route path="cursos/:id" element={<CoursePage />} />
+              <Route path="cursos/my" element={<MyCourseView />} />
+              <Route path="notificacoes" element={<NotifyPage />} />
+              <Route path="classroom/:id/:question?" element={<MyCourseView />} />
+              <Route path="meus-cursos/" element={<MyCourses />} />
+              <Route path="me" element={<ProfilePage />} />
+            </Route>
+
+            <Route path="quiz/:id/:class_id" element={<ProtectedRoutes />} >
+              <Route path="" element={<QuizPage />} />
+            </Route>
+            <Route path="quiz/bem-vindo/:id/:class_id" element={<ProtectedRoutes />} >
+              <Route path="" element={<WellcomeQuizPage />} />
+            </Route>
+
           </Route>
           <Route path="/entrar" element={<LoginPage />} />
           <Route path="/logout" element={<Logout />} />

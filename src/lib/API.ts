@@ -203,6 +203,21 @@ export const POST_QUESTION = async (
   
 };
 
+export const POST_QUIZ_SUBMIT = async (
+  data
+)=> {
+  console.log(data)
+  const response = await fetch(`https://server-app.mtapp.ao/api/finish?api_key=123456789`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  }); 
+  return await response.json();
+  
+};
+
 export const GET_ = async (
   id: string
 )=> {
