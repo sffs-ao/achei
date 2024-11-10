@@ -6,6 +6,7 @@ import { QuestionPayload } from "@/lib/utils";
 import { PencilRuler } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { CalendarLog } from "./CalendarLog";
 
 function numeroParaMes(numero: string) {
   const meses = [
@@ -79,7 +80,7 @@ useEffect(() => {
           </CardContent>
         </Card>
         {dataStudy && (
-          <div className="flex flex-col max-md:mt-8 md:max-w-[512px]">
+          <div className="flex flex-col max-md:mt-8 md:max-w-[512px] bg-white p-4 border shadow rounded-lg">
             <h1 className="mb-2">Continue a estudar</h1>
             <div className="flex flex-col gap-2 max-h-[340px] overflow-y-auto">
               <Link to={dataStudy.linkUrl}>
@@ -105,6 +106,11 @@ useEffect(() => {
             </div>
           </div>
         )}
+        <div className="flex flex-col w-full">
+            <span>Presenças</span>
+            <CalendarLog />   
+        </div>
+
       </div>
     </div>
   );
