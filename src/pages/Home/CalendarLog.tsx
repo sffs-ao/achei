@@ -16,7 +16,7 @@ export function CalendarLog() {
     monthLabels={  ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']}
     weekdayLabels={['Dom', 'Seg', 'Ter', 'Qua', 'Qui',  'Sex', 'Sab']}
     onClick={(value) => alert(JSON.stringify(value))}
-        startDate={new Date('2024-01-01')}
+        startDate={new Date('2024-06-01')}
         titleForValue={(value) => {
             if (!value) {
                 return "Sem atividade";
