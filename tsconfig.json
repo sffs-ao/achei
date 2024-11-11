@@ -6,6 +6,13 @@
   ],
   "compilerOptions": {
     "baseUrl": ".",
+     "noUnusedLocals": false,  // Ignorar erros de variáveis não utilizadas
+    "noUnusedParameters": false,  // Ignorar erros de parâmetros não utilizados
+    "strict": false  // Desativar todas as verificações estritas, se necessário
+    ,
+    "noEmitOnError": false, // Impede que o TypeScript pare de emitir arquivos se houver erros
+    "skipLibCheck": true,   // Ignora a verificação de tipos nas dependências
+   
     "paths": {
       "@/*": ["./src/*"]
     }

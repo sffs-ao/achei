@@ -1,16 +1,18 @@
-import {  Bell, Infinity, Menu, Search } from "lucide-react";
+import {  Bell, Menu, Search } from "lucide-react";
 import { Button } from "../ui/button";
 import { MenuPopover } from "../MenuPopover";
 import { useEffect, useState } from "react";
 import { MenuPopoverProfile } from "../MenuPopoverProfile";
 import { MenuPopoverNotify } from "../MenuPopoverNotify";
 import ModalSearchModal from "../ModalSearchCurso";
-
+import logo from "./../../assets/logo.png"
+import { useUserContext } from "@/hooks/UserContext";
 interface HeaderProps 
 {
     toggleSideBar: () => void;
 }
 export default function Header({toggleSideBar} : HeaderProps) {
+    
     const [width, setWidth] = useState(window.innerWidth);
 
     useEffect(() => {
@@ -36,7 +38,7 @@ export default function Header({toggleSideBar} : HeaderProps) {
                 {width < 768 ? 
                     <MenuPopover><Button className="" variant={"outline"}><Menu/></Button></MenuPopover> :
                     <Button onClick={handleMenuClick} className="" variant={"outline"}><Menu/></Button>}
-                <Infinity />
+                <img className="w-8" src={logo} />
             </div>
 
             <div className="flex gap-2">
@@ -51,7 +53,7 @@ export default function Header({toggleSideBar} : HeaderProps) {
 
 export function HeaderLoged({toggleSideBar} : HeaderProps) {
         const [width, setWidth] = useState(window.innerWidth);
-
+        const {user} = useUserContext()
         useEffect(() => {
             const handleResize = () => {
                 setWidth(window.innerWidth);
@@ -75,13 +77,13 @@ export function HeaderLoged({toggleSideBar} : HeaderProps) {
                     {width < 768 ? 
                         <MenuPopover><Button className="" variant={"outline"}><Menu/></Button></MenuPopover> :
                         <Button onClick={handleMenuClick} className="" variant={"outline"}><Menu/></Button>}
-                    <Infinity />
+                    <img className="w-8" src={logo} alt="" />
                 </div>
     
                 <div className="flex gap-2">
                     <ModalSearchModal><Button variant={"outline"}><Search/></Button></ModalSearchModal>
-                    <MenuPopoverNotify><Button variant={"outline"}><Bell/></Button></MenuPopoverNotify>
-                    <MenuPopoverProfile><Button  className="bg-blue-700 rounded-full">{String("Fernando").substring(0,1)}</Button></MenuPopoverProfile>
+                   {/* <MenuPopoverNotify><Button variant={"outline"}><Bell/></Button></MenuPopoverNotify> */}
+                    <MenuPopoverProfile><Button  className="bg-blue-700 rounded-full">{user?.name?.substring(0,1)}</Button></MenuPopoverProfile>
                 </div>
             </header>
         )

@@ -1,0 +1,16 @@
+.react-calendar-heatmap .presente{
+    fill:  #ffae00; ;
+}
+
+/* Adicionando ao seu arquivo Calendar.css */
+.react-calendar-heatmap .calendar-heatmap-weekday-labels {
+  font-size: 8px; /* Ajuste o tamanho do texto dos dias da semana */
+}
+
+.react-calendar-heatmap .calendar-heatmap-month-labels {
+  font-size: 8px; /* Ajuste o tamanho do texto dos meses */
+}
+
+.react-calendar-heatmap .calendar-heatmap-day-label {
+  font-size: 8px; /* Ajuste o tamanho do texto dos dias no calendário */
+}
