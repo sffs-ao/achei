@@ -106,7 +106,7 @@ useEffect(() => {
             </div>
           </div>
         )}
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full bg-white border shadow p-4 rounded-lg">
             <span>Presenças</span>
             <CalendarLog />   
         </div>

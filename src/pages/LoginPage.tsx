@@ -91,7 +91,7 @@ export default function LoginPage() {
           },
         });
         const profilesData = await response.json();
-        setUser({ id: data.user_id, name: data.user_name, email: data.user_email, student_id: profilesData.id });
+        setUser({ id: data.user_id, name: data.user_name, email: data.user_email, student_id: profilesData[0]?.id });
         console.log("Dados dos estudantes:", profilesData); // Exibe dados dos estudantes no console
         const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
         console.log("Token de autenticação:", AUTH_TOKEN);
