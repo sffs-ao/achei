@@ -272,6 +272,17 @@ export const GET_CLASSES_AVAL = async () => {
   return await response.json();
 };
 
+export const GET_LOGIN_LOGS = async (id) => {
+  const response = await fetch(`https://server-app.mtapp.ao/api/point?student_id=${id}&api_key=123456789`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return await response.json();
+};
+
+
 export const GET_MY_CLASSES = async () => {
   const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
   const response = await fetch(`${BASE_URL}/registrations`, {
