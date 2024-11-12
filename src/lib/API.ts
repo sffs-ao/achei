@@ -281,7 +281,17 @@ export const GET_LOGIN_LOGS = async (id) => {
   });
   return await response.json();
 };
-
+export const GET_FILE_ONE = async (id
+) => {
+  console.log(`https://server-app.mtapp.ao/api/uploads?course_id=${id}`)
+  const response = await fetch(`https://server-app.mtapp.ao/api/uploads?course_id=${id}`, {
+   method: "GET",
+   headers: {
+     "Content-Type": "application/json",
+   },
+ });
+ return await response.json();
+};
 
 export const GET_MY_CLASSES = async () => {
   const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
