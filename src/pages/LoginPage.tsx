@@ -26,22 +26,25 @@ export default function LoginPage() {
   const { user, setUser } = useUserContext();
 
   useEffect(() => {
+  
+    const fetchIP = async () => {
+      try {
+        const response = await fetch("https://api.ipify.org?format=json");
+        const data = await response.json();
+        setIP(data.ip); // Armazena o IP no estado
+        console.log("Endereço IP público do usuário:", data.ip); // Emite o IP no console
+      } catch (error) {
+        console.error("Erro ao obter o endereço IP:", error);
+      }
+    };
+    fetchIP();
     if (user) {
       navigate("/portal");
     }
   }, [user]);
   console.log(user);
 
-  const fetchIP = async () => {
-    try {
-      const response = await fetch("https://api.ipify.org?format=json");
-      const data = await response.json();
-      setIP(data.ip); // Armazena o IP no estado
-      console.log("Endereço IP público do usuário:", data.ip); // Emite o IP no console
-    } catch (error) {
-      console.error("Erro ao obter o endereço IP:", error);
-    }
-  };
+
 
   const {
     register,
@@ -78,9 +81,7 @@ export default function LoginPage() {
         toast.success("Sessão iniciada com sucesso");
         navigate("/portal");
 
-        // Chama a função para obter o IP após login bem-sucedido
-        await fetchIP();
-
+      
         // Pega os dados dos estudantes
         const token = localStorage.getItem(`${APP_NAME}_`);
         const response = await fetch(`${BASE_URL}/students/get-data`, {
@@ -100,28 +101,23 @@ export default function LoginPage() {
         const currentDate = new Date();
         const date = currentDate.toISOString().split("T")[0]; // Formato: YYYY-MM-DD
         const time = currentDate.toTimeString().split(" ")[0]; // Formato: HH:MM:SS
-
+console.log(ip)
         // Faz a requisição para `auditSetting` após o login bem-sucedido
-        fetch("https://server-app.mtapp.ao/api/auditSetting", {
+        fetch("https://server-app.mtapp.ao/api/loginPoint", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            student_id: profilesData.id,
-            classroom_id: "irrelevante",
-            user_id: "irrelevante",
             ip: ip,
             token: data.token,
-            date: date, //have be removed
-            time: time, //have be removed
           }),
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log("Resposta da auditSetting:", data);
+            console.log("Resposta da audit login:", data);
           })
-          .catch((error) => console.error("Erro ao enviar audit:", error));
+          .catch((error) => console.error("Erro ao enviar audit loguin:", error));
       } else {
         toast.error("Nao foi possivel iniciar sessão");
       }

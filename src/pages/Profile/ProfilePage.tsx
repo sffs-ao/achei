@@ -22,8 +22,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { GET_ME, GET_MY_CLASSES, GET_QUIZ, SUBMIT_DATA_STUDENT } from "@/lib/API";
+import { GET_ME, GET_MY_CLASSES, GET_QUIZ, POST_PASSWORD, SUBMIT_DATA_STUDENT } from "@/lib/API";
 import { useUserContext } from "@/hooks/UserContext"; 
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 const schema = z.object({
     full_name: z.string().min(1, "Nome é obrigatório"),
     phone_number: z.string().min(9, "Telefone deve ter no mínimo 9 dígitos"),
@@ -236,6 +237,55 @@ export function MyAccount({ data }: { data: any }) {
   );
 }
 
+export function ModalChangePassword(){ 
+  const {user , setUser} = useUserContext()
+  const[oldPassword, setOldPassword] = useState("")
+  const[newPassword, setNewPassword] = useState("")
+  const {mutateAsync: updatePasword} = useMutation({
+    mutationFn: POST_PASSWORD,
+    onSuccess(data){
+      toast.success("Palavra-passe alterada com sucesso")
+      console.log(data)
+    },
+    onError(error){
+      setUser(null)
+      toast.error("Erro ao alterar palavra-passe")
+      console.log(error)
+    }
+  })
+  function handleClick() {
+    if(oldPassword && newPassword)
+    {
+      updatePasword({currentPassword: oldPassword, newPassword: newPassword}) 
+      return;
+    }
+    toast.error("Preencha os campos corretamente") 
+  }
+  const[openModal, setOpenModal] = useState(false)
+  return (
+      <Dialog open={openModal} onOpenChange={setOpenModal}>
+          <DialogTrigger>
+            <Button className="bg-red-800 rounded-l-none hover:bg-red-900">Mudar senha</Button>
+          </DialogTrigger>
+          <DialogContent>
+          <DialogHeader className="flex flex-col items-center justify-center">
+              <h1 className="font-bold text-md text-center">Alterar palavra-passe</h1>
+          </DialogHeader>
+              <Input value={oldPassword} onChange={(e)=>setOldPassword(e.target.value)} placeholder="Palavra-passe atual" type="password" />
+              <Input value={newPassword} onChange={(e)=>setNewPassword(e.target.value)} placeholder="Nova palavra-passe" type="password" />
+              <DialogFooter>
+                  <div className="flex gap-2 items-end justify-center w-full">
+                      <Button onClick={()=>setOpenModal(false)} variant={"outline"}>Fechar</Button>
+                      <Button className="bg-blue-800" onClick={handleClick}>Salvar</Button>
+                  </div>
+               </DialogFooter>
+          </DialogContent>
+         
+      </Dialog>
+  )
+  }
+
+
 export function Access({ data }: { data: any }){
   const {user} = useUserContext()
   return (
@@ -256,9 +306,8 @@ export function Access({ data }: { data: any }){
             disabled
             placeholder=""
           />
-          <Button className="bg-red-800 rounded-l-none hover:bg-red-900">
-            Mudar senha
-          </Button>
+          <ModalChangePassword   />
+       
         </div>
       </fieldset>
     </div>

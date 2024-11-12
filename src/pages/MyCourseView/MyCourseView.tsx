@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { Loader2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
-import {  GET_COURSE_ONE, GET_QUIZ } from "@/lib/API";
+import {  GET_COURSE_ONE, GET_FILE_ONE, GET_QUIZ } from "@/lib/API";
 import { CourseContent } from "@/lib/utils";
 
 export type FormData = {
@@ -90,7 +90,10 @@ async function handleSubmit(data:FormData) {
     form.reset()
     setIsLoading(false)
 }
-
+const { data:getFiles, isPending: isLoadingFile } = useQuery({
+  queryKey: ["get-file", id],
+  queryFn: ({queryKey}) => GET_FILE_ONE(queryKey[1]),
+});
     return (
         <div className="flex flex-col md:flex-row gap-2 md:gap-4 items-start">
            
@@ -102,7 +105,7 @@ async function handleSubmit(data:FormData) {
                             
                             {
                                 messageList.map((message, index)=> (
-                                    <div key={index} className={`${message.sender === "me" ? "bg-green-900 text-zinc-100 " : "bg-zinc-100 text-zinc-800"} p-2 text-sm leading-loose flex flex-col w-fit rounded-md max-w-[800px]  `}>
+                                    <div key={index} className={`${message.sender} === "me" ? "bg-green-900 text-zinc-100 " : "bg-zinc-100 text-zinc-800"} p-2 text-sm leading-loose flex flex-col w-fit rounded-md max-w-[800px]  `}>
                                            {message?.message?.split("\n").map((line, index) => (
                                             <p key={index}>{line}</p>
                                         ))}
@@ -138,6 +141,28 @@ async function handleSubmit(data:FormData) {
                             </AccordionContent>
                         </AccordionItem>
                     ))}
+                    
+                
+                    </Accordion>
+                 </CardHeader>
+                </Card>
+
+                <Card>
+                    <CardHeader>
+                    <Accordion type="single" collapsible className="w-full">
+                         <AccordionItem  value={`item-1`}>
+                            <AccordionTrigger className="text-nowrap text-ellipsis">Ficheiros</AccordionTrigger>
+                            <AccordionContent>
+                                <ul className="flex flex-col gap-0">
+                                    {getFiles?.data.map((item, idx) => (
+                                        <a target="_blank" href={item.url} key={idx} className="hover:bg-zinc-100 p-2 rounded-sm">
+                                            <li>{item.name}</li>
+                                        </a>
+                                    ))}
+                                </ul>
+                            </AccordionContent>
+                        </AccordionItem>
+                     
                     
                 
                     </Accordion>

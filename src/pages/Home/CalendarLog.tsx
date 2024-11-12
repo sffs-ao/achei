@@ -6,9 +6,30 @@ import "./Calendar.css"
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from '@/components/ui/dialog';
 import { PencilRuler } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { GET_LOGIN_LOGS } from '@/lib/API';
+import { useUserContext } from '@/hooks/UserContext';
+
 export function CalendarLog() {
     const [openModal, setOpenModal] = useState(false)
+    const[dataValues, setDataValues] = useState<Array<{date:string, count: Number}>>([{ date: '2024-11-11', count: 1 }])
+    const {user} = useUserContext()
+    const {data} = useQuery({
+        queryKey: ['calendar-log', user.student_id],
+        queryFn: ({queryKey}) => GET_LOGIN_LOGS(queryKey[1]),
+    })
+
+    useEffect(() => {
+        if (data) {
+            setDataValues(data.data.map((item) => {
+                return {
+                    date: item.date,
+                    count: 1
+                }
+            }))
+        }
+    }, [data])
     const [value, setValue] = useState('')
 
     function handleClick(value) {
@@ -39,13 +60,7 @@ export function CalendarLog() {
             return `${format(value.date, "PPP", { locale: ptBR })}`;
         }}
         endDate={new Date('2024-12-31')}
-        values={[{ date: '2024-01-01', count: 1 },
-            {date: '2024-09-22', count: 1 },
-            {date: '2024-09-30', count: 1 },
-            {date: '2021-10-01', count: 1 },
-            {date: '2024-11-22', count: 1 },
-            {date: '2024-11-12', count: 1 },
-        ]}
+        values={dataValues}
          
     />
     <ModalShowDatePresence openModal={openModal} setOpenModal={setOpenModal} value={value}/>

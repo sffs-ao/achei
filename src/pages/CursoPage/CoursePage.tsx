@@ -3,7 +3,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { useEffect, useState } from "react";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../../components/ui/dialog";
 import { useParams } from "react-router-dom";
-import { GET_CLASSES_AVAL, GET_CLASSES_PUBLIC, GET_CONTENT_COURSE, GET_COURSE_ONE, REGISTER_CLASS } from "@/lib/API";
+import { GET_CLASSES_AVAL, GET_CLASSES_PUBLIC, GET_CONTENT_COURSE, GET_COURSE_ONE, GET_MY_CLASSES, REGISTER_CLASS } from "@/lib/API";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
@@ -12,25 +12,33 @@ import { ClassDetails, CourseContent, CourseDescription } from "@/lib/utils";
 export default function CoursePage() {
     const [course, setCourse] = useState<CourseDescription>();
     const { id } = useParams();
+    const[isRegisted, setRegisted] = useState(false)
     const { data, isPending } = useQuery({
         queryKey: ["get-classes-p", id],
         queryFn: () => GET_COURSE_ONE(id!),
     })
- 
+    
+    const { data: classes, isPending: isPendingClasses } = useQuery({
+        queryKey: ["get-my-entity"],
+        queryFn: GET_MY_CLASSES,
+    })
+
     if(data)
         console.log("Data ",data )
-    
+    useEffect(() => {
+        console.log("Classes ", classes)
+        if (classes) {
+            const find = classes[0]?.registrations.find((item) => item.course.course_id === parseInt(id!))
+        if (find) 
+            setRegisted(true)
+        }
+    }, [classes]);
 
     useEffect(() => {
         if (data)
             setCourse(data)
     }, [data])
-/*
-    useEffect(() => {
-        if (content)
-        console.log("Data ----------------------- ", content)
-    }, [content])*/
-
+ 
     console.log("Data ----------------------- ", course)
     return (
         <div className="w-full  bg-zinc-100">
@@ -41,7 +49,7 @@ export default function CoursePage() {
             </div>
             <div className="flex flex-col md:flex-row mt-4 items-start gap-4 w-full">
                 <div className="md:flex-1 flex flex-col gap-2">
-                   {!data?.course.contents && <div className="border shadow-sm rounded-sm p-4 bg-white">
+                   {data?.course?.contents && <div className="border shadow-sm rounded-sm p-4 bg-white">
                     Nenhum conteudo disponivel
                     </div>}
                    
@@ -68,7 +76,7 @@ export default function CoursePage() {
                             por apenas: <span className="text-green-800 font-bold"><span className="text-green-900">{course?.course?.price}</span>kz</span>
                         </CardContent>
                         <CardFooter>
-                            <ModalRegisterCourse  course={course!}> <Button className="w-full">Inscrever-se</Button></ModalRegisterCourse>
+                            <ModalRegisterCourse isRegister={isRegisted} course={course!}> <Button className="w-full" disabled={isRegisted}>{!isRegisted ? "Inscrever-se" : "Inscrito"}</Button></ModalRegisterCourse>
                         </CardFooter>
                     </Card>
 
@@ -93,7 +101,7 @@ export default function CoursePage() {
 
 
 
-export function ModalRegisterCourse({ children, course }: { children: React.ReactNode, course:CourseDescription}) {
+export function ModalRegisterCourse({ children, course, isRegister  }: { isRegister,children: React.ReactNode, course:CourseDescription}) {
     const [isOpen, setIsOpen] = useState(false);
     const [turmas, setTurmas] = useState<any[]>([]);
     const [horario, setHorario] = useState("0") 
@@ -137,7 +145,7 @@ export function ModalRegisterCourse({ children, course }: { children: React.Reac
     return (
         <>
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                <DialogTrigger>{children}</DialogTrigger>
+                <DialogTrigger disabled={isRegister}>{children}</DialogTrigger>
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle>Inscrever-se no de {course?.course?.course_name}</DialogTitle>
