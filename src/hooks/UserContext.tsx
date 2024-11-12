@@ -54,6 +54,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         });
         if (!response.ok) {
           setMessage("Sessao espirada, faça login novamente");
+          setUser(null)
           throw new Error("Token inválido");
         }
         const data = await response.json();
@@ -73,7 +74,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
           const dataStudent = await responseDataStudent.json();
           console.log("student hook", dataStudent)
           setUser({ id: data.id, name: data.name, email: data.email, student_id: dataStudent[0]?.id });
-        }else throw new Error("Token inválido");
+        }else {
+          setUser(null)
+          throw new Error("Token inválido");
+        } 
       } catch (error) {
         setUser(null);
         setMessage("Deve iniciar sessão");
