@@ -323,22 +323,16 @@ export default function Start() {
                 </div>
                 <h1 className="call-w-title">Ficou com alguma dúvida?</h1>
                 <p className="call-text">
-                  Envie uma mensagem e converse com uma pessoa real.
+                  Envie uma mensagem e converse com uma pessoa real
                 </p>
               </div>
               <button>
-                <Link
-                  to="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    window.open(
-                      "https://wa.me/SEU_NUMERO_DE_TELEFONE?text=Olá! Tenho uma dúvida.",
-                      "_blank"
-                    );
-                  }}
+                <a
+                  href="https://wa.me/932312821?text=Olá! Tenho uma dúvida."
+                  target="_blank"
                 >
-                  Chamar no WhatsApp
-                </Link>
+                  Chamar no WhatsAp
+                </a>
               </button>
             </div>
           </div>
