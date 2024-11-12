@@ -202,7 +202,22 @@ export const POST_QUESTION = async (
   return await response.json();
   
 };
-
+export const POST_PASSWORD = async (
+  data
+)=> {
+  console.log(data)
+  const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
+  const response = await fetch(`${BASE_URL}/profile/update-password`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${AUTH_TOKEN}`,
+    },
+    body: JSON.stringify(data),
+  }); 
+  return await response.json();
+  
+};
 export const POST_QUIZ_SUBMIT = async (
   data
 )=> {
@@ -233,8 +248,7 @@ export const GET_ = async (
 };
 export const GET_CONTENT_COURSE = async (id: string): Promise<Course[]> => {
   //const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
-  const AUTH_TOKEN = "22|QTVhnwrPg3nFuakW3lCCEru1LjBWjGbk2hGfDWCj41b6f0ab";
-  const response = await fetch(
+   const response = await fetch(
     `https://www.enanza.ao/api/course-contents/${id}`,
     {
       method: "GET",
