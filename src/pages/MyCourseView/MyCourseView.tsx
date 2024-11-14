@@ -105,7 +105,7 @@ const { data:getFiles, isPending: isLoadingFile } = useQuery({
                             
                             {
                                 messageList.map((message, index)=> (
-                                    <div key={index} className={`${message.sender} === "me" ? "bg-green-900 text-zinc-100 " : "bg-zinc-100 text-zinc-800"} p-2 text-sm leading-loose flex flex-col w-fit rounded-md max-w-[800px]  `}>
+                                    <div key={index} className={`${message.sender === "me" ? "bg-green-900 text-zinc-100" : "bg-zinc-100 text-zinc-800"}   p-2 text-sm leading-loose flex flex-col w-fit rounded-md max-w-[800px]  `}>
                                            {message?.message?.split("\n").map((line, index) => (
                                             <p key={index}>{line}</p>
                                         ))}

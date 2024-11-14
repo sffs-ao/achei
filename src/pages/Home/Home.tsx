@@ -65,7 +65,7 @@ useEffect(() => {
             <Link to="/portal/me">
               <Button>Ver perfil</Button>
             </Link>
-            <div className="mt-4">
+           {/*  <div className="mt-4">
               <span className="font-semibold text-zinc-900 text-md">
                 Nivel básico
               </span>
@@ -76,7 +76,7 @@ useEffect(() => {
                   </span>
                 </div>
               </div>
-            </div>
+            </div> */}
           </CardContent>
         </Card>
         {dataStudy && (
