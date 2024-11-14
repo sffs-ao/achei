@@ -78,12 +78,12 @@ export default function ProfilePage() {
           >
             <Access data={data} />
           </TabsContent>
-          <TabsContent
+         {/*  <TabsContent
             className="w-full p-4 bg-white border rounded-md shadow-sm"
             value="grade"
           >
             <Grade />
-          </TabsContent>
+          </TabsContent> */}
         </Tabs>
       </div>
     </div>
