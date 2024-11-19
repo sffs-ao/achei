@@ -17,7 +17,7 @@ export default function PostsForum() {
         onSuccess: (data) => {
             toast.success("Postado com sucesso")
             console.log("Postado com sucesso ", data )
-            useClient.invalidateQueries(['posts-forum', id])
+            useClient.invalidateQueries({ queryKey: ['posts-forum', id] });
         },
         onError: (error) => {
             toast.error("Erro ao postar")
