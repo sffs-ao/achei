@@ -2,23 +2,27 @@ import { Lock, MessageCircleMore, PencilRuler, Users2 } from "lucide-react";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { Dialog, DialogHeader , DialogContent, DialogFooter} from "./ui/dialog";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
+import { Link, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { GET_MY_CLASSES } from "@/lib/API";
 
  
 interface ModalForumSign{
     openModal: boolean,
     setOpenModal: (value:boolean) => void,
+    id: string
     
 }
-export default function CardForum({title}: {title:string}) {
+export default function CardForum({title, id, handleClick}: {title:string, id: number, handleClick: (id: number) => void}) {
+    const navigate = useNavigate()
+   
     const[openModal, setOpenModal] = useState(false)
-    function handleClick() {
-        setOpenModal(!openModal)
-    }
+ 
     return (
         <>
-        <Card onClick={handleClick} className="hover:ring-1 ring-blue-600 transition-all cursor-pointer">
+        <Card onClick={()=>handleClick(id)} className="hover:ring-1 ring-blue-600 transition-all cursor-pointer">
             <span className="text-xs font-mono text-zinc-600 p-6">Comunidade</span>
             <CardHeader className="overflow-hidden">
                 <h1 className="font-semibold ">{title}</h1>
@@ -28,12 +32,12 @@ export default function CardForum({title}: {title:string}) {
                 <div className="flex text-xs items-center"><Users2 width={18}/> <span>06</span></div>
             </CardContent>   
     </Card>
-    <ModalForumSign openModal={openModal} setOpenModal={setOpenModal}/>
+    
     </>
     )
 }
 
-export function ModalForumSign({openModal, setOpenModal}: ModalForumSign) {
+export function ModalForumSign({openModal, setOpenModal, id}: ModalForumSign) {
     return (
         <Dialog  open={openModal} onOpenChange={setOpenModal}>
             <DialogContent>
@@ -45,7 +49,7 @@ export function ModalForumSign({openModal, setOpenModal}: ModalForumSign) {
                 <DialogFooter>
                     <div className="flex gap-2 items-end justify-center w-full">
                         <Button onClick={()=>setOpenModal(false)} variant={"outline"}>Fechar</Button>
-                        <Button className="bg-blue-800">Brevemente &nbsp; <Lock size={18}/></Button>
+                        <Link to={`/portal/cursos/${id}`}> <Button className="bg-blue-800">Matricula-se &nbsp; <Lock size={18}/></Button></Link>
                     </div>
                  </DialogFooter>
             </DialogContent>

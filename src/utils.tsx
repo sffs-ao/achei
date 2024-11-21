@@ -34,11 +34,11 @@ export const MENU: MenuItem[] = [
     icon: <Layers2 className="text-blue-900" />,
     link: "/portal/cursos",
   },
-/*   {
+   {
     name: "Fórum",
     icon: <MessageCircle className="text-blue-900" />,
     link: "/portal/forum",
-  }, */
+  }, 
 /*   {
     name: "Suporte",
     icon: <CircleHelp className="text-blue-900" />,

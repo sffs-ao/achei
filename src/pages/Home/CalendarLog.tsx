@@ -19,9 +19,10 @@ export function CalendarLog() {
         queryKey: ['calendar-log', user.student_id],
         queryFn: ({queryKey}) => GET_LOGIN_LOGS(queryKey[1]),
     })
-
+    console.log("Data ", data)
     useEffect(() => {
         if (data) {
+           console.log("Data ", data)
             setDataValues(data.data.map((item) => {
                 return {
                     date: item.date,
