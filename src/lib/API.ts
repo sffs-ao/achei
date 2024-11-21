@@ -261,7 +261,45 @@ export const GET_ = async (
   return await response.json();
   
 };
+export const GET_COMMENT_FORUM = async (
+  id: string
+)=> {
+  console.log(id)
+  const response = await fetch(`https://server-app.mtapp.ao/api/comment?api_key=123456789&post_id=${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }); 
+  return await response.json();
+};
+export const DELETE_COMMENT_FORUM = async (
+  id: string
+)=> {
+  console.log(id)
+  const response = await fetch(`https://server-app.mtapp.ao/api/comment/${id}?api_key=123456789`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }); 
+  return await response.json();
+};
 
+export const POST_COMMENT = async (
+  data: any
+)=> {
+  console.log(data)
+  const response = await fetch(`https://server-app.mtapp.ao/api/comment?api_key=123456789
+`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  }); 
+  return await response.json();
+};
 export const GET_POSTS_FORUM = async (
   id: string
 )=> {
@@ -273,7 +311,6 @@ export const GET_POSTS_FORUM = async (
     },
   }); 
   return await response.json();
-  
 };
 export const GET_POST_FORUM = async (
   id: string
@@ -286,7 +323,6 @@ export const GET_POST_FORUM = async (
     },
   }); 
   return await response.json();
-  
 };
 export const GET_CONTENT_COURSE = async (id: string): Promise<Course[]> => {
   //const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
