@@ -1,10 +1,7 @@
-import { Lock, MessageCircleMore, PencilRuler, Trash2, Users2 } from "lucide-react";
+import { Loader2, Lock, MessageCircleMore, PencilRuler, Trash2, Users2 } from "lucide-react";
 
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { DELETE_COMMENT_FORUM, GET_MY_CLASSES } from "@/lib/API";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { toast } from "react-toastify";
@@ -14,12 +11,13 @@ import { toast } from "react-toastify";
 export function ModalDeleteComentario({openModal, setOpenModal, id, post}: {post: string, openModal: boolean, setOpenModal: (value:boolean) => void, id: string}) {
     const client = useQueryClient()
 
-    const {mutateAsync: deleteComment} = useMutation({
+    const {mutateAsync: deleteComment, isPending} = useMutation({
         mutationFn: DELETE_COMMENT_FORUM,
         onSuccess: (data) => {
-            console.log("Removido Comentado com sucesso ", data)
+            console.log("Removido Comentado com sucesso ", id, post)
             toast.success("Comentário removido")
-            client.invalidateQueries({ queryKey: ['get-comment', id, post] });
+            client.invalidateQueries({ queryKey: ['get-comment'] });
+            setOpenModal(false)
         },
         onError: (error) => {
             console.log("Erro ao comentar ", error)
@@ -28,7 +26,7 @@ export function ModalDeleteComentario({openModal, setOpenModal, id, post}: {post
     })
 
     async function handleClick() {
-        await deleteComment({id})   
+        await deleteComment(id)   
     }
     return (
         <Dialog open={openModal} onOpenChange={setOpenModal}>
@@ -41,7 +39,7 @@ export function ModalDeleteComentario({openModal, setOpenModal, id, post}: {post
                 <DialogFooter>
                     <div className="flex gap-2 items-end justify-center w-full">
                         <Button onClick={()=>setOpenModal(false)} variant={"outline"}>Fechar</Button>
-                        <Button onClick={handleClick} className="bg-blue-800">Apagar</Button>
+                        <Button disabled={isPending} onClick={handleClick} className="bg-red-800">Apagar {isPending && <Loader2 size={16} className="animate-spin"/>}</Button>
                     </div>
                  </DialogFooter>
             </DialogContent>
