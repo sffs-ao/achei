@@ -22,6 +22,7 @@ import ProtectedRoutes from "./ProtectedRoute";
 import Logout from "./pages/Logout/Logout";
 import Getip from "./pages/Getip/Getip";
 import WellcomeQuizPage from "./pages/Quiz/WellcomeQuizPage";
+import ForumPostPage from "./pages/Forum/ForumPostPage";
 
 function App() {
   const client = new QueryClient();
@@ -36,6 +37,8 @@ function App() {
               <Route path="" element={<Home />} />
               <Route path="forum" element={<ForumPage />} />
               <Route path="forum/:id" element={<PostsForum />} />
+              <Route path="forum/:id/:post" element={<ForumPostPage />} />
+
               <Route path="add-curso/:id" element={<PostsForum />} />
               <Route path="cursos" element={<CatalogoPage />} />
               <Route path="cursos/:id" element={<CoursePage />} />

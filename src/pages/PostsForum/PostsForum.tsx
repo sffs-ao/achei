@@ -9,7 +9,7 @@ import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function PostsForum() {
-    const {id} = useParams<{id:string}>()
+    const {id , post} = useParams<{id:string, post: string}>()
     const{user} = useUserContext()
    const useClient = useQueryClient()
     const {mutateAsync: createPost, isPending} = useMutation({
@@ -63,9 +63,9 @@ export default function PostsForum() {
                             </div>
                        <br />
                         <div className="flex gap-1 items-center">
-                          
-                           <Button variant={"outline"} className="flex items-center p-1"><ThumbsUp/> <span>22</span></Button> 
-                          <Link to={""}> <Button variant={"outline"} className="flex items-center p-1 "><MessageCircleMore/> <span>23</span></Button> </Link>
+                        
+                           <Button variant={"outline"} className="flex items-center "><ThumbsUp/> <span>{item.likes.length}</span></Button> 
+                          <Link to={`/portal/forum/${id}/${item.id}`}> <Button variant={"outline"} className="flex items-center "><MessageCircleMore/> <span>{item.comments.length}</span></Button> </Link>
                          
                         </div>
                   </CardContent>

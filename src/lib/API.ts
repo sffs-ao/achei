@@ -261,11 +261,25 @@ export const GET_ = async (
   return await response.json();
   
 };
+
 export const GET_POSTS_FORUM = async (
   id: string
 )=> {
   console.log(id)
   const response = await fetch(`https://server-app.mtapp.ao/api/post?api_key=123456789&course_id=${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }); 
+  return await response.json();
+  
+};
+export const GET_POST_FORUM = async (
+  id: string
+)=> {
+  console.log(id)
+  const response = await fetch(`https://server-app.mtapp.ao/api/post/${id}?api_key=123456789`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
