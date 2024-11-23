@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useUserContext } from "@/hooks/UserContext";
 import { GET_POSTS_FORUM, POST_FORUM_POST } from "@/lib/API";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { formatDistanceToNow } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { Loader2, MessageCircleMore, ThumbsUp } from "lucide-react";
 import { FormEvent, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -40,7 +42,7 @@ export default function PostsForum() {
         params.preventDefault();
         const form = params.currentTarget as HTMLFormElement;
         const post = (form.elements.namedItem("post") as HTMLTextAreaElement);
-        createPost({course_id:id, user_id: user.id, text: post.value, user_type: 2, date: new Date().toISOString()})
+        createPost({course_id:id, user_id: user.id,name: user.name, text: post.value, user_type: 2, date: new Date().toISOString()})
         post.value = ""
     }
     return (
@@ -53,10 +55,11 @@ export default function PostsForum() {
 
             <div className="mt-8 flex  gap-4 flex-col-reverse">
                 { data && data.data.map((item) => (
-                <Card className="pt-4">
-                 {/*  <CardHeader>
-                    <Link className="text-blue-800" to="#"><span>Fernando Silva</span></Link>
-                  </CardHeader> */}
+                <Card className="pt-4" key={item.id}>
+                  <CardHeader>
+                    <Link to={`/portal/forum/${id}/${item.id}`} className="flex items-center gap-2 text-blue-800 font-bold" > <span>{item.name}</span></Link>
+                    <span className="text-xs font-bold text-zinc-600">Publicado a {formatDistanceToNow(new Date(item.date), {locale: ptBR, addSuffix:true})}</span>
+                    </CardHeader>
                   <CardContent>
                             <div>
                                 <p>{item.text}</p>
