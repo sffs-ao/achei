@@ -208,7 +208,7 @@ export const POST_PASSWORD = async (
   console.log(data)
   const AUTH_TOKEN = window.localStorage.getItem(`${APP_NAME}_`);
   const response = await fetch(`${BASE_URL}/profile/update-password`, {
-    method: "PUT",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${AUTH_TOKEN}`,

@@ -245,14 +245,14 @@ export function ModalChangePassword(){
   const {user , setUser} = useUserContext()
   const[oldPassword, setOldPassword] = useState("")
   const[newPassword, setNewPassword] = useState("")
-  const {mutateAsync: updatePasword} = useMutation({
+  const {mutateAsync: updatePasword, isPending} = useMutation({
     mutationFn: POST_PASSWORD,
     onSuccess(data){
       toast.success("Palavra-passe alterada com sucesso")
-      console.log(data)
+      setUser(null)
     },
     onError(error){
-      //setUser(null)
+      setUser(null)
       toast.error("Erro ao alterar palavra-passe")
       console.log(error)
     }
@@ -280,7 +280,7 @@ export function ModalChangePassword(){
               <DialogFooter>
                   <div className="flex gap-2 items-end justify-center w-full">
                       <Button onClick={()=>setOpenModal(false)} variant={"outline"}>Fechar</Button>
-                      <Button className="bg-blue-800" onClick={handleClick}>Salvar</Button>
+                      <Button className="bg-blue-800" disabled={isPending} onClick={handleClick}>Salvar {isPending && <Loader2 className="animate-spin"/>}</Button>
                   </div>
                </DialogFooter>
           </DialogContent>
