@@ -102,6 +102,7 @@ export function MyAccount({ data }: { data: any }) {
     resolver: zodResolver(schema, {}),
   });
   useEffect(() => {
+    console.log(data)
     if (data && !data.error) {
       console.log(data)
       setValue("full_name", data[0]?.full_name);
@@ -153,7 +154,7 @@ console.log("data ", date)
         <fieldset className="flex flex-col w-full gap-2 md:flex-1 ">
           <Label>Nome</Label>
           <Input
-            readOnly={data}
+            readOnly={!data.error}
             placeholder="Seu nome"
             type="text"
             {...register("full_name")}
@@ -163,7 +164,7 @@ console.log("data ", date)
         <fieldset className="flex flex-col w-full gap-2 md:w-72">
           <Label>Telefone</Label>
           <Input
-            readOnly={data}
+            readOnly={!data.error}
             placeholder="Seu Telefone"
             type="text"
             {...register("phone_number")}
@@ -178,7 +179,7 @@ console.log("data ", date)
       <fieldset className="flex flex-col w-full gap-2">
         <Label>Endereço</Label>
         <Input
-          readOnly={data}
+          readOnly={!data.error}
           placeholder="Seu Endereço"
           type="text"
           {...register("address")}
@@ -188,13 +189,13 @@ console.log("data ", date)
       <fieldset className="flex flex-col w-full gap-2">
         <Label>Email</Label>
         <Input
-          readOnly={data} placeholder="" value={user?.email} disabled type="email" />
+          readOnly={!data.error} placeholder="" value={user?.email} disabled type="email" />
       </fieldset>
       <div className="flex flex-col items-center w-full gap-4 md:flex-row md:flex-1">
         <fieldset className="flex flex-col w-full gap-2 md:flex-1">
-          <Label>Selecione tipo de documento</Label>"
+          <Label>Selecione tipo de documento</Label>
           <Select
-            disabled={data}
+            disabled={!data.error}
             {...register("id_type")}
             onValueChange={(value) => setValue("id_type", value)}
   
@@ -221,7 +222,7 @@ console.log("data ", date)
           <Label>Nº de identificação</Label>
           <Input
 
-            readOnly={data}
+            readOnly={!data.error}
             placeholder="Número de identificação"
             type="text"
             {...register("id_number")}
