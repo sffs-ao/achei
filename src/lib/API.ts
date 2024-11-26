@@ -286,6 +286,20 @@ export const DELETE_COMMENT_FORUM = async (
   return await response.json();
 };
 
+
+export const DELETE_POST_FORUM = async (
+  id: string
+)=> {
+  console.log(id)
+  const response = await fetch(`https://server-app.mtapp.ao/api/post/${id}?api_key=123456789`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }); 
+  return await response.json();
+};
+
 export const POST_COMMENT = async (
   data: any
 )=> {
@@ -300,6 +314,23 @@ export const POST_COMMENT = async (
   }); 
   return await response.json();
 };
+
+export const POST_LIKE = async (
+  data: any
+)=> {
+  console.log(data)
+  const response = await fetch(`https://server-app.mtapp.ao/api/like?api_key=123456789
+`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  }); 
+  return await response.json();
+};
+
+
 export const GET_POSTS_FORUM = async (
   id: string
 )=> {

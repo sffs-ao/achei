@@ -20,7 +20,7 @@ export type FormData = {
 };
 
 async function POST_MESSAGE(data: string) {
-  const response = await fetch("https://chatbot.mtapp.ao/message", {
+  const response = await fetch("http://localhost:3001/message", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -72,14 +72,15 @@ const urlCompleta = window.location.href;
             window.localStorage.setItem("data-study",JSON.stringify({ question:question??"",linkUrl: urlCompleta, date: new Date().toLocaleDateString()+"|"+ new Date().toLocaleTimeString()}))
        async function firstMessage() {
             setIsLoading(true)
-            const message = await POST_MESSAGE(question!)
+            const message = await POST_MESSAGE(`${question} contexto: ${data?.course?.course_name}`)
             setMessagesList([message])
             console.log(message)
             setIsLoading(false)
        }
-    firstMessage()
+    if(data && question)
+        firstMessage()
         
-    },[id, question])
+    },[id, question, data])
 async function handleSubmit(data:FormData) {
     setIsLoading(true)
     setMessagesList((state) => [...state, {message:data.message, sender: "me"}])

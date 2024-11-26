@@ -23,19 +23,19 @@ import * as z from "zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { GET_ME, GET_MY_CLASSES, GET_QUIZ, POST_PASSWORD, SUBMIT_DATA_STUDENT } from "@/lib/API";
-import { useUserContext } from "@/hooks/UserContext"; 
+import { useUserContext } from "@/hooks/UserContext";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 const schema = z.object({
-    full_name: z.string().min(1, "Nome é obrigatório"),
-    phone_number: z.string().min(9, "Telefone deve ter no mínimo 9 dígitos"),
-    birth_date: z.string(),
-    address: z.string().min(1, "Endereço é obrigatório"),
-    id_type: z.enum(["1", "2", "3"], {
-      required_error: "Tipo de documento é obrigatório",
-    }),
-    id_number: z.string().min(1, "Número de identificação é obrigatório"),
-    observations: z.string().default(""),
-  });
+  full_name: z.string().min(1, "Nome é obrigatório"),
+  phone_number: z.string().min(9, "Telefone deve ter no mínimo 9 dígitos"),
+  birth_date: z.string(),
+  address: z.string().min(1, "Endereço é obrigatório"),
+  id_type: z.enum(["1", "2", "3"], {
+    required_error: "Tipo de documento é obrigatório",
+  }),
+  id_number: z.string().min(1, "Número de identificação é obrigatório"),
+  observations: z.string().default(""),
+});
 export default function ProfilePage() {
   const { user } = useUserContext();
 
@@ -78,7 +78,7 @@ export default function ProfilePage() {
           >
             <Access data={data} />
           </TabsContent>
-         {/*  <TabsContent
+          {/*  <TabsContent
             className="w-full p-4 bg-white border rounded-md shadow-sm"
             value="grade"
           >
@@ -91,7 +91,7 @@ export default function ProfilePage() {
 }
 
 export function MyAccount({ data }: { data: any }) {
-  const [date, setDate] = useState<Date>();
+  const [date, setDate] = useState<Date>(new Date("2000-01-01"));
   const {
     register,
     handleSubmit,
@@ -102,12 +102,13 @@ export function MyAccount({ data }: { data: any }) {
     resolver: zodResolver(schema, {}),
   });
   useEffect(() => {
-    if (data) {
+    console.log(data)
+    if (data && !data.error) {
       console.log(data)
       setValue("full_name", data[0]?.full_name);
       setValue("phone_number", data[0]?.phone_number);
       setValue("birth_date", data[0]?.birth_date);
-      setDate(new Date(data[0]?.birth_date))
+      setDate(new Date(data[0]?.birth_date) || new Date("2000-01-01"));
       setValue("address", data[0]?.address);
       setValue("id_type", data[0]?.id_type);
       setValue("id_number", data[0]?.id_number);
@@ -136,9 +137,12 @@ export function MyAccount({ data }: { data: any }) {
   };
 
   useEffect(() => {
-    setValue("birth_date", date?.toISOString().split("T")[0]);
-  }, [date]);
 
+    if (!data?.error && date) {
+      setValue("birth_date", date?.toISOString().split("T")[0]);
+    }
+  }, [date, data]);
+  console.log("data ", date)
   console.log("getValues ", getValues());
   return (
     <form
@@ -150,7 +154,7 @@ export function MyAccount({ data }: { data: any }) {
         <fieldset className="flex flex-col w-full gap-2 md:flex-1 ">
           <Label>Nome</Label>
           <Input
-            readOnly={data}
+            readOnly={!data?.error}
             placeholder="Seu nome"
             type="text"
             {...register("full_name")}
@@ -160,7 +164,7 @@ export function MyAccount({ data }: { data: any }) {
         <fieldset className="flex flex-col w-full gap-2 md:w-72">
           <Label>Telefone</Label>
           <Input
-            readOnly={data}
+            readOnly={!data?.error}
             placeholder="Seu Telefone"
             type="text"
             {...register("phone_number")}
@@ -175,7 +179,7 @@ export function MyAccount({ data }: { data: any }) {
       <fieldset className="flex flex-col w-full gap-2">
         <Label>Endereço</Label>
         <Input
-          readOnly={data}
+          readOnly={!data?.error}
           placeholder="Seu Endereço"
           type="text"
           {...register("address")}
@@ -185,16 +189,16 @@ export function MyAccount({ data }: { data: any }) {
       <fieldset className="flex flex-col w-full gap-2">
         <Label>Email</Label>
         <Input
-          readOnly={data} placeholder="" value={user?.email} disabled type="email" />
+          readOnly={!data?.error} placeholder="" value={user?.email} disabled type="email" />
       </fieldset>
       <div className="flex flex-col items-center w-full gap-4 md:flex-row md:flex-1">
         <fieldset className="flex flex-col w-full gap-2 md:flex-1">
           <Label>Selecione tipo de documento</Label>
           <Select
-            disabled={data}
+            disabled={!data?.error}
             {...register("id_type")}
             onValueChange={(value) => setValue("id_type", value)}
-  
+
           >
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Tipo de documento" />
@@ -218,7 +222,7 @@ export function MyAccount({ data }: { data: any }) {
           <Label>Nº de identificação</Label>
           <Input
 
-            readOnly={data}
+            readOnly={!data?.error}
             placeholder="Número de identificação"
             type="text"
             {...register("id_number")}
@@ -237,57 +241,64 @@ export function MyAccount({ data }: { data: any }) {
   );
 }
 
-export function ModalChangePassword(){ 
-  const {user , setUser} = useUserContext()
-  const[oldPassword, setOldPassword] = useState("")
-  const[newPassword, setNewPassword] = useState("")
-  const {mutateAsync: updatePasword} = useMutation({
+export function ModalChangePassword() {
+  const { user, setUser } = useUserContext()
+  const [oldPassword, setOldPassword] = useState("")
+  const [newPassword, setNewPassword] = useState("")
+  const [confirmPassword, setconfirmPassword] = useState("")
+  const { mutateAsync: updatePasword, isPending } = useMutation({
     mutationFn: POST_PASSWORD,
-    onSuccess(data){
+    onSuccess(data) {
       toast.success("Palavra-passe alterada com sucesso")
-      console.log(data)
+      setUser(null)
     },
-    onError(error){
+    onError(error) {
       setUser(null)
       toast.error("Erro ao alterar palavra-passe")
       console.log(error)
     }
   })
   function handleClick() {
-    if(oldPassword && newPassword)
-    {
-      updatePasword({currentPassword: oldPassword, newPassword: newPassword}) 
+    if (newPassword !== confirmPassword) {
+      toast.error("As palavras-passe não coincidem")
       return;
     }
-    toast.error("Preencha os campos corretamente") 
+    if (oldPassword && newPassword) {
+      updatePasword({ currentPassword: oldPassword, newPassword: newPassword })
+      return;
+    }
+
+    toast.error("Preencha os campos corretamente")
   }
-  const[openModal, setOpenModal] = useState(false)
+  const [openModal, setOpenModal] = useState(false)
   return (
-      <Dialog open={openModal} onOpenChange={setOpenModal}>
-          <DialogTrigger>
-            <Button className="bg-red-800 rounded-l-none hover:bg-red-900">Mudar senha</Button>
-          </DialogTrigger>
-          <DialogContent>
-          <DialogHeader className="flex flex-col items-center justify-center">
-              <h1 className="font-bold text-md text-center">Alterar palavra-passe</h1>
-          </DialogHeader>
-              <Input value={oldPassword} onChange={(e)=>setOldPassword(e.target.value)} placeholder="Palavra-passe atual" type="password" />
-              <Input value={newPassword} onChange={(e)=>setNewPassword(e.target.value)} placeholder="Nova palavra-passe" type="password" />
-              <DialogFooter>
-                  <div className="flex gap-2 items-end justify-center w-full">
-                      <Button onClick={()=>setOpenModal(false)} variant={"outline"}>Fechar</Button>
-                      <Button className="bg-blue-800" onClick={handleClick}>Salvar</Button>
-                  </div>
-               </DialogFooter>
-          </DialogContent>
-         
-      </Dialog>
+    <Dialog open={openModal} onOpenChange={setOpenModal}>
+      <DialogTrigger>
+        <Button className="bg-red-800 rounded-l-none hover:bg-red-900">Mudar senha</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader className="flex flex-col items-center justify-center">
+          <h1 className="font-bold text-md text-center">Alterar palavra-passe</h1>
+        </DialogHeader>
+        <Input value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} placeholder="Palavra-passe atual" type="password" />
+        <span className="text-xs">Minimo 8 caracteres</span>
+        <Input value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="Nova palavra-passe" type="password" />
+        <Input value={confirmPassword} onChange={(e) => setconfirmPassword(e.target.value)} placeholder="Repita a palavra-passe" type="password" />
+        <DialogFooter>
+          <div className="flex gap-2 items-end justify-center w-full">
+            <Button onClick={() => setOpenModal(false)} variant={"outline"}>Fechar</Button>
+            <Button className="bg-blue-800" disabled={isPending} onClick={handleClick}>Salvar {isPending && <Loader2 className="animate-spin" />}</Button>
+          </div>
+        </DialogFooter>
+      </DialogContent>
+
+    </Dialog>
   )
-  }
+}
 
 
-export function Access({ data }: { data: any }){
-  const {user} = useUserContext()
+export function Access({ data }: { data: any }) {
+  const { user } = useUserContext()
   return (
     <div className="flex flex-col w-full gap-4">
       <h1>Informações de acesso</h1>
@@ -306,8 +317,8 @@ export function Access({ data }: { data: any }){
             disabled
             placeholder=""
           />
-          <ModalChangePassword   />
-       
+          <ModalChangePassword />
+
         </div>
       </fieldset>
     </div>
