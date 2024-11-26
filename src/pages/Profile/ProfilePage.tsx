@@ -91,7 +91,7 @@ export default function ProfilePage() {
 }
 
 export function MyAccount({ data }: { data: any }) {
-  const [date, setDate] = useState<Date>();
+  const [date, setDate] = useState<Date>(new Date("2000-01-01"));
   const {
     register,
     handleSubmit,
@@ -102,12 +102,12 @@ export function MyAccount({ data }: { data: any }) {
     resolver: zodResolver(schema, {}),
   });
   useEffect(() => {
-    if (data) {
+    if (data && !data.error) {
       console.log(data)
       setValue("full_name", data[0]?.full_name);
       setValue("phone_number", data[0]?.phone_number);
       setValue("birth_date", data[0]?.birth_date);
-      setDate(new Date(data[0]?.birth_date))
+      setDate(new Date(data[0]?.birth_date) || new Date("2000-01-01"));
       setValue("address", data[0]?.address);
       setValue("id_type", data[0]?.id_type);
       setValue("id_number", data[0]?.id_number);
@@ -136,9 +136,12 @@ export function MyAccount({ data }: { data: any }) {
   };
 
   useEffect(() => {
-    setValue("birth_date", date?.toISOString().split("T")[0]);
-  }, [date]);
-
+   
+    if (!data?.error && date){
+      setValue("birth_date", date?.toISOString().split("T")[0]);
+    }
+  }, [date, data]);
+console.log("data ", date)
   console.log("getValues ", getValues());
   return (
     <form
@@ -170,7 +173,7 @@ export function MyAccount({ data }: { data: any }) {
       </div>
       <fieldset className="flex flex-col w-full gap-2">
         <Label>Data de nascimento</Label>
-        <DatePicker selectedDate={date} setSelectedDate={setDate} />
+         <DatePicker selectedDate={date} setSelectedDate={setDate} />
       </fieldset>
       <fieldset className="flex flex-col w-full gap-2">
         <Label>Endereço</Label>
@@ -189,7 +192,7 @@ export function MyAccount({ data }: { data: any }) {
       </fieldset>
       <div className="flex flex-col items-center w-full gap-4 md:flex-row md:flex-1">
         <fieldset className="flex flex-col w-full gap-2 md:flex-1">
-          <Label>Selecione tipo de documento</Label>
+          <Label>Selecione tipo de documento</Label>"
           <Select
             disabled={data}
             {...register("id_type")}
